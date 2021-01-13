@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace _01.BasicStackOperations
+namespace _02.BasicQueueOperations
 {
     class Program
     {
@@ -11,36 +11,32 @@ namespace _01.BasicStackOperations
             int[] operations = Console.ReadLine().Split().Select(int.Parse).ToArray();
             int[] numbers = Console.ReadLine().Split().Select(int.Parse).ToArray();
 
-            int n = operations[0]; //push in stack
-            int s = operations[1]; // pop from stack
-            int x = operations[2]; // number to search in stack
+            int n = operations[0]; //enqueue in queue
+            int s = operations[1]; // dequeue from que
+            int x = operations[2]; // number to search in queue
 
-            Stack<int> stack = new Stack<int>();
+            Queue<int> queue = new Queue<int>();
 
             for (int i = 0; i < n; i++)
             {
-                stack.Push(numbers[i]);
+                queue.Enqueue(numbers[i]);
             }
             for (int i = 0; i < s; i++)
             {
-                stack.Pop();
+                queue.Dequeue();
             }
-
-            if (stack.Contains(x))
+            
+            if (queue.Contains(x))
             {
                 Console.WriteLine("true");
             }
+            else if (queue.Count > 0)
+            {
+                Console.WriteLine(queue.Min());
+            }
             else
             {
-                if (stack.Count == 0)
-                {
-                    Console.WriteLine(0);
-
-                }
-                else
-                {
-                    Console.WriteLine(stack.Min());
-                }
+                Console.WriteLine(0);
             }
         }
     }
