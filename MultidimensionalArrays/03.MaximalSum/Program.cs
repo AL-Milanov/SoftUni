@@ -29,7 +29,7 @@ namespace _03.MaximalSum
                 }
 
             }
-            int maximalSum = 0;
+            int maximalSum = int.MinValue;
             int startRowIndex = 0;
             int startColIndex = 0;
             int endRowIndex = 0;
