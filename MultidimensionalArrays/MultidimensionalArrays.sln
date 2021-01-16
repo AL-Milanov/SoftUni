@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01.DiagonalDifference", "01.DiagonalDifference\01.DiagonalDifference.csproj", "{63B0A865-65BC-4290-9878-EDE61A7097B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.2x2SquaresInMatrix", "02.2x2SquaresInMatrix\02.2x2SquaresInMatrix.csproj", "{626A1908-31CF-4FB3-A893-5FD2EF417027}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02.2x2SquaresInMatrix", "02.2x2SquaresInMatrix\02.2x2SquaresInMatrix.csproj", "{626A1908-31CF-4FB3-A893-5FD2EF417027}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.MaximalSum", "03.MaximalSum\03.MaximalSum.csproj", "{630EB503-E935-476D-94B6-B3BD6F57056A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03.MaximalSum", "03.MaximalSum\03.MaximalSum.csproj", "{630EB503-E935-476D-94B6-B3BD6F57056A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.MatrixShuffling", "04.MatrixShuffling\04.MatrixShuffling.csproj", "{06BEC50B-7F69-40A9-9FD8-58BC050B77A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{630EB503-E935-476D-94B6-B3BD6F57056A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{630EB503-E935-476D-94B6-B3BD6F57056A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{630EB503-E935-476D-94B6-B3BD6F57056A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06BEC50B-7F69-40A9-9FD8-58BC050B77A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06BEC50B-7F69-40A9-9FD8-58BC050B77A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06BEC50B-7F69-40A9-9FD8-58BC050B77A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06BEC50B-7F69-40A9-9FD8-58BC050B77A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
