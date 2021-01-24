@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03.PeriodicTable", "03.Peri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04.EvenTimes", "04.EvenTimes\04.EvenTimes.csproj", "{FBB92D59-7D7A-4C11-910A-514E9E411649}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05.CountSymbols", "05.CountSymbols\05.CountSymbols.csproj", "{D8E468ED-01BA-42E2-9E3D-2536CC6E2363}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05.CountSymbols", "05.CountSymbols\05.CountSymbols.csproj", "{D8E468ED-01BA-42E2-9E3D-2536CC6E2363}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "06.Wardrobe", "06.Wardrobe\06.Wardrobe.csproj", "{E6C69F7D-C653-4641-8924-08D491901977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06.Wardrobe", "06.Wardrobe\06.Wardrobe.csproj", "{E6C69F7D-C653-4641-8924-08D491901977}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.TheV-Logger", "07.TheV-Logger\07.TheV-Logger.csproj", "{7751BEF7-14B1-4652-B81B-A72D18560E54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{E6C69F7D-C653-4641-8924-08D491901977}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6C69F7D-C653-4641-8924-08D491901977}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6C69F7D-C653-4641-8924-08D491901977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7751BEF7-14B1-4652-B81B-A72D18560E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7751BEF7-14B1-4652-B81B-A72D18560E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7751BEF7-14B1-4652-B81B-A72D18560E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7751BEF7-14B1-4652-B81B-A72D18560E54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
