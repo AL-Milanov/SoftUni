@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace _02.LineNumbers
@@ -7,13 +8,15 @@ namespace _02.LineNumbers
     {
         static void Main(string[] args)
         {
-            string text = File.ReadAllText("text.txt");
-
+            string output = Path.Combine("..", "..", "..", "output.txt");
+            string[] text = File.ReadAllLines("text.txt");
+            
             for (int i = 0; i < text.Length; i++)
             {
                 int lettersCount = 0;
                 int punctuationCount = 0;
-                foreach (var character in text)
+
+                foreach (var character in text[i])
                 {
                     if (char.IsLetter(character))
                     {
@@ -24,8 +27,9 @@ namespace _02.LineNumbers
                         punctuationCount++;
                     }
                 }
+                string newLine = $"Line {i + 1}: {text[i]} ({lettersCount})({punctuationCount}){Environment.NewLine}";
+                File.AppendAllText(output, newLine);
             }
-            File.WriteAllText("output.txt", text);
         }
     }
 }
