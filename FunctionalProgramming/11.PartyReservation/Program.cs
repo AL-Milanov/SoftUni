@@ -46,7 +46,7 @@ namespace _11.PartyReservation
                 }
                 else if (type == "Length")
                 {
-                    guests = guests.Where(guest => guest.Length > int.Parse(parameter)).ToList();
+                    guests = guests.Where(guest => guest.Length >int.Parse(parameter)).ToList();
                 }
                 else if (type == "Contains")
                 {
