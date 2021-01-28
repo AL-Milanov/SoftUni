@@ -13,7 +13,9 @@ namespace _06.ZipAndExtract
                 ZipArchiveEntry zipArchiveEntry = zipArchive.CreateEntryFromFile("copyMe.png", "copyMeInArchive.png");
 
             }
-            ZipFile.ExtractToDirectory("zipFile.zip", "../../../../");
+            string filePath = Path.Combine(
+              Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            ZipFile.ExtractToDirectory("zipFile.zip", filePath);
         }
     }
 }
