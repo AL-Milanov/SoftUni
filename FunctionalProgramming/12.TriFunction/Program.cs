@@ -9,7 +9,6 @@ namespace _12.TriFunction
         static void Main(string[] args)
         {
             int number = int.Parse(Console.ReadLine());
-            int sum = 0;
             List<string> names = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries).ToList();
              Func<string, int, bool> function = 
                     (names, number) => names.Sum(name => name) >= number;

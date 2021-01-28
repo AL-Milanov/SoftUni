@@ -19,6 +19,14 @@ namespace _08.CustomComparator
             orderedList.AddRange(oddNumbers);
 
             Console.WriteLine(String.Join(" ", orderedList));
+
+
+            Func<int, int, int> comparer =
+                (a, b) =>
+                {
+                    return 0;
+                };
+            Array.Sort(numbers, (a,b) => { return; });
         }
     }
 }
