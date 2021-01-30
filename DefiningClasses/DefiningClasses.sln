@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "01.DefineAClassPerson", "01.DefineAClassPerson\01.DefineAClassPerson.csproj", "{35D5DEE7-CCDE-4639-862E-2E9B5C6C7FCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01.DefineAClassPerson", "01.DefineAClassPerson\01.DefineAClassPerson.csproj", "{35D5DEE7-CCDE-4639-862E-2E9B5C6C7FCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02.CreatingConstructors", "02.CreatingConstructors\02.CreatingConstructors.csproj", "{8404F2E7-DB97-494F-8149-BFF7A784C13C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02.CreatingConstructors", "02.CreatingConstructors\02.CreatingConstructors.csproj", "{8404F2E7-DB97-494F-8149-BFF7A784C13C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.OldestFamilyMember", "03.OldestFamilyMember\03.OldestFamilyMember.csproj", "{644901FD-0397-487F-92B6-0396E65D908A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.OpinionPoll", "04.OpinionPoll\04.OpinionPoll.csproj", "{D94914A2-EEE6-4EB0-9F80-1D43B323226A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{8404F2E7-DB97-494F-8149-BFF7A784C13C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8404F2E7-DB97-494F-8149-BFF7A784C13C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8404F2E7-DB97-494F-8149-BFF7A784C13C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{644901FD-0397-487F-92B6-0396E65D908A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{644901FD-0397-487F-92B6-0396E65D908A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{644901FD-0397-487F-92B6-0396E65D908A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{644901FD-0397-487F-92B6-0396E65D908A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D94914A2-EEE6-4EB0-9F80-1D43B323226A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D94914A2-EEE6-4EB0-9F80-1D43B323226A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D94914A2-EEE6-4EB0-9F80-1D43B323226A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D94914A2-EEE6-4EB0-9F80-1D43B323226A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
