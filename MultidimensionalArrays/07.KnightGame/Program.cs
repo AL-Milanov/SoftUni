@@ -18,73 +18,108 @@ namespace _07.KnightGame
                 }
             }
 
-            int knightsHit = 0;
-            
-            for (int row = 0; row < rowsAndCols; row++)
+            int removedKnights = 0;
+
+            while (true)
             {
-                for (int col = 0; col < rowsAndCols; col++)
+                int currentKnightsInDanger = 0;
+                int knightsToAttack = 0;
+                int rowOfDangerKnight = -1;
+                int colOfDangerKnight = -1;
+
+                for (int row = 0; row < rowsAndCols; row++)
                 {
-                    if (chess[row, col] == "K")
+                    for (int col = 0; col < rowsAndCols; col++)
                     {
-                        if (row == 0 && col == 0)
-                        {
-                            if (chess[row + 2, col + 1] == "K")
-                            {
-                                chess[row + 2, col + 1] = "0";
-                                knightsHit++;
-                            }
-                            else if (chess[row + 1, col + 2] == "K")
-                            {
-                                chess[row + 1, col + 2] = "0";
-                                knightsHit++;
-                            }
-                        }
-                        else if (row == 0 && col == rowsAndCols - 1)
-                        {
-                            if (chess[row + 2, col - 2] == "K")
-                            {
-                                chess[row + 2, col - 2] = "0";
-                                knightsHit++;
-                            }
-                            else if (chess[row + 1, col - 3] == "K")
-                            {
-                                chess[row + 1, col - 3] = "0";
-                                knightsHit++;
-                            }
-                        }
-                        else if (row == rowsAndCols - 1 && col == 0)
-                        {
-                            if (chess[row - 2, col + 1] == "K")
-                            {
-                                chess[row - 2, col + 1] = "0";
-                                knightsHit++;
-                            }
-                            else if(chess[row - 1, col + 2] == "K")
-                            {
-                                chess[row - 1, col + 2] = "0";
-                                knightsHit++;
-                            }
-                        }
-                        else if (row == rowsAndCols - 1 && col == rowsAndCols - 1)
-                        {
-                            if (chess[row - 2, col - 1] == "K")
-                            {
-                                chess[row - 2, col - 1] = "0";
-                                knightsHit++;
-                            }
-                            else if (chess[row - 1, col - 2] == "K")
-                            {
-                                chess[row - 1, col - 2] = "0";
-                                knightsHit++;
-                            }
-                        }
-                        else if (true)
+                        if (chess[row, col] == "K")
                         {
 
+                            if (IsValidIndex(row + 2, col - 1, rowsAndCols) &&
+                                    IsKnight(row + 2, col - 1, chess))
+                            {
+                                knightsToAttack++;
+                            }
+
+                            if (IsValidIndex(row + 2, col + 1, rowsAndCols) &&
+                                    IsKnight(row + 2, col + 1, chess))
+                            {
+                                knightsToAttack++;
+                            }
+
+                            if (IsValidIndex(row + 1, col - 2, rowsAndCols) &&
+                                    IsKnight(row + 1, col - 2, chess))
+                            {
+                                knightsToAttack++;
+                            }
+
+                            if (IsValidIndex(row + 1, col + 2, rowsAndCols) &&
+                                    IsKnight(row + 1, col + 2, chess))
+                            {
+                                knightsToAttack++;
+                            }
+
+                            if (IsValidIndex(row - 2, col - 1, rowsAndCols) &&
+                                    IsKnight(row - 2, col - 1, chess))
+                            {
+                                knightsToAttack++;
+                            }
+
+                            if (IsValidIndex(row - 2, col + 1, rowsAndCols) &&
+                                    IsKnight(row - 2, col + 1, chess))
+                            {
+                                knightsToAttack++;
+                            }
+
+                            if (IsValidIndex(row - 1, col - 2, rowsAndCols) &&
+                                    IsKnight(row - 1, col - 2, chess))
+                            {
+                                knightsToAttack++;
+                            }
+
+                            if (IsValidIndex(row - 1, col + 2, rowsAndCols) &&
+                                    IsKnight(row - 1, col + 2, chess))
+                            {
+                                knightsToAttack++;
+                            }
+
+                            if (knightsToAttack > currentKnightsInDanger)
+                            {
+                                currentKnightsInDanger = knightsToAttack;
+                                rowOfDangerKnight = row;
+                                colOfDangerKnight = col;
+                            }
+
+                            knightsToAttack = 0;
                         }
+
                     }
                 }
+
+                if (currentKnightsInDanger == 0)
+                {
+                    break;
+                }
+
+                chess[rowOfDangerKnight, colOfDangerKnight] = "0";
+                removedKnights++;
+
             }
+
+            Console.WriteLine(removedKnights);
+        }
+
+        private static bool IsKnight(int row, int col, string[,] chess)
+        {
+            if (chess[row, col] == "K")
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool IsValidIndex(int row, int col, int rowsAndCols)
+        {
+            return row >= 0 && row < rowsAndCols && col >= 0 && col < rowsAndCols;
         }
     }
 }
