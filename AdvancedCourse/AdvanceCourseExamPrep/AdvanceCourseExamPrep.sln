@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02.RubicCube", "02.RubicCub
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05.CalculateSequencewithQueue", "05.CalculateSequencewithQueue\05.CalculateSequencewithQueue.csproj", "{BA36DC62-38AB-4CD4-A368-84F94E60F3D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03.Cooking", "03.Cooking\03.Cooking.csproj", "{65C58623-14B0-4273-848B-8D370635F891}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03.Cooking", "03.Cooking\03.Cooking.csproj", "{65C58623-14B0-4273-848B-8D370635F891}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04.Selling", "04.Selling\04.Selling.csproj", "{9A441533-368F-49D2-B6B1-E1EAA48D0772}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04.Selling", "04.Selling\04.Selling.csproj", "{9A441533-368F-49D2-B6B1-E1EAA48D0772}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07.Scheduling", "07.Scheduling\07.Scheduling.csproj", "{B4E54284-BB3E-41CC-B2ED-FF025C49E722}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9A441533-368F-49D2-B6B1-E1EAA48D0772}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A441533-368F-49D2-B6B1-E1EAA48D0772}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A441533-368F-49D2-B6B1-E1EAA48D0772}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E54284-BB3E-41CC-B2ED-FF025C49E722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E54284-BB3E-41CC-B2ED-FF025C49E722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E54284-BB3E-41CC-B2ED-FF025C49E722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E54284-BB3E-41CC-B2ED-FF025C49E722}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
