@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10.Bombs", "10.Bombs\10.Bom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "11.Snake", "11.Snake\11.Snake.csproj", "{CABB6DBF-162F-4294-819D-134E1E84965F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13.LootBox", "13.LootBox\13.LootBox.csproj", "{19E92BF0-D26F-42BF-98F5-9AF48A16A103}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "13.LootBox", "13.LootBox\13.LootBox.csproj", "{19E92BF0-D26F-42BF-98F5-9AF48A16A103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "14.ReVolt", "14.ReVolt\14.ReVolt.csproj", "{9B602942-53BA-4749-8B62-844B0BCFA32A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{19E92BF0-D26F-42BF-98F5-9AF48A16A103}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19E92BF0-D26F-42BF-98F5-9AF48A16A103}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19E92BF0-D26F-42BF-98F5-9AF48A16A103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B602942-53BA-4749-8B62-844B0BCFA32A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B602942-53BA-4749-8B62-844B0BCFA32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B602942-53BA-4749-8B62-844B0BCFA32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B602942-53BA-4749-8B62-844B0BCFA32A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
