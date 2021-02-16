@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "14.ReVolt", "14.ReVolt\14.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16.Flower Wreaths", "16.Flower Wreaths\16.Flower Wreaths.csproj", "{23242AF4-3453-4BBB-9936-19702DC888ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.Bee", "17.Bee\17.Bee.csproj", "{F5012D30-013E-4D65-A02D-F4980376DF62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{23242AF4-3453-4BBB-9936-19702DC888ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23242AF4-3453-4BBB-9936-19702DC888ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23242AF4-3453-4BBB-9936-19702DC888ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5012D30-013E-4D65-A02D-F4980376DF62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5012D30-013E-4D65-A02D-F4980376DF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5012D30-013E-4D65-A02D-F4980376DF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5012D30-013E-4D65-A02D-F4980376DF62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
