@@ -25,9 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "13.LootBox", "13.LootBox\13
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "14.ReVolt", "14.ReVolt\14.ReVolt.csproj", "{9B602942-53BA-4749-8B62-844B0BCFA32A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "16.Flower Wreaths", "16.Flower Wreaths\16.Flower Wreaths.csproj", "{23242AF4-3453-4BBB-9936-19702DC888ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "16.Flower Wreaths", "16.Flower Wreaths\16.Flower Wreaths.csproj", "{23242AF4-3453-4BBB-9936-19702DC888ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "17.Bee", "17.Bee\17.Bee.csproj", "{F5012D30-013E-4D65-A02D-F4980376DF62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "17.Bee", "17.Bee\17.Bee.csproj", "{F5012D30-013E-4D65-A02D-F4980376DF62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "19.Sneaking", "19.Sneaking\19.Sneaking.csproj", "{35BFA52C-09B7-4EC6-A8ED-9DBB155F3A62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{F5012D30-013E-4D65-A02D-F4980376DF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5012D30-013E-4D65-A02D-F4980376DF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5012D30-013E-4D65-A02D-F4980376DF62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35BFA52C-09B7-4EC6-A8ED-9DBB155F3A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35BFA52C-09B7-4EC6-A8ED-9DBB155F3A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35BFA52C-09B7-4EC6-A8ED-9DBB155F3A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35BFA52C-09B7-4EC6-A8ED-9DBB155F3A62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
