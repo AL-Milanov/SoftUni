@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayersAndMonsters", "Playe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeedForSpeed", "NeedForSpeed\NeedForSpeed.csproj", "{F792C3A4-D2E2-4C16-8D26-A556D32CDEBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookShop", "BookShop\BookShop.csproj", "{23216526-D404-4F4F-BADE-35D78AB0782D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F792C3A4-D2E2-4C16-8D26-A556D32CDEBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F792C3A4-D2E2-4C16-8D26-A556D32CDEBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F792C3A4-D2E2-4C16-8D26-A556D32CDEBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23216526-D404-4F4F-BADE-35D78AB0782D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23216526-D404-4F4F-BADE-35D78AB0782D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23216526-D404-4F4F-BADE-35D78AB0782D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23216526-D404-4F4F-BADE-35D78AB0782D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
