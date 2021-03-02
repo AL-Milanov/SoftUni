@@ -8,10 +8,7 @@ namespace Telephony
         static void Main(string[] args)
         {
             string sitePattern = @"\d+";
-            Regex siteRegex = new Regex(sitePattern);
-
             string numberPattern = @"\d{7,10}";
-            Regex numberRegex = new Regex(numberPattern);
 
             string[] phoneNumbersData = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
             string[] sitesData = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
