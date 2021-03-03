@@ -2,7 +2,7 @@
 {
     public interface Id
     {
-        public long IdNumber { get; }
+        public long IdNumber { get; set; }
 
     }
 }

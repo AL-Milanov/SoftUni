@@ -15,6 +15,6 @@ namespace BorderControl
 
         public string Model { get; set; }
 
-        public long IdNumber { get; private set; }
+        public long IdNumber { get; set; }
     }
 }

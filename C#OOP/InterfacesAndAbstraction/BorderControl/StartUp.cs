@@ -9,36 +9,38 @@ namespace BorderControl
         static void Main(string[] args)
         {
             string input = Console.ReadLine();
-            List<Id> citizensAndRobots = new List<Id>();
+            List<IHaveBirthday> haveBirthdays = new List<IHaveBirthday>();
             while (input != "End")
             {
                 string[] data = input.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                string nameOrModel = data[0];
+                string nameOrModel = data[1];
                 
-                if (data.Length == 3)
+                if (data[0] == "Citizen")
                 {
-                    int age = int.Parse(data[1]);
-                    long id = long.Parse(data[2]);
-                    Citizen citizen = new Citizen(nameOrModel, age, id);
-                    citizensAndRobots.Add(citizen);
+                    int age = int.Parse(data[2]);
+                    long id = long.Parse(data[3]);
+                    string birthDate = data[4];
+                    Citizen citizen = new Citizen(nameOrModel, age, id, birthDate);
+                    haveBirthdays.Add(citizen);
                 }
-                else if (data.Length == 2)
+                else if(data[0] == "Pet")
                 {
-                    long id = long.Parse(data[1]);
-                    Robot robot = new Robot(nameOrModel, id);
-                    citizensAndRobots.Add(robot);
+                    string name = data[1];
+                    string birthDate = data[2];
+                    Pet pet = new Pet(name, birthDate);
+                    haveBirthdays.Add(pet);
                 }
 
                 input = Console.ReadLine();
             }
 
-            string fakeIds = Console.ReadLine();
+            string year = Console.ReadLine();
 
-            foreach (var id in citizensAndRobots)
+            foreach (var date in haveBirthdays)
             {
-                if (id.IdNumber.ToString().EndsWith(fakeIds))
+                if (date.BirthDate.EndsWith(year))
                 {
-                    Console.WriteLine(id.IdNumber);
+                    Console.WriteLine(date.BirthDate);
                 }
             }
         }
