@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonInfo", "PersonInfo\Pe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telephony", "Telephony\Telephony.csproj", "{29C2429A-BD9B-4438-9C9F-CDC2A1A32D5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BorderControl", "BorderControl\BorderControl.csproj", "{AA8BCD21-E156-4C69-8BA3-33D1FF95D556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayCelebrations", "BorderControl\BirthdayCelebrations.csproj", "{AA8BCD21-E156-4C69-8BA3-33D1FF95D556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
