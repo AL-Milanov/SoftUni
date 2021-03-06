@@ -11,10 +11,8 @@ namespace Vehicles
         {
         }
 
-        public override double FuelConsumption 
-        { 
-            get => base.FuelConsumption; 
-            set => base.FuelConsumption = value + fuelConsumptionIncrease; 
-        }
+        public override double FuelConsumption { get;  set;}
+
+        protected override double AdditionalConsumption { get => fuelConsumptionIncrease; }
     }
 }

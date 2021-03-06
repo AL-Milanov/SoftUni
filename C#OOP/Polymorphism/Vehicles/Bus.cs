@@ -9,15 +9,26 @@
         {
         }
 
+        protected override double AdditionalConsumption
+        {
+            get => fuelConsumptionIncrease;
+        }
+
         public override string Driving(double distance)
         {
-            FuelConsumption += fuelConsumptionIncrease;
+            
             return base.Driving(distance);
         }
 
         public string DrivingEmpty(double distance)
         {
-            return base.Driving(distance);
+            if (FuelQuantity >= distance * FuelConsumption)
+            {
+                FuelQuantity -= distance * FuelConsumption;
+                return $"{GetType().Name} travelled {distance} km";
+            }
+
+            return $"{GetType().Name} needs refueling";
         }
     }
 }

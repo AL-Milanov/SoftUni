@@ -8,7 +8,5 @@ namespace Vehicles
     {
         public bool CanDrive(double distance);
 
-        public string CanRefillFuel(double liters);
-
     }
 }

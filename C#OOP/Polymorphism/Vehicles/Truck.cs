@@ -13,23 +13,14 @@ namespace Vehicles
         {
         }
 
-        public override double FuelConsumption 
-        { 
-            get => base.FuelConsumption; 
-            set => base.FuelConsumption = value + fuelConsumptionIncrease; 
-        }
+        public override double FuelConsumption{ get ;set; }
+        protected override double AdditionalConsumption{ get => fuelConsumptionIncrease;}
 
         public override void Refueling(double liters)
         {
-            string res = CanRefillFuel(liters);
-            if (res != null)
-            {
-                Console.WriteLine(res);
-            }
-            else
-            {
-                FuelQuantity += liters - (liters * 0.05);
-            }
+            base.Refueling(liters);
+            FuelQuantity -= liters * 0.05;
         }
+
     }
 }

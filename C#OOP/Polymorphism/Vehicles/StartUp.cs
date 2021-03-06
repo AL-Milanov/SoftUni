@@ -13,7 +13,7 @@ namespace Vehicles
             Vehicle car = new Car(double.Parse(carData[1]), double.Parse(carData[2]), double.Parse(carData[3]));
             Vehicle truck = new Truck(double.Parse(truckData[1]), double.Parse(truckData[2]), double.Parse(truckData[3]));
             Vehicle bus = new Bus(double.Parse(busData[1]), double.Parse(busData[2]), double.Parse(busData[3]));
-            
+
             int n = int.Parse(Console.ReadLine());
 
             for (int i = 0; i < n; i++)
@@ -42,17 +42,25 @@ namespace Vehicles
                 }
                 else if (input[0] == "Refuel")
                 {
-                    if (type == "Car")
+                    try
                     {
-                        car.Refueling(distanceOrFuel);
+                        if (type == "Car")
+                        {
+                            car.Refueling(distanceOrFuel);
+                        }
+                        else if (type == "Truck")
+                        {
+                            truck.Refueling(distanceOrFuel);
+                        }
+                        else
+                        {
+                            bus.Refueling(distanceOrFuel);
+                        }
                     }
-                    else if(type == "Truck")
+                    catch (Exception ex)
                     {
-                        truck.Refueling(distanceOrFuel);
-                    }
-                    else
-                    {
-                        bus.Refueling(distanceOrFuel);
+
+                        Console.WriteLine(ex.Message);
                     }
                 }
                 else if (input[0] == "DriveEmpty")

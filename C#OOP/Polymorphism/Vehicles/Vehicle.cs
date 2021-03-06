@@ -6,75 +6,40 @@ namespace Vehicles
 {
     public abstract class Vehicle : ICheck
     {
-        private double fuelQuantity;
-        private double tankCapacity;
-
-
+        
         public Vehicle(double fuelQuantity, double fuelConsumption, double tankCapacity)
         {
-            TankCapacity = tankCapacity;
-            FuelQuantity = fuelQuantity;
+            
+            if (fuelQuantity <= tankCapacity)
+            {
+                FuelQuantity = fuelQuantity;
+            }
+            else
+            {
+                FuelQuantity = 0.0;
+            }
             FuelConsumption = fuelConsumption;
+            TankCapacity = tankCapacity;
         }
 
-        public double FuelQuantity
-        {
-            get => this.fuelQuantity;
-            set
-            {
-                if (value > tankCapacity)// or > ??
-                {
-                    value = 0;
-                }
-                this.fuelQuantity = value;
-            }
-        }
+        public double FuelQuantity { get; set; }
 
-        public virtual double FuelConsumption
-        {
-            get;
-            set;
-        }
+        public virtual double FuelConsumption{get;set;}
 
-        public double TankCapacity
-        {
-            get => this.tankCapacity;
-            private set
-            {
-                this.tankCapacity = value;
-            }
+        public double TankCapacity { get; set; }
 
-        }
+        protected virtual double AdditionalConsumption { get; set; }
 
         public bool CanDrive(double distance)
         {
-            return FuelQuantity >= distance * FuelConsumption;
-        }
-
-        public string CanRefillFuel(double liters)
-        {
-            string res = null;
-
-            double availableSpace = liters + FuelQuantity;
-
-            if (availableSpace > TankCapacity) //??
-            {
-                res = $"Cannot fit {liters} fuel in the tank";
-                return res;
-            }
-            if (liters <= 0)
-            {
-                res = "Fuel must be a positive number";
-                return res;
-            }
-            return res;
+            return FuelQuantity >= distance * (FuelConsumption + AdditionalConsumption);
         }
 
         public virtual string Driving(double distance)
         {
             if (CanDrive(distance))
             {
-                FuelQuantity -= distance * FuelConsumption;
+                FuelQuantity -= distance * (FuelConsumption + AdditionalConsumption);
                 return $"{GetType().Name} travelled {distance} km";
             }
 
@@ -83,15 +48,18 @@ namespace Vehicles
 
         public virtual void Refueling(double liters)
         {
-            string res = CanRefillFuel(liters);
-            if (res != null)
+            if (liters <= 0)
             {
-                Console.WriteLine(res);
+                throw new ArgumentException($"Fuel must be a positive number");
             }
-            else
+
+            if (liters + FuelQuantity > TankCapacity)
             {
-                FuelQuantity += liters;
+                throw new ArgumentException($"Cannot fit {liters} fuel in the tank");
             }
+
+            FuelQuantity += liters;
+           
         }
 
         public override string ToString()
