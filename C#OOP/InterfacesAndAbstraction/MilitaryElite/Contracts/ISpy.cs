@@ -2,7 +2,7 @@
 {
     interface ISpy : ISoldier
     {
-        public int CodeNumber { get; set; }
+        public int CodeNumber { get; }
 
     }
 }

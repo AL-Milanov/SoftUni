@@ -19,7 +19,7 @@ namespace MilitaryElite
             Repairs = repairs;
         }
 
-        public Dictionary<string, int> Repairs { get; set; }
+        public Dictionary<string, int> Repairs { get; private set; }
 
         public override string ToString()
         {

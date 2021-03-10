@@ -4,6 +4,6 @@ namespace MilitaryElite.Contracts
 {
     interface ILieutenantGeneral : IPrivate
     {
-        public Stack<Private> Privates { get; set; }
+        public List<Private> Privates { get; }
     }
 }

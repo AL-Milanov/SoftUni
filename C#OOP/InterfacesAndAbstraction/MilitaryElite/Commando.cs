@@ -23,7 +23,7 @@ namespace MilitaryElite
         public Dictionary<string, string> Missions 
         {
             get => missions;
-            set
+            private set
             {
                 
                 missions = value.Where(s => s.Value == "inProgress" || s.Value == "Finished")

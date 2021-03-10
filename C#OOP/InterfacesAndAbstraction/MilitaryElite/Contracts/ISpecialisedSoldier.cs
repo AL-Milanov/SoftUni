@@ -2,7 +2,7 @@
 {
     interface ISpecialisedSoldier : ISoldier
     {
-        public string Corps { get; set; }
+        public string Corps { get;}
 
     }
 }

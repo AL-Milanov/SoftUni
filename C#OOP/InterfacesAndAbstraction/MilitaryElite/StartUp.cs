@@ -8,8 +8,7 @@ namespace MilitaryElite
     {
         static void Main(string[] args)
         {
-            List<Soldier> army = new List<Soldier>();
-            Stack<Private> privates = new Stack<Private>();
+            Dictionary<int, Soldier> army = new Dictionary<int, Soldier>();
 
             while (true)
             {
@@ -31,17 +30,27 @@ namespace MilitaryElite
                 if (type == nameof(Spy))
                 {
                     soldier = new Spy(id, firstName, lastName, int.Parse(soldierData[4]));
+                    army[id] = soldier;
                     continue;
                 }
 
                 decimal salary = decimal.Parse(soldierData[4]);
+
                 if (type == nameof(Private))
                 {
                     soldier = new Private(id, firstName, lastName, salary);
-                    privates.Push((Private)soldier);
                 }
                 else if (type == nameof(LieutenantGeneral))
                 {
+                    List<Private> privates = new List<Private>();
+
+                    for (int i = 5; i < soldierData.Length; i++)
+                    {
+                        int privateId = int.Parse(soldierData[i]);
+
+                        privates.Add((Private)army[privateId]);
+                    }
+
                     soldier = new LieutenantGeneral(id, firstName, lastName, salary, privates);
                 }
                 else if (type == nameof(Engineer))
@@ -58,7 +67,7 @@ namespace MilitaryElite
                     {
                         soldier = new Engineer(id, firstName, lastName, salary, soldierData[5], repairs);
                     }
-                    catch { continue; }
+                    catch { }
                 }
                 else if (type == nameof(Commando))
                 {
@@ -73,15 +82,15 @@ namespace MilitaryElite
                     {
                         soldier = new Commando(id, firstName, lastName, salary, soldierData[5], missions);
                     }
-                    catch { continue; }
+                    catch { }
                 }
 
-                army.Add(soldier);
+                army[id] = soldier;
             }
 
             foreach (var item in army)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(item.Value);
             }
         }
 

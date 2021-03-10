@@ -4,7 +4,7 @@ namespace MilitaryElite.Contracts
 {
     interface ICommando : ISpecialisedSoldier
     {
-        public Dictionary<string, string> Missions { get; set; }
+        public Dictionary<string, string> Missions { get; }
 
     }
 }

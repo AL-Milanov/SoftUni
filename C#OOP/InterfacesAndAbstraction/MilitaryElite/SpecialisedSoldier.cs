@@ -18,7 +18,7 @@ namespace MilitaryElite
         public string Corps 
         {
             get => corps;
-            set
+            private set
             {
                 if (value != "Airforces" && value != "Marines")
                 {

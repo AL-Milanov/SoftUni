@@ -4,6 +4,6 @@ namespace MilitaryElite.Contracts
 {
     interface IEngineer : ISpecialisedSoldier
     {
-        public Dictionary<string, int> Repairs { get; set; }
+        public Dictionary<string, int> Repairs { get; }
     }
 }

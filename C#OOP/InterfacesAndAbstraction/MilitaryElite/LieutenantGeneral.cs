@@ -6,13 +6,13 @@ namespace MilitaryElite
 {
     public class LieutenantGeneral : Private, ILieutenantGeneral
     {
-        public LieutenantGeneral(int id, string firstName, string lastName, decimal salary, Stack<Private> privates) 
+        public LieutenantGeneral(int id, string firstName, string lastName, decimal salary, List<Private> privates) 
             : base(id, firstName, lastName, salary)
         {
             Privates = privates;
         }
 
-        public Stack<Private> Privates { get; set; }
+        public List<Private> Privates { get; private set; }
 
 
         public override string ToString()
