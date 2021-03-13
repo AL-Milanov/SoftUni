@@ -2,6 +2,6 @@
 {
     interface IAdd
     {
-        string Add(string text);
+        int Add(string text);
     }
 }

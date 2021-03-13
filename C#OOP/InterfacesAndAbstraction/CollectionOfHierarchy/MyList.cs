@@ -16,11 +16,11 @@ namespace CollectionOfHierarchy
 
         public int Used => list.Count;
 
-        public string Add(string text)
+        public int Add(string text)
         {
             list.Insert(0, text);
 
-            return $"{list.IndexOf(text)}";
+            return list.IndexOf(text);
         }
 
         public string Remove()

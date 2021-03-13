@@ -25,35 +25,22 @@ namespace CollectionOfHierarchy
 
         private static void RemoveFromCollection(int removeOperations, IRemove collection)
         {
-            string res = string.Empty;
-
+           
             for (int i = 0; i < removeOperations; i++)
             {
-                if (i == removeOperations - 1)
-                {
-                    res += collection.Remove();
-                    break;
-                }
-                res += collection.Remove() + " ";
+                Console.Write(collection.Remove() + " ");
             }
-
-            Console.WriteLine(res);
+            Console.WriteLine();
         }
 
         private static void AddToCollection(string[] data, IAdd collection)
         {
-            string res = string.Empty;
-
+            
             for (int i = 0; i < data.Length; i++)
             {
-                if (i == data.Length - 1)
-                {
-                    res += collection.Add(data[i]);
-                    break;
-                }
-                res += collection.Add(data[i]) + " ";
+                Console.Write(collection.Add(data[i]) + " ");
             }
-            Console.WriteLine(res);
+            Console.WriteLine();
         }
     }
 }

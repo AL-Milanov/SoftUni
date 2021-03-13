@@ -1,6 +1,4 @@
 ﻿using CollectionOfHierarchy.Contracts;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace CollectionOfHierarchy
@@ -16,11 +14,11 @@ namespace CollectionOfHierarchy
 
         private int LastIndex => list.Count - 1;
 
-        public string Add(string text)
+        public int Add(string text)
         {
             list.Insert(0, text);
 
-            return $"{list.IndexOf(text)}";
+            return list.IndexOf(text);
         }
 
         public string Remove()

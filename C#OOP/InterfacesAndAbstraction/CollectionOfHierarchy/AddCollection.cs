@@ -13,10 +13,10 @@ namespace CollectionOfHierarchy
             list = new List<string>();
         }
 
-        public string Add(string text)
+        public int Add(string text)
         {
             list.Add(text);
-            return $"{list.IndexOf(text)}";
+            return list.IndexOf(text);
         }
 
     }
