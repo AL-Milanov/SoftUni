@@ -1,4 +1,5 @@
 ﻿using CommandPattern.Core.Contracts;
+using System;
 
 namespace CommandPattern.Core
 {
@@ -6,23 +7,11 @@ namespace CommandPattern.Core
     {
         public string Execute(string[] args)
         {
-            if (args[0].StartsWith("Hello"))
-            {
-                return HelloCommand(args[1]);
-            }
-
-            return ExitCommand();
+            Type type = Type.GetType(args[0]);
+            var typeActivate = (ICommand)Activator.CreateInstance(type, new object[] { });
+            
+            return $"{typeActivate.Execute(args)}";
         }
 
-
-        private string HelloCommand(string text)
-        {
-            return $"Hello, {text}";
-        }
-        
-        private string ExitCommand()
-        {
-            return null;
-        }
     }
 }

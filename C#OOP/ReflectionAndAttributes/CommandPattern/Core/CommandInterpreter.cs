@@ -1,5 +1,4 @@
 ﻿using CommandPattern.Core.Contracts;
-using System;
 
 namespace CommandPattern.Core
 {
@@ -7,7 +6,9 @@ namespace CommandPattern.Core
     {
         public string Read(string args)
         {
-            throw new NotImplementedException();
+            ICommand command = new Command();
+            var splitted = args.Split();
+            return command.Execute(splitted);
         }
     }
 }
