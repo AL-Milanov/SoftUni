@@ -9,12 +9,12 @@ namespace Stealer
     public class Spy
     {
 
-        public string StealFieldInfo(string nameOfTheClass,params string[] nameOfTheFields)
+        public string StealFieldInfo(string className,params string[] nameOfTheFields)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Class under investigation: {nameOfTheClass}");
+            sb.AppendLine($"Class under investigation: {className}");
 
-            Type type = Type.GetType(nameOfTheClass);
+            Type type = Type.GetType(className);
             FieldInfo[] classFields = type.GetFields((BindingFlags)60);
 
             var classInstance = Activator.CreateInstance(type, new object[] {});
@@ -23,6 +23,37 @@ namespace Stealer
             {
                 sb.AppendLine($"{field.Name} = {field.GetValue(classInstance)}");
             }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public string AnalyzeAccessModifiers(string className)
+        {
+            StringBuilder sb = new StringBuilder();
+            Type type = Type.GetType(className);
+            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | 
+                BindingFlags.Instance | 
+                BindingFlags.Static);
+            MethodInfo[] publicPropertyInfos = type.GetMethods(BindingFlags.Public | 
+                BindingFlags.Instance |
+                BindingFlags.Static);
+            MethodInfo[] privatePropertyInfos = type.GetMethods(BindingFlags.NonPublic | 
+                BindingFlags.Instance |
+                BindingFlags.Static);
+
+            foreach (var field in fieldInfos)
+            {
+                sb.AppendLine($"{field.Name} must be private!");
+            }
+            foreach (var method in privatePropertyInfos.Where(m => m.Name.StartsWith("get")))
+            {
+                sb.AppendLine($"{method.Name} have to be public!");
+            }
+            foreach (var method in publicPropertyInfos.Where(m => m.Name.StartsWith("set")))
+            {
+                sb.AppendLine($"{method.Name} have to be private!");
+            }
+
 
             return sb.ToString().TrimEnd();
         }
