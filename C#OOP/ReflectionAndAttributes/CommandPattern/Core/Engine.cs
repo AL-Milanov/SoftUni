@@ -19,7 +19,7 @@ namespace CommandPattern.Core
                 var args = Console.ReadLine();
                 Console.WriteLine(commandInterpreter.Read(args));
 
-                if (args == "CommandPattern.Core.ExitCommand")
+                if (args.Contains("Exit"))
                 {
                     break;
                 }

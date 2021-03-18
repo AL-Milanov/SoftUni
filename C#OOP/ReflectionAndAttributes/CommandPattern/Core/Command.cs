@@ -1,5 +1,7 @@
 ﻿using CommandPattern.Core.Contracts;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace CommandPattern.Core
 {
@@ -7,10 +9,15 @@ namespace CommandPattern.Core
     {
         public string Execute(string[] args)
         {
-            Type type = Type.GetType(args[0]);
-            var typeActivate = (ICommand)Activator.CreateInstance(type, new object[] { });
-            
-            return $"{typeActivate.Execute(args)}";
+            var strategy = Assembly.GetEntryAssembly()
+                .GetTypes()
+                .Where(t => (typeof(ICommand).IsAssignableFrom(t))
+                && typeof(ICommand) != t)
+                .First(t => t.Name.Contains(args[0]));
+
+            ICommand sortingStrategy = (ICommand)Activator.CreateInstance(strategy);
+
+            return $"{sortingStrategy.Execute(args)}";
         }
 
     }
