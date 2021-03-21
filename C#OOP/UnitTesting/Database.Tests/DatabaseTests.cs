@@ -6,7 +6,7 @@ namespace Tests
     public class DatabaseTests
     {
         private const int requiredLength = 16;
-        private Database.Database database;
+        private Database database;
         private int[] data;
         private int testLength = 1;
 
@@ -14,12 +14,12 @@ namespace Tests
         public void Setup()
         {
             data = new int[requiredLength];
-            database = new Database.Database(data);
+            database = new Database(data);
         }
 
         [Test]
 
-        public void When_InicialaziedConstructor_ShouldHaveSixteenElements()
+        public void When_InitializingConstructor_ShouldHaveSixteenElements()
         {
             Assert.AreEqual(database.Count, requiredLength);
         }
@@ -28,7 +28,7 @@ namespace Tests
 
         public void When_ArrayHaveSpaceAndTryToAdd_ShouldAddInTheArray()
         {
-            database = new Database.Database(new int[testLength]);
+            database = new Database(new int[testLength]);
             database.Add(1);
             Assert.AreEqual(database.Count, testLength + 1);
         }
@@ -36,8 +36,8 @@ namespace Tests
         [Test]
         public void When_TryToAddElementInFullArray_ShouldThrowExeption()
         {
-            
-            Assert.That(() => { database.Add(1); }, 
+
+            Assert.That(() => { database.Add(1); },
                 Throws.InvalidOperationException.With.Message.EqualTo("Array's capacity must be exactly 16 integers!"));
         }
 
@@ -45,7 +45,7 @@ namespace Tests
 
         public void When_TryToRemoveOnEmptyCollection_ShouldThrowExeption()
         {
-            database = new Database.Database(new int[testLength]);
+            database = new Database(new int[testLength]);
             database.Remove();
             Assert.That(() => { database.Remove(); },
                 Throws.InvalidOperationException.With.Message.EqualTo("The collection is empty!"));

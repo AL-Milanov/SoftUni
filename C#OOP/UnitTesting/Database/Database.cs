@@ -22,7 +22,7 @@ namespace Database
 
         public int Count
         {
-            get { return this.count; }
+            get { return count; }
         }
 
         public void Add(int element)
