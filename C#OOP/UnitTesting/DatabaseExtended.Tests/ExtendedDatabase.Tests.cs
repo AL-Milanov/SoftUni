@@ -1,150 +1,175 @@
 using NUnit.Framework;
+using System;
 
 namespace Tests
 {
     public class ExtendedDatabaseTests
     {
-        private Person[] people;
-        private ExtendedDatabase dataOfPerson;
-        private const int maxElements = 16;
+        private ExtendedDatabase database;
 
         [SetUp]
-        public void Setup()
+        public void SetUp()
         {
-            //NameSpace
-            ForCycle(maxElements);
 
-            dataOfPerson = new ExtendedDatabase(people);
+            database = new ExtendedDatabase();
         }
 
         [Test]
-        public void When_InitializingDatabaseWithMoreThanSixteenElements_ShouldThrowArgumentExceptionI()
+        public void When_AddRangeTryToAddDataWithMoreThanSixTeenElements_ShouldThrowArgumentException()
         {
-            //namespace
-            int biggerNumber = maxElements + 1;
-            ForCycle(biggerNumber);
-
-            Assert.That(() => { dataOfPerson = new ExtendedDatabase(people); },
-                Throws.ArgumentException.With.Message.EqualTo("Provided data length should be in range [0..16]!"));
-        }
-
-        [Test]
-        public void When_InitializingDatabaseWithSixteenElements_CounterSholdBeSixteen()
-        {
-            Assert.AreEqual(dataOfPerson.Count, maxElements);
-        }
-
-        [Test]
-        public void When_TryToAddPersonWhenDatabaseIsFull_ShouldThrowOperationException()
-        {
-            //namespace
-            Person person = new Person(9999, "Az");
-            Assert.That(() => { dataOfPerson.Add(person); },
-                Throws.InvalidOperationException.With.Message.EqualTo("Array's capacity must be exactly 16 integers!"));
-        }
-
-        [Test]
-        public void When_TryToAddSamePersonTwice_ShouldThrowOperationException()
-        {
-            //namespace
-            Person duplicateNamePerson = new Person(9999, "1Pesho");
-            Person duplicateIdPerson = new Person(1, "Gosho"); 
-            dataOfPerson.Remove();
-            dataOfPerson.Remove();
-
-            Assert.That(() => { dataOfPerson.Add(duplicateNamePerson); },
-                Throws.InvalidOperationException.With.Message.EqualTo("There is already user with this username!"));
-            Assert.That(() => { dataOfPerson.Add(duplicateIdPerson); },
-                Throws.InvalidOperationException.With.Message.EqualTo("There is already user with this Id!"));
-        }
-
-        [Test]
-        public void When_AddedOrRemoveElement_ShouldChangeCount()
-        {
-            //namespace
-            dataOfPerson.Remove();
-            int countMinusElement = maxElements - 1;
-
-            Assert.AreEqual(countMinusElement, dataOfPerson.Count);
-
-            Person person = new Person(9999, "Mon");
-            dataOfPerson.Add(person);
-            Assert.AreEqual(maxElements, dataOfPerson.Count);
-        }
-
-        [Test]
-        public void When_TryToRemoveOnEmptyDatabase_ShouldThrowOperationExeption()
-        {
-            people = new Person[0];
-            dataOfPerson = new ExtendedDatabase(people);
-
-            Assert.That(() => { dataOfPerson.Remove(); }, Throws.InvalidOperationException);
-        }
-
-        [Test]
-        public void When_TryToFindNameThatIsNullOrEmpty_ShouldThrowArgumentExeption()
-        {
-            string nameThatIsNull = null;
-            //??
-            Assert.That(() => { dataOfPerson.FindByUsername(nameThatIsNull); },
-                Throws.ArgumentNullException);
-        }
-
-        [Test]
-        public void When_TryToFindNameThatIsNotPresented_ShouldThrowInvalidOperationExeption()
-        {
-
-            string nameThatIsNotPresented = "Yo";
-
-            Assert.That(() => { dataOfPerson.FindByUsername(nameThatIsNotPresented); },
-                Throws.InvalidOperationException.With.Message.EqualTo("No user is present by this username!"));
-        }
-
-        [Test]
-        public void When_TryToFindNameThatIsCorrectParameter_ShouldReturnPerson()
-        {
-            //namespace
-            Assert.That(dataOfPerson.FindByUsername("1Pesho"), Is.InstanceOf(typeof(Person)));
-        }
-
-        [Test]
-        public void When_TryToFindIdThatIsNegativeNumber_ShouldThrowArgumentOutOfRangeException()
-        {
-            long negativeNumber = -2;
-
-            //??
-            Assert.That(() => { dataOfPerson.FindById(negativeNumber); },
-                Throws.Exception);
-        }
-
-        [Test]
-        public void When_TryToFIndIdThatIsNotInDatabase_ShouldThrowOperationException()
-        {
-            long wrongId = 1010101010;
-
-            Assert.That(() => { dataOfPerson.FindById(wrongId); }, 
-                Throws.InvalidOperationException.With.Message.EqualTo("No user is present by this ID!"));
-        }
-
-        [Test]
-        public void When_TryToFindIdThatIsInDatabase_ShouldReturnPerson()
-        {
-            Assert.That(dataOfPerson.FindById(0), Is.InstanceOf(typeof(Person)));
-        }
-
-        private void ForCycle(int length)
-        {
-            people = new Person[maxElements];
-
-            if (length > maxElements)
+            Person[] people = new Person[17];
+            
+            for (int i = 0; i < people.Length; i++)
             {
-                people = new Person[length];
+                Person person = new Person(i, $"Username{i}");
+                people[i] = person;
             }
+
+            Assert.Throws<ArgumentException>
+                (() => { database = new ExtendedDatabase(people); });
+        }
+
+        [Test]
+        [TestCase(16)]
+        [TestCase(9)]
+        public void When_AddRangeTryToAddDataWithCorrectLength_ShouldAddToDataBaseAndSetCounterToLenth(int length)
+        {
+            Person[] people = new Person[length];
 
             for (int i = 0; i < length; i++)
             {
-                people[i] = new Person(i, $"{i}Pesho");
+                Person person = new Person(i, $"Username{i}");
+                people[i] = person;
             }
+
+            database = new ExtendedDatabase(people);
+
+            Assert.That(database.Count, Is.EqualTo(length));
+        }
+
+        [Test]
+        public void When_AddPersonInFullDatabase_ShouldThrowInvalidOperationException()
+        {
+            Person[] people = new Person[16];
+            for (int i = 0; i < people.Length; i++)
+            {
+                Person person = new Person(i, $"Username{i}");
+                people[i] = person;
+            }
+            database = new ExtendedDatabase(people);
+
+            Assert.Throws<InvalidOperationException>(() => { database.Add(new Person(123, "Pesho")); });
+        }
+
+        [Test]
+        [TestCase(0, 0, "Pesho", "Other")]
+        [TestCase(1234, 1, "Mon", "Mon")]
+        public void When_AddPersonWithDuplicateIdOrName_ShouldThrowInvalidOperationException(
+            long id, long duplicateId, string userName, string duplicateName)
+        {
+            Person person = new Person(id, userName);
+            Person duplicatePerson = new Person(duplicateId, duplicateName);
+            database.Add(person);
+
+            Assert.Throws<InvalidOperationException>(() => { database.Add(duplicatePerson); });
+        }
+
+        [Test]
+        public void When_AddNewPerson_ShouldPushItAtLastIndex()
+        {
+            int count = 3;
+            
+            for (int i = 0; i < count; i++)
+            {
+
+                Person person = new Person(i, $"UserName{i}");
+                database.Add(person);
+            }
+
+            Assert.That(database.Count, Is.EqualTo(count));
+        }
+
+        [Test]
+        public void When_RemoveAtEmptyDatabase_ShouldThrowInvalidOperationException()
+        {
+            Assert.Throws<InvalidOperationException>(() => { database.Remove(); });
+        }
+
+        [Test]
+        public void When_RemoveAtDatabaseWithElements_ShouldRemoveLastElement()
+        {
+            int count = 4;
+            int removeCount = 2;
+
+            for (int i = 0; i < count; i++)
+            {
+
+                Person person = new Person(i, $"UserName{i}");
+                database.Add(person);
+            }
+
+            for (int i = 0; i < removeCount; i++)
+            {
+                database.Remove();
+            }
+
+            Assert.That(database.Count, Is.EqualTo(count - removeCount));
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void When_FindByUsernameIsCalledWithNameEqualToNull_ShouldThrowArgumentNullException(string name)
+        {
+
+            Assert.Throws<ArgumentNullException>(() => { database.FindByUsername(name); });
+        }
+
+        [Test]
+        public void When_FindByUsernameIsCalledWithNotPresentedName_ShouldThrowInvalidOperationException()
+        {
+            string notPresentName = "Aa";
+
+            Assert.Throws<InvalidOperationException>(() => { database.FindByUsername(notPresentName); });
+        }
+
+        [Test]
+        public void When_FindByUsernameIsCalledWithExistingName_ShouldReturnPerson()
+        {
+            string name = "Alex";
+
+            Person person = new Person(0, name);
+            database.Add(person);
+            var databasePerson = database.FindByUsername(name);
+
+            Assert.That(databasePerson, Is.EqualTo(person));
+        }
+
+        [Test]
+        public void When_FindByIdsIsCalledWithNegativeNumber_ShouldThrowArgumentOutOfRangeException()
+        {
+            long negativeNumber = -50;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => { database.FindById(negativeNumber); });
+        }
+
+        [Test]
+        public void When_FindByIdsIsCalledWithNotPresentedId_ShouldThrowInvalidOperationException()
+        {
+            long notPresentId = 1010101;
+
+            Assert.Throws<InvalidOperationException>(() => { database.FindById(notPresentId) ; });
+        }
+        [Test]
+        public void When_FindByIdsIsCalledWithExistingId_ShouldReturnPerson()
+        {
+            long id = 0;
+
+            Person person = new Person(id, "Alex");
+            database.Add(person);
+            var databasePerson = database.FindById(id);
+
+            Assert.That(databasePerson, Is.EqualTo(person));
         }
     }
 }
