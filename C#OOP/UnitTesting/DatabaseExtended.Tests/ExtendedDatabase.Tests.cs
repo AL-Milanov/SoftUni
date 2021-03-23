@@ -3,6 +3,7 @@ using System;
 
 namespace Tests
 {
+    [TestFixture]
     public class ExtendedDatabaseTests
     {
         private ExtendedDatabase database;

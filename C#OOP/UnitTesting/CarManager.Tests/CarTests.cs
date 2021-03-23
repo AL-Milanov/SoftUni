@@ -3,6 +3,7 @@ using System;
 
 namespace Tests
 {
+    [TestFixture]
     public class CarTests
     {
         private double fuelCapacity = 100;
