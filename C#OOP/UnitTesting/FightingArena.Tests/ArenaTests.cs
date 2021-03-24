@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Tests
 {
+    [TestFixture]
     public class ArenaTests
     {
         private const int BaseAttack = 50;
@@ -61,7 +62,6 @@ namespace Tests
         [Test]
         [TestCase("Attacker","Attacker", "Pesho", "Defender")]
         [TestCase("Pesho","Attacker", "Defender", "Defender")]
-        [TestCase("Pesho","Attacker", "Gosho", "Defender")]
         public void When_FightCheckIfNamesAreNull_ShouldThrowInvalidOperationException(
             string existingAttackerName, string attackerName, string existingDefenderName, string defenderName)
         {
@@ -72,6 +72,23 @@ namespace Tests
             arena.Enroll(defender);
 
             Assert.Throws<InvalidOperationException>(() => { arena.Fight(attackerName, defenderName); });
+        }
+
+        [Test]
+        public void When_FightBothWarriors_ShouldLoseHP()
+        {
+            int initialHp = 100;
+
+            Warrior attacker = new Warrior("Attacker", BaseAttack, initialHp);
+            Warrior defender = new Warrior("Defender", BaseAttack, initialHp);
+
+            arena.Enroll(attacker);
+            arena.Enroll(defender);
+
+            arena.Fight(attacker.Name, defender.Name);
+
+            Assert.That(attacker.HP, Is.EqualTo(initialHp - defender.Damage));
+            Assert.That(defender.HP, Is.EqualTo(initialHp - attacker.Damage));
         }
     }
 }

@@ -67,8 +67,7 @@ namespace Tests
         {
             Warrior opponent = new Warrior("Opponent", BaseDamage, opponentHp);
             int hpAfterAttack = opponent.HP < warrior.Damage
-                ? 0 
-                : opponent.HP - warrior.Damage;
+                ? 0 : opponent.HP - warrior.Damage;
 
             warrior.Attack(opponent);
 
