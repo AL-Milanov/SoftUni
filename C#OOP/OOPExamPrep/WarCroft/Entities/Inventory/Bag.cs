@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using WarCroft.Entities.Items;
 
 namespace WarCroft.Entities.Inventory
@@ -40,14 +41,19 @@ namespace WarCroft.Entities.Inventory
                 throw new InvalidOperationException("Bag is empty!");
             }
 
-            Item searchedItem = items.FirstOrDefault(i => typeof(Item).Name == name);
-            
-            if (searchedItem == null)
+            var itemType = Assembly
+                .GetEntryAssembly()
+                .GetTypes()
+                .Where(i => (typeof(Item).IsAssignableFrom(i)) && typeof(Item) != i)
+                .FirstOrDefault(c => c.Name == name);
+
+            if (itemType == null)
             {
                 throw new ArgumentException($"No item with name {name} in bag!");
             }
 
-            return searchedItem;
+            var item = (Item)Activator.CreateInstance(itemType);
+            return item;
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-
 using WarCroft.Constants;
 using WarCroft.Entities.Inventory;
 using WarCroft.Entities.Items;
@@ -19,7 +18,7 @@ namespace WarCroft.Entities.Characters.Contracts
             Name = name;
             BaseHealth = health;
             BaseArmor = armor;
-            AbilityPoins = abilityPoints;
+            AbilityPoints = abilityPoints;
             Bag = bag;
         }
 
@@ -37,30 +36,29 @@ namespace WarCroft.Entities.Characters.Contracts
             }
         }
 
-        public double BaseHealth { get => baseHealth; private set { baseHealth = value; } }
+        public double BaseHealth { get => baseHealth; private set { baseHealth = value; health = baseHealth; } }
 
         public double Health 
         {
             get => health;
             set 
             {
-                if (value + health > baseHealth)
+                health = value;
+
+                if (health > baseHealth)
                 {
                     value = baseHealth;
                 }
-                else
-                {
-                    value += health;
-                }
+
                 health = value;
             } 
         }
 
-        public double BaseArmor { get => armor = baseArmor; private set { baseArmor = value; } }
+        public double BaseArmor { get => baseArmor; private set { baseArmor = value; armor = baseArmor; } }
 
-        public double Armor { get => armor; private set { armor = value; } }
+        public double Armor { get => armor; }
 
-        public double AbilityPoins { get; private set; }
+        public double AbilityPoints { get; private set; }
 
         public Bag Bag { get; private set; }
 
@@ -71,22 +69,23 @@ namespace WarCroft.Entities.Characters.Contracts
         {
             EnsureAlive();
             
-            double currentArmor = Armor;
+            double currentArmor = armor;
 
-            Armor -= hitPoints;
+            armor -= hitPoints;
             hitPoints -= currentArmor;
 
-            if (Armor < 0)
+            if (armor < 0)
             {
-                Armor = 0;
+                armor = 0;
             }
 
             if (hitPoints > 0)
             {
-                Health -= hitPoints;
+                health -= hitPoints;
 
                 if (Health <= 0)
                 {
+                    health = 0;
                     IsAlive = false;
                 }
             }
@@ -105,5 +104,12 @@ namespace WarCroft.Entities.Characters.Contracts
 				throw new InvalidOperationException(ExceptionMessages.AffectedCharacterDead);
 			}
 		}
-	}
+
+
+        public override string ToString()
+        {
+            string status = IsAlive == true ? "Alive" : "Dead";
+            return $"{name} - HP: {health}/{baseHealth}, AP: {armor}/{baseArmor}, Status: {status}";
+        }
+    }
 }

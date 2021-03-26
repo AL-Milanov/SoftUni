@@ -23,7 +23,7 @@ namespace WarCroft.Entities.Characters.Classes
         {
             if (IsAlive == true && character.IsAlive == true)
             {
-                character.Health += AbilityPoins;
+                character.Health += AbilityPoints;
             }
         }
     }

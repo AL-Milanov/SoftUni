@@ -17,6 +17,10 @@ namespace WarCroft.Entities.Items
 
             character.Health -= 20;
             // TODO : Check if character is alive
+            if (character.Health <= 0)
+            {
+                character.IsAlive = false;
+            }
         }
     }
 }

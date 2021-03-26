@@ -2,6 +2,7 @@
 using WarCroft.Core;
 using WarCroft.Core.IO;
 using WarCroft.Core.IO.Contracts;
+using WarCroft.Entities.Characters.Classes;
 
 namespace WarCroft
 {

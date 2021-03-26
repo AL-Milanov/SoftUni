@@ -30,7 +30,7 @@ namespace WarCroft.Entities.Characters.Classes
 
             if (IsAlive == true && character.IsAlive == true)
             {
-                character.TakeDamage(AbilityPoins);
+                character.TakeDamage(AbilityPoints);
             }
         }
     }
