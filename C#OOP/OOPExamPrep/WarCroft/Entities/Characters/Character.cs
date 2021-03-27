@@ -29,7 +29,7 @@ namespace WarCroft.Entities.Characters.Contracts
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Name cannot be null or whitespace!");
+                    throw new ArgumentException(ExceptionMessages.CharacterNameInvalid);
                 }
 
                 name = value;
@@ -109,7 +109,7 @@ namespace WarCroft.Entities.Characters.Contracts
         public override string ToString()
         {
             string status = IsAlive == true ? "Alive" : "Dead";
-            return $"{name} - HP: {health}/{baseHealth}, AP: {armor}/{baseArmor}, Status: {status}";
+            return string.Format(SuccessMessages.CharacterStats, name, health, baseHealth, armor, BaseArmor, status);
         }
     }
 }

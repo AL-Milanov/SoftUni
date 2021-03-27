@@ -1,4 +1,6 @@
-﻿using WarCroft.Entities.Characters.Contracts;
+﻿using System;
+using WarCroft.Constants;
+using WarCroft.Entities.Characters.Contracts;
 
 namespace WarCroft.Entities.Items
 {

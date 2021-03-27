@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using WarCroft.Constants;
 using WarCroft.Entities.Items;
 
 namespace WarCroft.Entities.Inventory
 {
     public abstract class Bag : IBag
     {
-        private const int baseCapacity = 100;
-
         private readonly List<Item> items;
 
-        public Bag(int capacity = baseCapacity)
+        public Bag(int capacity)
         {
             Capacity = capacity;
             items = new List<Item>();
         }
 
-        public int Capacity { get ; set; }
+        public int Capacity { get; set; }
 
         public int Load => items.Sum(i => i.Weight);
 
@@ -28,7 +27,7 @@ namespace WarCroft.Entities.Inventory
         {
             if ((Load + item.Weight) > Capacity)
             {
-                throw new InvalidOperationException("Bag is full!");
+                throw new InvalidOperationException(ExceptionMessages.ExceedMaximumBagCapacity);
             }
 
             items.Add(item);
@@ -38,7 +37,7 @@ namespace WarCroft.Entities.Inventory
         {
             if (Load == 0)
             {
-                throw new InvalidOperationException("Bag is empty!");
+                throw new InvalidOperationException(ExceptionMessages.EmptyBag);
             }
 
             var itemType = Assembly
@@ -47,12 +46,16 @@ namespace WarCroft.Entities.Inventory
                 .Where(i => (typeof(Item).IsAssignableFrom(i)) && typeof(Item) != i)
                 .FirstOrDefault(c => c.Name == name);
 
-            if (itemType == null)
+            Item neededItem = items.FirstOrDefault(i => i.GetType().Name == name);
+            
+            if (neededItem == null)
             {
-                throw new ArgumentException($"No item with name {name} in bag!");
+                throw new ArgumentException(string.Format(ExceptionMessages.ItemNotFoundInBag, name));
             }
 
             var item = (Item)Activator.CreateInstance(itemType);
+            items.Remove(neededItem);
+
             return item;
         }
     }

@@ -26,6 +26,12 @@ namespace WarCroft.Core
             string characterType = args[0];
             string name = args[1];
 
+            if (args.Length == 3)
+            {
+                characterType = args[1];
+                name = args[2];
+            }
+
             var characterClass = Assembly
                 .GetEntryAssembly()
                 .GetTypes()
@@ -34,14 +40,14 @@ namespace WarCroft.Core
 
             if (characterClass == null)
             {
-                throw new ArgumentException($"Invalid character type \"{ characterType }\"!");
+                throw new ArgumentException(string.Format(ExceptionMessages.InvalidCharacterType, characterType));
             }
 
             var character = (Character)Activator.CreateInstance(characterClass, new string[] { name });
 
             characters.Add(character);
 
-            return $"{name} joined the party!";
+            return string.Format(SuccessMessages.JoinParty, name);
         }
 
         public string AddItemToPool(string[] args)
@@ -55,13 +61,13 @@ namespace WarCroft.Core
 
             if (item == null)
             {
-                throw new ArgumentException($"Invalid item \"{itemName}\"!");
+                throw new ArgumentException(string.Format(ExceptionMessages.InvalidItem, itemName));
             }
 
             var potion = (Item)Activator.CreateInstance(item);
             items.Push(potion);
 
-            return $"{itemName} added to pool.";
+            return string.Format(SuccessMessages.AddItemToPool, itemName);
         }
 
         public string PickUpItem(string[] args)
@@ -71,12 +77,12 @@ namespace WarCroft.Core
 
             if (character == null)
             {
-                throw new ArgumentException($"Character {characterName} not found!");
+                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, characterName));
             }
 
             if (items.Count == 0)
             {
-                throw new InvalidOperationException("No items left in pool!");
+                throw new InvalidOperationException(string.Format(ExceptionMessages.ItemPoolEmpty));
             }
 
             var item = items.Pop();
@@ -84,7 +90,7 @@ namespace WarCroft.Core
 
             character.Bag.AddItem(item);
 
-            return $"{characterName} picked up {itemName}!";
+            return string.Format(SuccessMessages.PickUpItem, characterName, itemName);
         }
 
         public string UseItem(string[] args)
@@ -96,13 +102,14 @@ namespace WarCroft.Core
 
             if (character == null)
             {
-                throw new ArgumentException($"Character {characterName} not found!");
+                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, characterName));
             }
 
             var item = character.Bag.GetItem(itemName);
+
             character.UseItem(item);
 
-            return $"{character.Name} used {itemName}.";
+            return string.Format(SuccessMessages.UsedItem, characterName, itemName);
         }
 
         public string GetStats()
@@ -122,30 +129,40 @@ namespace WarCroft.Core
 
             var attacker = characters.FirstOrDefault(n => n.Name == attackerName);
             var receiver = characters.FirstOrDefault(n => n.Name == receiverName);
+            string notValidName = attacker == null ? attackerName : receiverName;
 
-            if (attacker == null || receiver == null)
+            if (attacker == null)
             {
-                string notValidName = attacker == null ? attackerName : receiverName;
-
-                throw new ArgumentException($"Character {notValidName} not found!");
+                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
             }
 
             if (attacker is Priest)
             {
-                throw new ArgumentException($"{attacker.Name} cannot attack!");
+                throw new ArgumentException(string.Format(ExceptionMessages.AttackFail, attacker.Name));
+            }
+
+            if (receiver == null)
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
             }
 
             StringBuilder sb = new StringBuilder();
 
             ((Warrior)attacker).Attack(receiver);
 
-            sb.AppendLine($"{attackerName} attacks {receiverName} for {attacker.AbilityPoints} hit points! " +
-                $"{receiverName} has {receiver.Health}/{receiver.BaseHealth} HP and " +
-                $"{receiver.Armor}/{receiver.BaseArmor} AP left!");
+            sb.AppendLine(string.Format(SuccessMessages.AttackCharacter,
+                attackerName,
+                receiverName,
+                attacker.AbilityPoints,
+                receiverName,
+                receiver.Health,
+                receiver.BaseHealth,
+                receiver.Armor,
+                receiver.BaseArmor));
 
             if (receiver.IsAlive == false)
             {
-                sb.AppendLine($"{receiver.Name} is dead!");
+                sb.AppendLine(string.Format(SuccessMessages.AttackKillsCharacter, receiver.Name));
             }
 
             return sb.ToString().TrimEnd();
@@ -158,25 +175,33 @@ namespace WarCroft.Core
 
             var healer = characters.FirstOrDefault(n => n.Name == healerName);
             var receiver = characters.FirstOrDefault(n => n.Name == healingReceiverName);
+            string notValidName = healerName == null ? healerName : healingReceiverName;
 
-            if (healer == null || receiver == null)
+            if (healer == null)
             {
-                string notValidName = healerName == null ? healerName : healingReceiverName;
-
-                throw new ArgumentException($"Character {notValidName} not found!");
+                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
             }
 
             if (healer is Warrior)
             {
-                throw new ArgumentException($"{healer.Name} cannot attack!");
+                throw new ArgumentException(string.Format(ExceptionMessages.HealerCannotHeal, healer.Name));
+            }
+
+            if (receiver == null)
+            {
+                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
             }
 
             StringBuilder sb = new StringBuilder();
 
             ((Priest)healer).Heal(receiver);
 
-            sb.AppendLine($"{healer.Name} heals {receiver.Name} for {healer.AbilityPoints}!" +
-                $" {receiver.Name} has {receiver.Health} health now!");
+            sb.AppendLine(string.Format(SuccessMessages.HealCharacter,
+                healer.Name,
+                receiver.Name,
+                healer.AbilityPoints,
+                receiver.Name,
+                receiver.Health));
 
             return sb.ToString().TrimEnd();
         }

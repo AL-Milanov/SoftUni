@@ -1,4 +1,5 @@
 ﻿using System;
+using WarCroft.Constants;
 using WarCroft.Entities.Characters.Contracts;
 using WarCroft.Entities.Inventory;
 
@@ -12,7 +13,7 @@ namespace WarCroft.Entities.Characters.Classes
         private static Bag warriorBag = new Satchel();
 
 
-        public Warrior(string name) 
+        public Warrior(string name)
             : base(name, warriorBaseHP, warriorBaseArmor, warriorBaseAbilityPoints, warriorBag)
         {
             WarriorName = name;
@@ -23,15 +24,20 @@ namespace WarCroft.Entities.Characters.Classes
 
         public void Attack(Character character)
         {
+            EnsureAlive();
+
             if (character == this)
             {
-                throw new InvalidOperationException("Cannot attack self!");
+                throw new InvalidOperationException(ExceptionMessages.CharacterAttacksSelf);
             }
 
-            if (IsAlive == true && character.IsAlive == true)
+            if (!character.IsAlive)
             {
-                character.TakeDamage(AbilityPoints);
+                throw new InvalidOperationException(ExceptionMessages.AffectedCharacterDead);
             }
+
+            character.TakeDamage(AbilityPoints);
         }
+
     }
 }
