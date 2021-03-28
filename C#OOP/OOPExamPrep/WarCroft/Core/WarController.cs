@@ -87,7 +87,7 @@ namespace WarCroft.Core
 
             var item = items.Pop();
             string itemName = item.GetType().Name;
-
+            character.EnsureAlive();
             character.Bag.AddItem(item);
 
             return string.Format(SuccessMessages.PickUpItem, characterName, itemName);
@@ -106,7 +106,7 @@ namespace WarCroft.Core
             }
 
             var item = character.Bag.GetItem(itemName);
-
+            character.EnsureAlive();
             character.UseItem(item);
 
             return string.Format(SuccessMessages.UsedItem, characterName, itemName);
@@ -118,8 +118,13 @@ namespace WarCroft.Core
                 .OrderByDescending(a => a.IsAlive == true)
                 .ThenByDescending(h => h.Health)
                 .ToList();
+            StringBuilder sb = new StringBuilder();
 
-            return string.Join(Environment.NewLine, sortedCharacters);
+            foreach (var item in sortedCharacters)
+            {
+                sb.AppendLine($"{item}");
+            }
+            return sb.ToString().TrimEnd();
         }
 
         public string Attack(string[] args)
@@ -135,7 +140,7 @@ namespace WarCroft.Core
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
             }
-
+            attacker.EnsureAlive();
             if (attacker is Priest)
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.AttackFail, attacker.Name));
@@ -181,7 +186,7 @@ namespace WarCroft.Core
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
             }
-
+            healer.EnsureAlive();
             if (healer is Warrior)
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.HealerCannotHeal, healer.Name));

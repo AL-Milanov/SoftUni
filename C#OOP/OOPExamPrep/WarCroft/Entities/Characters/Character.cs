@@ -97,7 +97,7 @@ namespace WarCroft.Entities.Characters.Contracts
             item.AffectCharacter(this);
         }
 
-        protected void EnsureAlive()
+        public void EnsureAlive()
 		{
 			if (!this.IsAlive)
 			{
