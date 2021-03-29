@@ -10,27 +10,26 @@ namespace WarCroft.Entities.Characters.Classes
         private const double warriorBaseHP = 100;
         private const double warriorBaseArmor = 50;
         private const double warriorBaseAbilityPoints = 40;
-        private static Bag warriorBag = new Satchel();
 
 
         public Warrior(string name)
-            : base(name, warriorBaseHP, warriorBaseArmor, warriorBaseAbilityPoints, warriorBag)
+            : base(name, warriorBaseHP, warriorBaseArmor, warriorBaseAbilityPoints, new Satchel())
         {
             WarriorName = name;
         }
 
-        public string WarriorName { get; set; }
+        public string WarriorName { get; private set; }
 
 
         public void Attack(Character character)
         {
-            EnsureAlive();
-
             if (character == this)
             {
                 throw new InvalidOperationException(ExceptionMessages.CharacterAttacksSelf);
             }
 
+            EnsureAlive();
+            
             if (!character.IsAlive)
             {
                 throw new InvalidOperationException(ExceptionMessages.AffectedCharacterDead);

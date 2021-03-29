@@ -9,9 +9,11 @@ namespace WarCroft.Entities.Inventory
 {
     public abstract class Bag : IBag
     {
+        private const int baseCapacity = 100;
+
         private readonly List<Item> items;
 
-        public Bag(int capacity)
+        public Bag(int capacity = baseCapacity)
         {
             Capacity = capacity;
             items = new List<Item>();
@@ -52,10 +54,9 @@ namespace WarCroft.Entities.Inventory
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.ItemNotFoundInBag, name));
             }
-
+            
             var item = (Item)Activator.CreateInstance(itemType);
-            items.Remove(neededItem);
-
+            items.Remove(item);
             return item;
         }
     }

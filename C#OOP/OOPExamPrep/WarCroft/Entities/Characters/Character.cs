@@ -38,21 +38,7 @@ namespace WarCroft.Entities.Characters.Contracts
 
         public double BaseHealth { get => baseHealth; private set { baseHealth = value; health = baseHealth; } }
 
-        public double Health 
-        {
-            get => health;
-            set 
-            {
-                health = value;
-
-                if (health > baseHealth)
-                {
-                    value = baseHealth;
-                }
-
-                health = value;
-            } 
-        }
+        public double Health {get => health; }
 
         public double BaseArmor { get => baseArmor; private set { baseArmor = value; armor = baseArmor; } }
 
@@ -62,7 +48,7 @@ namespace WarCroft.Entities.Characters.Contracts
 
         public Bag Bag { get; private set; }
 
-        public bool IsAlive { get; set; } = true;
+        public bool IsAlive { get; protected set; } = true;
 
         
         public void TakeDamage(double hitPoints)
@@ -91,13 +77,37 @@ namespace WarCroft.Entities.Characters.Contracts
             }
         }
 
+        public void UseFirePotion()
+        {
+            EnsureAlive();
+
+            health -= 20;
+
+            if (health <= 0)
+            {
+                IsAlive = false;
+            }
+        }
+
+        public void GetHeal(double amount)
+        {
+            EnsureAlive();
+
+            health += amount;
+
+            if (health > baseHealth)
+            {
+                health = baseHealth;
+            }
+        }
+
         public void UseItem(Item item)
         {
             EnsureAlive();
             item.AffectCharacter(this);
         }
 
-        public void EnsureAlive()
+        protected void EnsureAlive()
 		{
 			if (!this.IsAlive)
 			{

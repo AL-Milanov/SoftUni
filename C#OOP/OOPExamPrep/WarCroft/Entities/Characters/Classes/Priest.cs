@@ -9,10 +9,9 @@ namespace WarCroft.Entities.Characters.Classes
         private const double priestBaseHP = 50;
         private const double priestBaseArmor = 25;
         private const double priestBaseAbilityPoints = 40;
-        private static Bag priestBag = new Backpack();
 
         public Priest(string name) 
-            : base(name, priestBaseHP, priestBaseArmor, priestBaseAbilityPoints, priestBag)
+            : base(name, priestBaseHP, priestBaseArmor, priestBaseAbilityPoints, new Backpack())
         {
             PriestName = name;
         }
@@ -21,10 +20,9 @@ namespace WarCroft.Entities.Characters.Classes
 
         public void Heal(Character character)
         {
-            EnsureAlive();
             if (IsAlive == true && character.IsAlive == true)
             {
-                character.Health += AbilityPoints;
+                character.GetHeal(AbilityPoints);
             }
         }
     }

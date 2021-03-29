@@ -1,6 +1,4 @@
-﻿using System;
-using WarCroft.Constants;
-using WarCroft.Entities.Characters.Contracts;
+﻿using WarCroft.Entities.Characters.Contracts;
 
 namespace WarCroft.Entities.Items
 {
@@ -17,12 +15,7 @@ namespace WarCroft.Entities.Items
         {
             base.AffectCharacter(character);
 
-            character.Health -= 20;
-            // TODO : Check if character is alive
-            if (character.Health <= 0)
-            {
-                character.IsAlive = false;
-            }
+            character.UseFirePotion();
         }
     }
 }

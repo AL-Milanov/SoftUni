@@ -86,11 +86,10 @@ namespace WarCroft.Core
             }
 
             var item = items.Pop();
-            string itemName = item.GetType().Name;
-            character.EnsureAlive();
+
             character.Bag.AddItem(item);
 
-            return string.Format(SuccessMessages.PickUpItem, characterName, itemName);
+            return string.Format(SuccessMessages.PickUpItem, characterName, item.GetType().Name);
         }
 
         public string UseItem(string[] args)
@@ -105,8 +104,7 @@ namespace WarCroft.Core
                 throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, characterName));
             }
 
-            var item = character.Bag.GetItem(itemName);
-            character.EnsureAlive();
+            Item item = character.Bag.GetItem(itemName);
             character.UseItem(item);
 
             return string.Format(SuccessMessages.UsedItem, characterName, itemName);
@@ -118,13 +116,8 @@ namespace WarCroft.Core
                 .OrderByDescending(a => a.IsAlive == true)
                 .ThenByDescending(h => h.Health)
                 .ToList();
-            StringBuilder sb = new StringBuilder();
 
-            foreach (var item in sortedCharacters)
-            {
-                sb.AppendLine($"{item}");
-            }
-            return sb.ToString().TrimEnd();
+            return string.Join(Environment.NewLine, sortedCharacters);
         }
 
         public string Attack(string[] args)
@@ -134,21 +127,17 @@ namespace WarCroft.Core
 
             var attacker = characters.FirstOrDefault(n => n.Name == attackerName);
             var receiver = characters.FirstOrDefault(n => n.Name == receiverName);
-            string notValidName = attacker == null ? attackerName : receiverName;
 
-            if (attacker == null)
+            if (attacker == null || receiver == null)
             {
-                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
+                string notValidName = attacker == null ? attackerName : receiverName;
+
+                throw new ArgumentException(ExceptionMessages.CharacterNotInParty, notValidName);
             }
-            attacker.EnsureAlive();
+
             if (attacker is Priest)
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.AttackFail, attacker.Name));
-            }
-
-            if (receiver == null)
-            {
-                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
             }
 
             StringBuilder sb = new StringBuilder();
@@ -180,28 +169,27 @@ namespace WarCroft.Core
 
             var healer = characters.FirstOrDefault(n => n.Name == healerName);
             var receiver = characters.FirstOrDefault(n => n.Name == healingReceiverName);
-            string notValidName = healerName == null ? healerName : healingReceiverName;
 
-            if (healer == null)
+            if (healer == null || receiver == null)
             {
-                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
+                string notValidName = healerName == null ? healerName : healingReceiverName;
+
+                throw new ArgumentException(ExceptionMessages.CharacterNotInParty, notValidName);
             }
-            healer.EnsureAlive();
+
             if (healer is Warrior)
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.HealerCannotHeal, healer.Name));
-            }
-
-            if (receiver == null)
-            {
-                throw new ArgumentException(string.Format(ExceptionMessages.CharacterNotInParty, notValidName));
             }
 
             StringBuilder sb = new StringBuilder();
 
             ((Priest)healer).Heal(receiver);
 
-            sb.AppendLine(string.Format(SuccessMessages.HealCharacter,
+            sb.AppendLine($"{healer.Name} heals {receiver.Name} for {healer.AbilityPoints}!" +
+                $" {receiver.Name} has {receiver.Health} health now!");
+
+            sb.AppendLine(string.Format(SuccessMessages.HealCharacter, 
                 healer.Name,
                 receiver.Name,
                 healer.AbilityPoints,

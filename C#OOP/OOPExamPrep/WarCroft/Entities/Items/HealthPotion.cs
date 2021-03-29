@@ -5,6 +5,7 @@ namespace WarCroft.Entities.Items
     public class HealthPotion : Item
     {
         private const int healthPotionBaseWeight = 5;
+        private const double healValue = 20;
 
         public HealthPotion() 
             : base(healthPotionBaseWeight)
@@ -14,7 +15,8 @@ namespace WarCroft.Entities.Items
         public override void AffectCharacter(Character character)
         {
             base.AffectCharacter(character);
-            character.Health += 20;
+
+            character.GetHeal(healValue);
         }
     }
 }
