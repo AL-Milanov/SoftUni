@@ -1,6 +1,4 @@
-﻿using Bakery.Models.BakedFoods;
-using Bakery.Models.BakedFoods.Contracts;
-using Bakery.Models.Drinks;
+﻿using Bakery.Models.BakedFoods.Contracts;
 using Bakery.Models.Drinks.Contracts;
 using Bakery.Models.Tables.Contracts;
 using Bakery.Utilities.Messages;
@@ -49,7 +47,7 @@ namespace Bakery.Models.Tables
 
         public int NumberOfPeople 
         {
-            get => numberOfPeople;
+            get => this.numberOfPeople;
             private set
             {
 
@@ -57,6 +55,8 @@ namespace Bakery.Models.Tables
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidNumberOfPeople);
                 }
+
+                this.numberOfPeople = value;
             }
         }
 
@@ -65,8 +65,7 @@ namespace Bakery.Models.Tables
         public bool IsReserved => isReserved;
 
         //TODO
-        public decimal Price => (PricePerPerson * NumberOfPeople) +
-            (foodOrders.Sum(f => f.Price) + drinkOrders.Sum(d => d.Price));
+        public decimal Price => (PricePerPerson * NumberOfPeople) ;
 
         public void Clear()
         {
@@ -78,7 +77,7 @@ namespace Bakery.Models.Tables
 
         public decimal GetBill()
         {
-            decimal bill = foodOrders.Sum(f => f.Price) + drinkOrders.Sum(d => d.Price);
+            decimal bill = foodOrders.Sum(f => f.Price) + drinkOrders.Sum(d => d.Price) + Price;
 
             return bill;
         }
@@ -107,8 +106,8 @@ namespace Bakery.Models.Tables
 
         public void Reserve(int numberOfPeople)
         {
-
-            if (Capacity <= numberOfPeople)
+            NumberOfPeople = numberOfPeople;
+            if (Capacity >= NumberOfPeople)
             {
                 isReserved = true;
             }
