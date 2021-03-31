@@ -1,6 +1,5 @@
 ﻿using EasterRaces.Models.Cars.Contracts;
 using EasterRaces.Models.Drivers.Contracts;
-using EasterRaces.Repositories.Entities;
 using EasterRaces.Utilities.Messages;
 using System;
 

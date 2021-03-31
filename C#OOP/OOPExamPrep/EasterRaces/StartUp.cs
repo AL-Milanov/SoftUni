@@ -1,5 +1,7 @@
-﻿using EasterRaces.Models.Cars;
-using EasterRaces.Repositories.Entities;
+﻿using EasterRaces.Core.Contracts;
+using EasterRaces.Core.Entities;
+using EasterRaces.IO;
+using EasterRaces.IO.Contracts;
 
 namespace EasterRaces
 {
@@ -7,13 +9,12 @@ namespace EasterRaces
     {
         public static void Main()
         {
-            CarRepository car = new CarRepository();
-            //IChampionshipController controller = null; //new ChampionshipController();
-            //IReader reader = new ConsoleReader();
-            //IWriter writer = new ConsoleWriter();
+            IChampionshipController controller = new ChampionshipController();
+            IReader reader = new ConsoleReader();
+            IWriter writer = new ConsoleWriter();
 
-            //Engine enigne = new Engine(controller, reader, writer);
-            //enigne.Run();
+            Engine enigne = new Engine(controller, reader, writer);
+            enigne.Run();
         }
     }
 }
