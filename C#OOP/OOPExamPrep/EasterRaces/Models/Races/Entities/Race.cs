@@ -1,13 +1,12 @@
 ﻿using EasterRaces.Models.Drivers.Contracts;
 using EasterRaces.Models.Races.Contracts;
-using EasterRaces.Repositories.Entities;
 using EasterRaces.Utilities.Messages;
 using System;
 using System.Collections.Generic;
 
-namespace EasterRaces.Models.Races
+namespace EasterRaces.Models.Races.Entities
 {
-    public class Race : RaceRepository, IRace
+    public class Race : IRace
     {
         private const int minLaps = 1;
         private const int raceNameLenght = 5;

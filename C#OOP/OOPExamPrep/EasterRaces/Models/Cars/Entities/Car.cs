@@ -1,11 +1,10 @@
 ﻿using EasterRaces.Models.Cars.Contracts;
-using EasterRaces.Repositories.Entities;
 using EasterRaces.Utilities.Messages;
 using System;
 
-namespace EasterRaces.Models.Cars
+namespace EasterRaces.Models.Cars.Entities
 {
-    public abstract class Car : CarRepository, ICar
+    public abstract class Car : ICar
     {
         private const int minModelLenght = 4;
         private string model;

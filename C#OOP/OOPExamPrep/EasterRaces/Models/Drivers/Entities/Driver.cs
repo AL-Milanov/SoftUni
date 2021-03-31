@@ -4,9 +4,9 @@ using EasterRaces.Repositories.Entities;
 using EasterRaces.Utilities.Messages;
 using System;
 
-namespace EasterRaces.Models.Drivers
+namespace EasterRaces.Models.Drivers.Entities
 {
-    public class Driver : DriverRepository, IDriver
+    public class Driver : IDriver
     {
         private const int minNameLenght = 5;
         private string driverName;
