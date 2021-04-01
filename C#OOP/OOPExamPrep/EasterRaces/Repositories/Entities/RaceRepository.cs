@@ -21,7 +21,7 @@ namespace EasterRaces.Repositories.Entities
 
         public IReadOnlyCollection<IRace> GetAll()
         {
-            return races;
+            return races.ToList();
         }
 
         public IRace GetByName(string name)

@@ -21,7 +21,7 @@ namespace EasterRaces.Repositories.Entities
 
         public IReadOnlyCollection<IDriver> GetAll()
         {
-            return drivers;
+            return drivers.ToList();
         }
 
         public IDriver GetByName(string name)

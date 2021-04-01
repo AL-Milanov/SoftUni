@@ -5,10 +5,10 @@ using EasterRaces.Models.Drivers.Contracts;
 using EasterRaces.Models.Drivers.Entities;
 using EasterRaces.Models.Races.Contracts;
 using EasterRaces.Models.Races.Entities;
+using EasterRaces.Repositories.Contracts;
 using EasterRaces.Repositories.Entities;
 using EasterRaces.Utilities.Messages;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -16,9 +16,9 @@ namespace EasterRaces.Core.Entities
 {
     public class ChampionshipController : IChampionshipController
     {
-        private DriverRepository drivers;
-        private RaceRepository races;
-        private CarRepository cars;
+        private readonly IRepository<IDriver> drivers;
+        private readonly IRepository<IRace> races;
+        private readonly IRepository<ICar> cars;
 
         public ChampionshipController()
         {
@@ -43,6 +43,7 @@ namespace EasterRaces.Core.Entities
             }
 
             driver.AddCar(car);
+            cars.Remove(car);
             return $"{string.Format(OutputMessages.CarAdded, driverName, carModel)}";
         }
 
@@ -64,6 +65,7 @@ namespace EasterRaces.Core.Entities
             }
 
             race.AddDriver(driver);
+            drivers.Remove(driver);
             return $"{string.Format(OutputMessages.DriverAdded, driverName, raceName)}";
         }
 
@@ -157,6 +159,7 @@ namespace EasterRaces.Core.Entities
                 i++;
             }
 
+            races.Remove(race);
             return sb.ToString().TrimEnd();
         }
     }
