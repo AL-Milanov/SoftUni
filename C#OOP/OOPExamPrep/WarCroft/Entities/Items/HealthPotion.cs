@@ -4,11 +4,11 @@ namespace WarCroft.Entities.Items
 {
     public class HealthPotion : Item
     {
-        private const int healthPotionBaseWeight = 5;
         private const double healValue = 20;
+        private const int weight = 5;
 
         public HealthPotion() 
-            : base(healthPotionBaseWeight)
+            : base(weight)
         {
         }
 

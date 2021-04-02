@@ -4,10 +4,10 @@ namespace WarCroft.Entities.Items
 {
     public class FirePotion : Item
     {
-        public const int firePotionBaseWeight = 5;
+        private const int weight = 5;
 
         public FirePotion() 
-            : base(firePotionBaseWeight)
+            : base(weight)
         {
         }
 

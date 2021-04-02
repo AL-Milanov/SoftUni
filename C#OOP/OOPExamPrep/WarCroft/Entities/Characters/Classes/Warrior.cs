@@ -7,13 +7,13 @@ namespace WarCroft.Entities.Characters.Classes
 {
     public class Warrior : Character, IAttacker
     {
-        private const double warriorBaseHP = 100;
-        private const double warriorBaseArmor = 50;
-        private const double warriorBaseAbilityPoints = 40;
+        private const double baseHealth = 100;
+        private const double baseArmor = 50;
+        private const double abilityPoints = 40;
 
 
         public Warrior(string name)
-            : base(name, warriorBaseHP, warriorBaseArmor, warriorBaseAbilityPoints, new Satchel())
+            : base(name, baseHealth, baseArmor, abilityPoints, new Satchel())
         {
             WarriorName = name;
         }
@@ -23,16 +23,11 @@ namespace WarCroft.Entities.Characters.Classes
 
         public void Attack(Character character)
         {
+            EnsureAlive();
+
             if (character == this)
             {
                 throw new InvalidOperationException(ExceptionMessages.CharacterAttacksSelf);
-            }
-
-            EnsureAlive();
-            
-            if (!character.IsAlive)
-            {
-                throw new InvalidOperationException(ExceptionMessages.AffectedCharacterDead);
             }
 
             character.TakeDamage(AbilityPoints);

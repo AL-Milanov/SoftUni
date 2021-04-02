@@ -1,22 +1,21 @@
-﻿using System;
-using WarCroft.Entities.Characters.Contracts;
+﻿using WarCroft.Entities.Characters.Contracts;
 using WarCroft.Entities.Inventory;
 
 namespace WarCroft.Entities.Characters.Classes
 {
     public class Priest : Character, IHealer
     {
-        private const double priestBaseHP = 50;
-        private const double priestBaseArmor = 25;
-        private const double priestBaseAbilityPoints = 40;
+        private const double baseHealth = 50;
+        private const double baseArmor = 25;
+        private const double abilityPoints = 40;
 
         public Priest(string name) 
-            : base(name, priestBaseHP, priestBaseArmor, priestBaseAbilityPoints, new Backpack())
+            : base(name, baseHealth, baseArmor, abilityPoints, new Backpack())
         {
             PriestName = name;
         }
 
-        public string PriestName { get; set; }
+        public string PriestName { get; private set; }
 
         public void Heal(Character character)
         {

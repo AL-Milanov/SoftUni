@@ -4,8 +4,8 @@
     {
         private const int stachelBaseCap = 20;
 
-        public Satchel() 
-            : base(stachelBaseCap)
+        public Satchel(int cap = stachelBaseCap) 
+            : base()
         {
         }
     }

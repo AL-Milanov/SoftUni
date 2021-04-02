@@ -13,7 +13,7 @@ namespace WarCroft.Entities.Characters.Contracts
         private double baseArmor;
         private double armor;
 
-        public Character(string name, double health, double armor, double abilityPoints, Bag bag)
+        public Character(string name, double health, double armor, double abilityPoints, IBag bag)
         {
             Name = name;
             BaseHealth = health;
@@ -25,7 +25,7 @@ namespace WarCroft.Entities.Characters.Contracts
         public string Name 
         {
             get => name;
-            set
+            private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
@@ -46,7 +46,7 @@ namespace WarCroft.Entities.Characters.Contracts
 
         public double AbilityPoints { get; private set; }
 
-        public Bag Bag { get; private set; }
+        public IBag Bag { get; private set; }
 
         public bool IsAlive { get; protected set; } = true;
 
@@ -85,6 +85,8 @@ namespace WarCroft.Entities.Characters.Contracts
 
             if (health <= 0)
             {
+                health = 0;
+                armor = 0;
                 IsAlive = false;
             }
         }
@@ -105,6 +107,7 @@ namespace WarCroft.Entities.Characters.Contracts
         {
             EnsureAlive();
             item.AffectCharacter(this);
+            
         }
 
         protected void EnsureAlive()
@@ -115,11 +118,5 @@ namespace WarCroft.Entities.Characters.Contracts
 			}
 		}
 
-
-        public override string ToString()
-        {
-            string status = IsAlive == true ? "Alive" : "Dead";
-            return string.Format(SuccessMessages.CharacterStats, name, health, baseHealth, armor, BaseArmor, status);
-        }
     }
 }

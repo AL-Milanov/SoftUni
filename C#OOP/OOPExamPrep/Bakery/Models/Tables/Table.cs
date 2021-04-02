@@ -36,7 +36,7 @@ namespace Bakery.Models.Tables
             private set
             {
 
-                if (value < 0) //probably <= 0
+                if (value < 0)
                 {
                     throw new ArgumentException(ExceptionMessages.InvalidTableCapacity);
                 }

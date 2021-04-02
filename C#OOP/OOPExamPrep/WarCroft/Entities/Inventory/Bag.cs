@@ -42,12 +42,6 @@ namespace WarCroft.Entities.Inventory
                 throw new InvalidOperationException(ExceptionMessages.EmptyBag);
             }
 
-            var itemType = Assembly
-                .GetEntryAssembly()
-                .GetTypes()
-                .Where(i => (typeof(Item).IsAssignableFrom(i)) && typeof(Item) != i)
-                .FirstOrDefault(c => c.Name == name);
-
             Item neededItem = items.FirstOrDefault(i => i.GetType().Name == name);
             
             if (neededItem == null)
@@ -55,9 +49,8 @@ namespace WarCroft.Entities.Inventory
                 throw new ArgumentException(string.Format(ExceptionMessages.ItemNotFoundInBag, name));
             }
             
-            var item = (Item)Activator.CreateInstance(itemType);
-            items.Remove(item);
-            return item;
+            items.Remove(neededItem);
+            return neededItem;
         }
     }
 }

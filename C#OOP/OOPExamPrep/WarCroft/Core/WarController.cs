@@ -32,20 +32,23 @@ namespace WarCroft.Core
                 name = args[2];
             }
 
-            var characterClass = Assembly
-                .GetEntryAssembly()
-                .GetTypes()
-                .Where(c => (typeof(Character).IsAssignableFrom(c)) && typeof(Character) != c)
-                .FirstOrDefault(c => c.Name.Contains(characterType));
+            Character characterClass = null;
+
+            if (characterType == "Warrior")
+            {
+                characterClass = new Warrior(name);
+            }
+            else if (characterType == "Priest")
+            {
+                characterClass = new Priest(name);
+            }
 
             if (characterClass == null)
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.InvalidCharacterType, characterType));
             }
 
-            var character = (Character)Activator.CreateInstance(characterClass, new string[] { name });
-
-            characters.Add(character);
+            characters.Add(characterClass);
 
             return string.Format(SuccessMessages.JoinParty, name);
         }
@@ -53,19 +56,23 @@ namespace WarCroft.Core
         public string AddItemToPool(string[] args)
         {
             string itemName = args[0];
-            var item = Assembly
-                .GetEntryAssembly()
-                .GetTypes()
-                .Where(i => (typeof(Item).IsAssignableFrom(i)) && typeof(Item) != i)
-                .FirstOrDefault(c => c.Name == itemName);
+            Item item = null;
+
+            if (itemName == "HealthPotion")
+            {
+                item = new HealthPotion();
+            }
+            else if (itemName == "FirePotion")
+            {
+                item = new FirePotion();
+            }
 
             if (item == null)
             {
                 throw new ArgumentException(string.Format(ExceptionMessages.InvalidItem, itemName));
             }
 
-            var potion = (Item)Activator.CreateInstance(item);
-            items.Push(potion);
+            items.Push(item);
 
             return string.Format(SuccessMessages.AddItemToPool, itemName);
         }
@@ -117,7 +124,16 @@ namespace WarCroft.Core
                 .ThenByDescending(h => h.Health)
                 .ToList();
 
-            return string.Join(Environment.NewLine, sortedCharacters);
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var member in sortedCharacters)
+            {
+                string status = member.IsAlive == true ? "Alive" : "Dead";
+                sb.AppendLine(string.Format(SuccessMessages.CharacterStats
+                    , member.Name, member.Health, member.BaseHealth, member.Armor, member.BaseArmor, status));
+            }
+
+            return sb.ToString().TrimEnd();
         }
 
         public string Attack(string[] args)
@@ -188,13 +204,6 @@ namespace WarCroft.Core
 
             sb.AppendLine($"{healer.Name} heals {receiver.Name} for {healer.AbilityPoints}!" +
                 $" {receiver.Name} has {receiver.Health} health now!");
-
-            sb.AppendLine(string.Format(SuccessMessages.HealCharacter, 
-                healer.Name,
-                receiver.Name,
-                healer.AbilityPoints,
-                receiver.Name,
-                receiver.Health));
 
             return sb.ToString().TrimEnd();
         }

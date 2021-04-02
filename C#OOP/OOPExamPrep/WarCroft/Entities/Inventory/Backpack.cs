@@ -4,8 +4,8 @@
     {
         private const int backpackBaseCap = 100;
 
-        public Backpack() 
-            : base(backpackBaseCap)
+        public Backpack(int cap = backpackBaseCap) 
+            : base()
         {
         }
     }
