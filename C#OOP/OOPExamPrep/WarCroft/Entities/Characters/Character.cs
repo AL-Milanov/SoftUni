@@ -13,7 +13,7 @@ namespace WarCroft.Entities.Characters.Contracts
         private double baseArmor;
         private double armor;
 
-        public Character(string name, double health, double armor, double abilityPoints, IBag bag)
+        public Character(string name, double health, double armor, double abilityPoints, Bag bag)
         {
             Name = name;
             BaseHealth = health;

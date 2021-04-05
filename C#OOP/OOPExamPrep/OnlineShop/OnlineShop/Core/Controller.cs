@@ -149,7 +149,6 @@ namespace OnlineShop.Core
                 throw new ArgumentException($" Can't buy a computer with a budget of ${budget}.");
             }
 
-            computers.Remove(computer.Id);
             return computer.ToString();
         }
 

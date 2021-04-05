@@ -2,10 +2,10 @@
 {
     public class Backpack : Bag
     {
-        private const int backpackBaseCap = 100;
+        private const int capacity = 100;
 
-        public Backpack(int cap = backpackBaseCap) 
-            : base()
+        public Backpack() 
+            : base(capacity)
         {
         }
     }
