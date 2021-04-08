@@ -96,6 +96,7 @@
             }
 
             parts.Add(part.Model, part);
+
             return string.Format(
                 GlobalConstants.PartSuccessMessage,
                 partType,
