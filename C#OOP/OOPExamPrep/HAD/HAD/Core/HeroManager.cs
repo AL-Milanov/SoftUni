@@ -107,7 +107,7 @@ namespace HAD.Core
             {
                 
                 string itemLine = hero.Items.Count != 0
-                    ? string.Join(", ", hero.Items.Select(i => i.Name).Reverse())
+                    ? string.Join(", ", hero.Items.Select(i => i.Name))
                     : "None";
 
                 result

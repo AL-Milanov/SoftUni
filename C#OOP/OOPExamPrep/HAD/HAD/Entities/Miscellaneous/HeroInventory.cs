@@ -31,20 +31,19 @@ namespace HAD.Entities.Miscellaneous
         public void AddCommonItem(IItem item)
         {
             this.commonItems.Add(item.Name, item);
-
             this.CheckRecipes();
         }
 
         public void AddRecipeItem(IRecipe recipe)
         {
-            int count = 1;
-            this.recipeItems.Add($"{count}" + recipe.Name, recipe);
+
+            this.recipeItems.Add(recipe.Name, recipe);
             this.CheckRecipes();
         }
 
         private void CheckRecipes()
         {
-            foreach (var recipe in this.recipeItems.Values)
+            foreach (var recipe in this.recipeItems.Values.ToList())
             {
                 var requiredItems = new List<string>(recipe.RequiredItems);
 
@@ -68,7 +67,8 @@ namespace HAD.Entities.Miscellaneous
             for (int i = 0; i < recipe.RequiredItems.Count; i++)
             {
                 string item = recipe.RequiredItems[i];
-                this.commonItems.Remove(item);
+                string itemName = commonItems.Keys.First(n => n.Contains(item));
+                this.commonItems.Remove(itemName);
             }
 
             IItem newItem = new CommonItem(recipe.Name,
@@ -80,5 +80,6 @@ namespace HAD.Entities.Miscellaneous
 
             this.commonItems.Add(newItem.Name, newItem);
         }
+
     }
 }
