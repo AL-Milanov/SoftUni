@@ -8,27 +8,15 @@ namespace Computers.Tests
     {
         private ComputerManager computerManager;
         private Computer computer;
+        private const string manufacturer = "Asus";
+        private const string model = "B-12";
+        private const decimal price = 200;
 
         [SetUp]
         public void Setup()
         {
             computerManager = new ComputerManager();
-            computer = new Computer("Asus", "New 20", 200);
-        }
-
-        [Test]
-        public void Ctor_CounterIsZeroWhenInitialized()
-        {
-            Assert.That(computerManager.Count, Is.Zero);
-        }
-
-        [Test]
-        public void Ctor_WhenInitializedCreatesEmptyListOfComputers()
-        {
-            IReadOnlyCollection<Computer> expected = new List<Computer>();
-            var actual = computerManager.Computers;
-
-            Assert.That(expected, Is.EqualTo(actual));
+            computer = new Computer(manufacturer, model, price);
         }
 
         [Test]
@@ -50,10 +38,14 @@ namespace Computers.Tests
         [Test]
         public void AddComputer_WithCorrectData_ShouldIncreaseCount()
         {
-            int countBefore = computerManager.Count;
-            computerManager.AddComputer(computer);
+            Computer newAsus = new Computer(manufacturer, "New 2021", 1000);
+            Computer acer = new Computer("Acer", model, 200);
 
-            Assert.That(computerManager.Count, Is.EqualTo(countBefore + 1));
+            computerManager.AddComputer(computer);
+            computerManager.AddComputer(newAsus);
+            computerManager.AddComputer(acer);
+
+            Assert.That(computerManager.Count, Is.EqualTo(3));
         }
 
         [Test]
@@ -94,14 +86,6 @@ namespace Computers.Tests
         }
 
         [Test]
-        [TestCase(null, "SomeModel")]
-        [TestCase("SomeManufacturer", null)]
-        public void GetComputer_WithNullParameters_ShouldThrowArgumentNullException(string manufacturer, string model)
-        {
-            Assert.Throws<ArgumentNullException>(() => computerManager.GetComputer(manufacturer, model));
-        }
-
-        [Test]
         public void GetComputer_WhenThereIsNotSuchComputer_ShouldThrowArgumentException()
         {
             Assert.Throws<ArgumentException>(() => computerManager.GetComputer("InvalidManufacturer", "InvalidModel"));
@@ -120,24 +104,12 @@ namespace Computers.Tests
         [Test]
         public void GetComputersByManufacturer_WithCorrectData_ShouldReturnComputerCollection()
         {
-            List<Computer> computers = new List<Computer>();
-            string manufacturer = "Asus";
+            computerManager.AddComputer(computer);
+            computerManager.AddComputer(new Computer(manufacturer, "new Model", 2000));
+            computerManager.AddComputer(new Computer("Msi", "Model", 2000));
+            var allByManufacturer = computerManager.GetComputersByManufacturer(manufacturer);
 
-            for (int i = 0; i < 5; i++)
-            {
-                Computer customComputer = new Computer(manufacturer, $"{i}gen", 500);
-                computers.Add(customComputer);
-                computerManager.AddComputer(customComputer);
-            }
-
-            Assert.That(computerManager.GetComputersByManufacturer(manufacturer), Is.EqualTo(computers));
-        }
-        [Test]
-        public void GetComputersByManufacturer_WithNullData_ShouldReturnComputerCollection()
-        {
-            string manufacturer = null;
-
-            Assert.Throws<ArgumentNullException>(() => computerManager.GetComputersByManufacturer(manufacturer));
+            Assert.That(allByManufacturer.Count, Is.EqualTo(2));
         }
     }
 }
