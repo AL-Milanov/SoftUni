@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Text;
 
 namespace OnlineShop.IO
 {
     public class ConsoleWriter : IWriter
     {
+        
         public void CustomWriteLine(string text)
         {
             Console.WriteLine(text);

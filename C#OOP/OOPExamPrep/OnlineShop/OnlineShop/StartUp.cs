@@ -8,14 +8,11 @@ namespace OnlineShop
     {
         static void Main()
         {
-
-            // Clears output.txt file
             string pathFile = Path.Combine("..", "..", "..", "output.txt");
             File.Create(pathFile).Close();
 
             IReader reader = new ConsoleReader();
             IWriter writer = new ConsoleWriter();
-            IWriter fileWriter = new FileWriter(pathFile);
             ICommandInterpreter commandInterpreter = new CommandInterpreter();
             IController controller = new Controller();
 

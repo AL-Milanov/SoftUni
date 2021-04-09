@@ -2,11 +2,11 @@
 {
     public class Motherboard : Component
     {
-        private const double motherBoardMultiplier = 1.25; 
+        private const double MotherboardMultiplier = 1.25;
 
-        public Motherboard(int id, string manufacturer, string model,
-            decimal price, double overallPerformance, int generation) 
-            : base(id, manufacturer, model, price, overallPerformance * motherBoardMultiplier, generation)
+        public Motherboard(
+            int id, string manufacturer, string model, decimal price, double overallPerformance, int generation)
+            : base(id, manufacturer, model, price, overallPerformance * MotherboardMultiplier, generation)
         {
         }
     }

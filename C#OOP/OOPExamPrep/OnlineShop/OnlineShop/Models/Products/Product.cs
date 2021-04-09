@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineShop.Common.Constants;
+using System;
 
 namespace OnlineShop.Models.Products
 {
@@ -19,7 +20,6 @@ namespace OnlineShop.Models.Products
             OverallPerformance = overallPerformance;
         }
 
-
         public int Id
         {
             get => id;
@@ -27,21 +27,21 @@ namespace OnlineShop.Models.Products
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Id can not be less or equal than 0.");
+                    throw new ArgumentException(ExceptionMessages.InvalidProductId);
                 }
 
                 id = value;
             }
         }
 
-        public string Manufacturer
+        public string Manufacturer 
         {
             get => manufacturer;
             private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Manufacturer can not be empty.");
+                    throw new ArgumentException(ExceptionMessages.InvalidManufacturer);
                 }
 
                 manufacturer = value;
@@ -55,21 +55,21 @@ namespace OnlineShop.Models.Products
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Model can not be empty.");
+                    throw new ArgumentException(ExceptionMessages.InvalidModel);
                 }
 
                 model = value;
             }
         }
 
-        public virtual decimal Price
+        public virtual decimal Price 
         {
             get => price;
             private set
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Price can not be less or equal than 0.");
+                    throw new ArgumentException(ExceptionMessages.InvalidPrice);
                 }
 
                 price = value;
@@ -83,7 +83,7 @@ namespace OnlineShop.Models.Products
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Overall Performance can not be less or equal than 0.");
+                    throw new ArgumentException(ExceptionMessages.InvalidOverallPerformance);
                 }
 
                 overallPerformance = value;
@@ -92,8 +92,13 @@ namespace OnlineShop.Models.Products
 
         public override string ToString()
         {
-            return $"Overall Performance: {OverallPerformance:f2}" +
-                $". Price: {Price:f2} - {GetType().Name}: {Manufacturer} {Model} (Id: {Id})";
+            return string.Format(SuccessMessages.ProductToString,
+                $"{OverallPerformance:f2}",
+                $"{Price:f2}", 
+                GetType().Name,
+                Manufacturer,
+                Model,
+                Id);
         }
     }
 }

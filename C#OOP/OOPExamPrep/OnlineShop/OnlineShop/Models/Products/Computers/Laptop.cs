@@ -2,10 +2,10 @@
 {
     public class Laptop : Computer
     {
-        private const double laptopOverallPerformance = 10;
+        private const double LaptopPerformance = 10;
 
         public Laptop(int id, string manufacturer, string model, decimal price) 
-            : base(id, manufacturer, model, price, laptopOverallPerformance)
+            : base(id, manufacturer, model, price, LaptopPerformance)
         {
         }
     }

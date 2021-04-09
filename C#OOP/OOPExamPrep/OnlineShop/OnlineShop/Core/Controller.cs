@@ -1,39 +1,40 @@
-﻿using OnlineShop.Common.Enums;
+﻿using OnlineShop.Common.Constants;
+using OnlineShop.Common.Enums;
 using OnlineShop.Models.Products.Components;
 using OnlineShop.Models.Products.Computers;
 using OnlineShop.Models.Products.Peripherals;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace OnlineShop.Core
 {
     public class Controller : IController
     {
-        private Dictionary<int, IComputer> computers;
-        private List<IComponent> components;
-        private List<IPeripheral> peripherals;
+        private readonly Dictionary<int, IComputer> computers;
+        private readonly Dictionary<int, IComponent> components;
+        private readonly Dictionary<int, IPeripheral> peripherals;
 
         public Controller()
         {
             computers = new Dictionary<int, IComputer>();
-            components = new List<IComponent>();
-            peripherals = new List<IPeripheral>();
+            components = new Dictionary<int, IComponent>();
+            peripherals = new Dictionary<int, IPeripheral>();
         }
 
-        public string AddComponent(int computerId, int id, string componentType,
-            string manufacturer, string model, decimal price, double overallPerformance, int generation)
+        public string AddComponent(
+            int computerId, int id, string componentType, string manufacturer, 
+            string model, decimal price, double overallPerformance, int generation)
         {
-            ComputerExist(computerId);
+            ComputerExcist(computerId);
 
-            var componentExist = components.FirstOrDefault(c => c.Id == id);
-
-            if (componentExist != null)
+            if (components.ContainsKey(id))
             {
-                throw new ArgumentException("Component with this id already exists.");
+                throw new ArgumentException(ExceptionMessages.ExistingComponentId);
             }
 
             IComponent component = null;
+
             if (componentType == ComponentType.CentralProcessingUnit.ToString())
             {
                 component = new CentralProcessingUnit(id, manufacturer, model, price, overallPerformance, generation);
@@ -61,54 +62,55 @@ namespace OnlineShop.Core
 
             if (component == null)
             {
-                throw new ArgumentException("Component type is invalid.");
+                throw new ArgumentException(ExceptionMessages.InvalidComponentType);
             }
 
             computers[computerId].AddComponent(component);
-            components.Add(component);
-            return $"Component {componentType} with id {id} added successfully in computer with id {computerId}.";
+            components.Add(id, component);
+
+            return string.Format(SuccessMessages.AddedComponent, componentType, id, computerId);
         }
 
         public string AddComputer(string computerType, int id, string manufacturer, string model, decimal price)
         {
-            //doesnt have to check if id exist
             if (computers.ContainsKey(id))
             {
-                throw new ArgumentException("Computer with this id already exists.");
+                throw new ArgumentException(ExceptionMessages.ExistingComputerId);
             }
 
             IComputer computer = null;
 
-            if (computerType == ComputerType.Laptop.ToString())
-            {
-                computer = new Laptop(id, manufacturer, model, price);
-            }
-            else if (computerType == ComputerType.DesktopComputer.ToString())
+            if (computerType == ComputerType.DesktopComputer.ToString())
             {
                 computer = new DesktopComputer(id, manufacturer, model, price);
+            }
+            else if (computerType == ComputerType.Laptop.ToString())
+            {
+                computer = new Laptop(id, manufacturer, model, price);
             }
 
             if (computer == null)
             {
-                throw new ArgumentException("Computer type is invalid.");
+                throw new ArgumentException(ExceptionMessages.InvalidComputerType);
             }
 
             computers.Add(id, computer);
-            return $"Computer with id {id} added successfully.";
+
+            return string.Format(SuccessMessages.AddedComputer, id);
         }
 
-        public string AddPeripheral(int computerId, int id, string peripheralType,
+        public string AddPeripheral(int computerId, int id, string peripheralType, 
             string manufacturer, string model, decimal price, double overallPerformance, string connectionType)
         {
-            ComputerExist(computerId);
+            ComputerExcist(computerId);
 
-            var peripheralExist = peripherals.FirstOrDefault(p => p.Id == id);
-            if (peripheralExist != null)
+            if (peripherals.ContainsKey(id))
             {
-                throw new ArgumentException("Peripheral with this id already exists.");
+                throw new ArgumentException(ExceptionMessages.ExistingPeripheralId);
             }
 
             IPeripheral peripheral = null;
+
             if (peripheralType == PeripheralType.Headset.ToString())
             {
                 peripheral = new Headset(id, manufacturer, model, price, overallPerformance, connectionType);
@@ -128,71 +130,74 @@ namespace OnlineShop.Core
 
             if (peripheral == null)
             {
-                throw new ArgumentException("Peripheral type is invalid.");
+                throw new ArgumentException(ExceptionMessages.InvalidPeripheralType);
             }
 
             computers[computerId].AddPeripheral(peripheral);
-            peripherals.Add(peripheral);
-            return $"Peripheral {peripheral.GetType().Name} with id {id} added successfully " +
-                $"in computer with id {computerId}.";
+            peripherals.Add(id, peripheral);
+
+            return string.Format(SuccessMessages.AddedPeripheral, peripheralType, id, computerId);
         }
 
         public string BuyBest(decimal budget)
         {
-            //doesnt have to check if id exist
-            var computer = computers.Values
+            var bestBuyComputers = computers.Values
                 .OrderByDescending(c => c.OverallPerformance)
-                .FirstOrDefault(c => c.Price <= budget);
+                .Where(p => p.Price <= budget)
+                .FirstOrDefault();
 
-            if (computer == null)
+            if (bestBuyComputers == null)
             {
-                throw new ArgumentException($" Can't buy a computer with a budget of ${budget}.");
+                throw new ArgumentException(string.Format(ExceptionMessages.CanNotBuyComputer, budget));
             }
 
-            return computer.ToString();
+            computers.Remove(bestBuyComputers.Id);
+
+            return bestBuyComputers.ToString();
         }
 
         public string BuyComputer(int id)
         {
-            ComputerExist(id);
-            IComputer computer = computers[id];
+            ComputerExcist(id);
+
+            var computerToRemove = computers[id];
             computers.Remove(id);
 
-            return computer.ToString();
+            return computerToRemove.ToString();
         }
 
         public string GetComputerData(int id)
         {
-            ComputerExist(id);
+            ComputerExcist(id);
 
             return computers[id].ToString();
         }
 
         public string RemoveComponent(string componentType, int computerId)
         {
-            ComputerExist(computerId);
-            var component = components.FirstOrDefault(c => c.GetType().Name == componentType);
-            computers[computerId].RemoveComponent(componentType);
-            components.Remove(component);
+            ComputerExcist(computerId);
 
-            return $"Successfully removed {componentType} with id {component.Id}.";
+            var componentToRemove = computers[computerId].RemoveComponent(componentType);
+            components.Remove(componentToRemove.Id);
+
+            return string.Format(SuccessMessages.RemovedComponent, componentType, componentToRemove.Id);
         }
 
         public string RemovePeripheral(string peripheralType, int computerId)
         {
-            ComputerExist(computerId);
-            var peripheral = peripherals.FirstOrDefault(p => p.GetType().Name == peripheralType);
-            computers[computerId].RemovePeripheral(peripheralType);
-            peripherals.Remove(peripheral);
+            ComputerExcist(computerId);
 
-            return $"Successfully removed {peripheralType} with id {peripheral.Id}.";
+            var peripheralToRemove = computers[computerId].RemovePeripheral(peripheralType);
+            peripherals.Remove(peripheralToRemove.Id);
+
+            return string.Format(SuccessMessages.RemovedPeripheral, peripheralType, peripheralToRemove.Id);
         }
 
-        private void ComputerExist(int computerId)
+        private void ComputerExcist(int computerId)
         {
-            if (computers.ContainsKey(computerId) == false)
+            if (!computers.ContainsKey(computerId))
             {
-                throw new ArgumentException("Computer with this id does not exist.");
+                throw new ArgumentException(ExceptionMessages.NotExistingComputerId);
             }
         }
     }

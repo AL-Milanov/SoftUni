@@ -2,13 +2,12 @@
 {
     public class CentralProcessingUnit : Component
     {
-        private const double centralProcessingUnitMultiplyer = 1.25;
+        private const double CentralProcessingUnitMultiplier = 1.25;
 
-        public CentralProcessingUnit(int id, string manufacturer, string model, decimal price,
-            double overallPerformance, int generation) 
-            : base(id, manufacturer, model, price, overallPerformance * centralProcessingUnitMultiplyer, generation)
+        public CentralProcessingUnit(
+            int id, string manufacturer, string model, decimal price, double overallPerformance, int generation) 
+            : base(id, manufacturer, model, price, overallPerformance * CentralProcessingUnitMultiplier, generation)
         {
-
         }
     }
 }
