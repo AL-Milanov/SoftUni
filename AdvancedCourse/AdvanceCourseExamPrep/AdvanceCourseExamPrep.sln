@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "20.JediGalaxy", "20.JediGal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "21.DangerousFloor", "21.DangerousFloor\21.DangerousFloor.csproj", "{92A4EC50-4927-4DD4-851B-B08B02FCD1F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "22.CryptoMaster", "22.CryptoMaster\22.CryptoMaster.csproj", "{F023D575-9F3A-4833-89CA-AB68393A3A7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "22.CryptoMaster", "22.CryptoMaster\22.CryptoMaster.csproj", "{F023D575-9F3A-4833-89CA-AB68393A3A7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "23.Monopoly", "23.Monopoly\23.Monopoly.csproj", "{CF4CED05-23C7-444D-99B1-CBD5290BA9B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +113,10 @@ Global
 		{F023D575-9F3A-4833-89CA-AB68393A3A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F023D575-9F3A-4833-89CA-AB68393A3A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F023D575-9F3A-4833-89CA-AB68393A3A7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4CED05-23C7-444D-99B1-CBD5290BA9B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4CED05-23C7-444D-99B1-CBD5290BA9B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4CED05-23C7-444D-99B1-CBD5290BA9B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4CED05-23C7-444D-99B1-CBD5290BA9B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
