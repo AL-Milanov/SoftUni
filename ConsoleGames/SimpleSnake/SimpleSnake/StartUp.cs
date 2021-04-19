@@ -1,7 +1,10 @@
 ﻿namespace SimpleSnake
 {
     using SimpleSnake.GameObjects;
+    using SimpleSnake.GameObjects.FoodTypes;
     using Utilities;
+    using System;
+    using System.Collections.Generic;
 
     public class StartUp
     {
@@ -9,10 +12,8 @@
         {
             ConsoleWindow.CustomizeConsole();
             Wall wall = new Wall(100, 40);
+            Food food = new FoodDollar(wall);
 
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine();
         }
     }
 }
