@@ -13,7 +13,10 @@
             ConsoleWindow.CustomizeConsole();
             Wall wall = new Wall(100, 40);
             Food food = new FoodDollar(wall);
+            Snake sna = new Snake();
 
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 }
