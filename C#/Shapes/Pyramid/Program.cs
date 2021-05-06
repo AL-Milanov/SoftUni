@@ -1,14 +1,14 @@
-﻿using Shapes.Contracts;
-
-namespace Shapes
+﻿namespace Shapes
 {
     class Program
     {
         static void Main(string[] args)
         {
-            IDrawer drawer = new Pyramid(10);
+            Shape pyramid = new Pyramid(4);
+            Shape rectangle = new Rectangle(6);
 
-            drawer.Draw();
+            rectangle.Draw();
+            pyramid.Draw();
         }
     }
 }

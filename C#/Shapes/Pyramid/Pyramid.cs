@@ -1,28 +1,28 @@
-﻿using Shapes.Contracts;
-using System;
+﻿using System;
 
 namespace Shapes
 {
-    class Pyramid : IDrawer
+    public class Pyramid : Shape
     {
         private int height;
 
-        public Pyramid(int height)
+        public Pyramid(params int[] height)
+            :base(height)
         {
-            Height = height;
+            Height = height[0];
         }
 
         public int Height { get => height; private set => height = value; }
 
-        public void Draw()
+        public override void Draw()
         {
-            for (int i = 0; i < height; i++)
+            for (int i = 1; i <= height; i++)
             {
                 for (int j = 1; j <= height - i; j++)
                 {
                     Console.Write(" ");
                 }
-                for (int j = 1; j <= 2*i -1; j++)
+                for (int j = 1; j <= 2 * i - 1; j++)
                 {
                     Console.Write("*");
                 }
