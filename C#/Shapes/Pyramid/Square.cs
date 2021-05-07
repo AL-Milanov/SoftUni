@@ -2,29 +2,27 @@
 
 namespace Shapes
 {
-    public class Rectangle : Shape
+    public class Square : Shape
     {
-        public Rectangle(params int[] side)
+        private int side;
+
+        public Square(params int[] side)
             : base(side)
         {
-            SideY = side[0];
-            SideX = side[1];
+            Side = side[0];
         }
 
-        public int SideY { get; private set; }
-
-        public int SideX { get; private set; }
+        public int Side { get => side; private set => side = value; }
 
         public override void Draw()
         {
-            for (int i = 0; i < SideX; i++)
+            for (int i = 0; i < side; i++)
             {
-                for (int j = 0; j < SideY; j++)
+                for (int j = 0; j < side; j++)
                 {
-
-                    if (i != 0 && i != SideX - 1)
+                    if (i != 0 && i != side - 1)
                     {
-                        if (j == 0 || j == SideY - 1)
+                        if (j == 0 || j == side - 1)
                         {
                             Console.Write("*");
                         }
