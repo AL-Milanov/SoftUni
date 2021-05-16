@@ -6,9 +6,9 @@ namespace MyCalculator
     {
         static void Main(string[] args)
         {
-            Calculator calculator = new Binary();
+            Calculator calculator = new ToDecimal();
 
-            Console.WriteLine(calculator.Calculate(100));
+            Console.WriteLine(calculator.Calculate(1111101000));
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MyCalculator
 {
-    public class Binary : Calculator
+    public class ToBinary : Calculator
     {
         public override string Calculate(int number)
         {
@@ -10,8 +10,8 @@ namespace MyCalculator
 
             while (true)
             {
-                int lastNumber = number % 2;
-                result.Insert(0, lastNumber);
+                int zeroOrOne = number % 2;
+                result.Insert(0, zeroOrOne);
                 number /= 2;
 
                 if (number == 0)
