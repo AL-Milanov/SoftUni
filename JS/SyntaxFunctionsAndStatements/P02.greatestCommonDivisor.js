@@ -26,3 +26,15 @@ function solve(firstNumber, secondNumber){
 }
 
 solve(15, 5)
+
+
+function gcdAlgorithm(x, y){
+    while(y) {
+        let temp = y;
+        y = x % y;
+        x = temp;
+      }
+      return x;
+}
+
+console.log(gcdAlgorithm(10, 11));
