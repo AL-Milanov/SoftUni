@@ -12,10 +12,7 @@ function solve(array){
         }
     }
 
-    if (result.length == 0) {
-        return 'Empty';
-    }
-    return result.join('\n');
+    return result.length == 0 ? 'Empty' : result.join('\n');
 }
 
 console.log(solve(['add', 
