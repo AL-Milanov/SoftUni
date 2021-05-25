@@ -9,10 +9,10 @@ function solve(array, n){
     return result;
 }
 
-solve(['5', 
+console.log(solve(['5', 
 '20', 
 '31', 
 '4', 
 '20'], 
-7
-)
+2
+));
