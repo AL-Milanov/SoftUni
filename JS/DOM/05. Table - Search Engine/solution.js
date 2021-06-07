@@ -18,5 +18,7 @@ function solve() {
             row.classList.add('select');
          }
       }
+
+      searchField.value = '';
    }
 }
