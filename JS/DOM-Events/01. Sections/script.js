@@ -14,7 +14,7 @@ function create(words) {
       div.appendChild(p);
       idElement.appendChild(div);
 
-      div.addEventListener('click', (e) => {
+      div.addEventListener('click', () => {
          p.style.display = 'block';
       });
 
