@@ -23,7 +23,7 @@ function solve(input) {
 }
 
 console.log(solve(['Appricot : 20.4',
-    'Fridge : 1500',
+    'AFridge : 1500',
     'TV : 1499',
     'Deodorant : 10',
     'Boiler : 300',
