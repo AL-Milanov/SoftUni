@@ -19,3 +19,4 @@ let mathEnforcer = {
     }
 };
 
+module.exports = mathEnforcer;
