@@ -25,4 +25,4 @@
             return acc;
         }, 0) / this.length;
     };
-})
+})();
