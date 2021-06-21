@@ -3,7 +3,7 @@ let myStr = 'my string';
 (function solve() {
     String.prototype.ensureStart = function (str) {
         let result = '';
-        if (this.startsWith(str, 0)) {
+        if (this.startsWith(str)) {
             result = this.valueOf();
         } else {
             result = this.slice(0, 0) + str + this.slice(0);
@@ -30,45 +30,32 @@ let myStr = 'my string';
     };
 
     String.prototype.truncate = function (n) {
-        let result = '';
-        if (this.length < n) {
-            result = this.valueOf();
-        } else if (n < 4) {
-            for (let i = 0; i < n; i++) {
-                result += '.';
-            }
-        } else {
-            let splitted = this.valueOf().split(' ');
-            if (splitted.length === 1) {
-                result = splitted[0].slice(0, (n - 3)) + '...';
-            } else {
-                for (let i = 0; i < splitted.length - 1; i++) {
-                    if (i < splitted.length - 2) {
-                        splitted[i] += ' ';
-                    }
-                }
-                splitted[splitted.length - 1] = '...';
-                while (splitted.length !== 0) {
-                    result += splitted.shift();
-                }
-                while (result.length > n) {
-                    result = result.slice(0, -1);
-                }
-                if (!result.endsWith('...')) {
-                    result = result.slice(0, 3) + '...';
-                }
-            }
+        if (this.length <= n) {
+            return this.toString();
         }
 
-        return result;
+        if (this.includes(' ')) {
+           let words = this.split(' ');
+           while(words.join(' ').length + 3 > n){
+               words.pop();
+           }
+           let sentence = `${words.join(' ')}...`;
+           return sentence;
+        }
+
+        if (n > 3) {
+            let string = `${this.slice(0, n -3)}...`
+            return string;
+        }
+
+        return '.'.repeat(n);
     }
 
     String.format = function (string, ...params) {
-        let y = params;
         let result = string;
         while (params.length !== 0) {
-            result = result.replace(/\{\d+\}/, function (el) {
-                return el = y.shift() || el;
+            result = result.replace(/\{\d+\}/g, function (el) {
+                return el = params.shift() || el;
             });
         }
         return result;

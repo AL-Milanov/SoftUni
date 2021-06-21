@@ -1,23 +1,27 @@
 function extensibleObject() {
-    return {
+    let obj = {
         extend: function (template) {
             for (var key in template) {
-                this[key] = template[key];
+                if (typeof (template[key]) === "function") {
+                    Object.getPrototypeOf(obj)[key] = template[key];
+                } else {
+                    obj[key] = template[key];
+                }
             }
-            return this;
         }
-    };
+    }
+    return obj;
 }
 
 const myObj = extensibleObject();
 
-var template = {
+let template = {
     extensionMethod: function () {
         console.log("From extension method")
     }
 };
 
-var testObject = extensibleObject();
+let testObject = extensibleObject();
 testObject.extend(template);
 console.log(testObject);
 console.log(testObject.extensionMethod());
