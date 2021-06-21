@@ -38,14 +38,14 @@ function solve() {
     class Manager extends Employee {
         constructor(name, age){
             super(name, age);
-            
-            this.divident = 0;
+
+            this.dividend = 0;
             this.tasks.push('scheduled a meeting.');
             this.tasks.push('is preparing a quarterly report.');
         }
 
         collectSalary(){
-            console.log(`${this.name} received ${this.salary + this.divident} this month.`);
+            console.log(`${this.name} received ${this.salary + this.dividend} this month.`);
         }
     }
 
@@ -61,5 +61,6 @@ let classes = solve();
 const junior = new classes.Manager('Ivan', 25);
 console.log(junior.hasOwnProperty('salary'));
 junior.salary = 500;
+junior.collectSalary();
 junior.divident = 5000;
-console.log(junior.collectSalary());
+console.log(junior.divident);
