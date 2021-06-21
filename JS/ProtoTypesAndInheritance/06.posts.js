@@ -6,7 +6,7 @@ function solve() {
         }
 
         toString() {
-            let result = `Post: ${this.title}\r\n`;
+            let result = `Post: ${this.title}\n`;
             result += `Content: ${this.content}`;
             return result;
         }
@@ -15,43 +15,41 @@ function solve() {
     class SocialMediaPost extends Post {
         constructor(title, content, likes, dislikes) {
             super(title, content);
-            this._likes = likes;
-            this._dislikes = dislikes;
-            this._comments = [];
+            this.likes = likes;
+            this.dislikes = dislikes;
+            this.comments = [];
         }
 
         addComment(comment) {
-            this._comments.push(comment);
+            this.comments.push(comment);
         }
 
         toString() {
-            let result = super.toString();
-            result += '\r\n';
-            result += `Rating: ${this._likes} - ${this._dislikes}\r\n`;
-            if (this._comments.length !== 0) {
-                result += 'Comments:\n'
-                this._comments.forEach(el => result += ` * ${el}\r\n`);
-            }
-            return result;
+            let baseToString = super.toString();
+            let commentsString = this.comments.map(c => ` * ${c}`).join('\n');
+            let fullCommentsString = this.comments.length > 0 
+            ? `\nComments:\n${commentsString}`
+            : '';
+            return `${baseToString}
+Rating: ${this.likes - this.dislikes}${fullCommentsString}`;
         }
     }
 
     class BlogPost extends Post{
-        constructor(title, content){
+        constructor(title, content, views){
             super(title, content);
 
-            this._views = 0;
+            this.views = views;
         }
 
         view(){
-            this._views += 1;
-
+            this.views += 1;
             return this;
         }
 
         toString(){
-            let result = super.toString();
-            result += `\nViews: ${this.views}`;
+            let result = super.toString() + '\n';
+            result += `Views: ${this.views}`;
 
             return result;
         }
@@ -65,11 +63,9 @@ function solve() {
 }
 
 const classes = solve();
-let post = new classes.BlogPost('Greetings', 'hello');
-post.view();
-post.view();
-let x = post.view();
+let post = new classes.SocialMediaPost('Greetings', 'hello', 3, 3);
+//post.view().view().view();
 //post.addComment('supper');
-//post.addComment('its');
-//post.addComment('supp');
+post.addComment('its');
+post.addComment('supp');
 console.log(post.toString());
