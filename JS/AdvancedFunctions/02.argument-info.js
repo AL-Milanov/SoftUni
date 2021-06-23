@@ -1,4 +1,4 @@
-function solve(...args) {
+function solution(...args) {
     let result = [];
 
     function getTypes(element) {
@@ -36,4 +36,4 @@ function solve(...args) {
     return result;
 }
 
-console.log(solve('cat', 42, function () { console.log('Hello world!'); }));
+console.log(solution('cat', 42, function () { console.log('Hello world!'); }));
