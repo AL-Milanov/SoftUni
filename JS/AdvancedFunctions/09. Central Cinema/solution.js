@@ -36,8 +36,8 @@ function solve() {
             moviesUlElement.appendChild(movieLi);
 
             archiveBtn.addEventListener('click', () => {
-                
-                if (Number(ticketsSoldInput.value)) {
+
+                if (Number(ticketsSoldInput.value) || ticketsSoldInput.value === '0') {
                     let ticketsSold = Number(ticketsSoldInput.value);
 
                     let archiveElement = document.querySelector('#archive ul');
