@@ -22,7 +22,15 @@ function attachEvents() {
     submitBtnElement.addEventListener('click', () => {
 
         let searchedCity = locationInputElement.value;
+        forecastDivElement.style.display = 'block';
         let code = '';
+
+        if (currentWeatherDivElement.children.length > 1) {
+            currentWeatherDivElement.lastChild.remove();
+        }
+        if (upcomingWeatherDivElement.children.length > 1) {
+            upcomingWeatherDivElement.lastChild.remove();
+        }
 
         fetch(locationBaseUrl)
             .then(response => response.json())
@@ -37,7 +45,6 @@ function attachEvents() {
             })
             .then(response => response.json())
             .then(data => {
-                forecastDivElement.style.display = 'block';
 
                 let forecastDiv = document.createElement('div');
                 forecastDiv.classList.add('forecasts');
@@ -108,16 +115,16 @@ function attachEvents() {
             .catch(error => {
 
                 let forecastDiv = document.createElement('div');
-                let currentTempDiv = document.querySelector('#forecast .forecasts');
-
-                currentTempDiv.remove();
-
-                currentWeatherDivElement.appendChild(forecastDiv);
                 forecastDiv.textContent = 'Error';
 
-                let forecastInfoDiv = document.querySelector('#upcoming .forecast-info');
-                forecastInfoDiv.remove();
+                currentWeatherDivElement.appendChild(forecastDiv);
+
             })
+
+
+            function clear(){
+                let currentElement = Array.from(document.querySelectorAll('#current'));
+            }
 
     });
 }
