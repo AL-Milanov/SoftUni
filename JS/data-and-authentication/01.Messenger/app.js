@@ -32,7 +32,8 @@ function attachEvents() {
     refreshBtn.addEventListener('click', () => {
 
         let msgBox = document.getElementById('messages');
-
+        msgBox.textContent = '';
+        
         fetch(baseUrl)
             .then(response => response.json())
             .then(data => {
