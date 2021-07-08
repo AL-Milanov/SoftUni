@@ -55,22 +55,22 @@ function reloadList() {
             Object.values(data).forEach(student => {
                 let tr = document.createElement('tr');
 
-                let firstNameTh = document.createElement('td');
-                firstNameTh.textContent = student.firstName;
+                let firstNameTd = document.createElement('td');
+                firstNameTd.textContent = student.firstName;
 
-                let lastNameTh = document.createElement('td');
-                lastNameTh.textContent = student.lastName;
+                let lastNameTd = document.createElement('td');
+                lastNameTd.textContent = student.lastName;
 
-                let facultyNumberTh = document.createElement('td');
-                facultyNumberTh.textContent = student.facultyNumber;
+                let facultyNumberTd = document.createElement('td');
+                facultyNumberTd.textContent = student.facultyNumber;
 
-                let gradeTh = document.createElement('td');
-                gradeTh.textContent = student.grade.toFixed(2);
+                let gradeTd = document.createElement('td');
+                gradeTd.textContent = student.grade.toFixed(2);
 
-                tr.appendChild(firstNameTh);
-                tr.appendChild(lastNameTh);
-                tr.appendChild(facultyNumberTh);
-                tr.appendChild(gradeTh);
+                tr.appendChild(firstNameTd);
+                tr.appendChild(lastNameTd);
+                tr.appendChild(facultyNumberTd);
+                tr.appendChild(gradeTd);
 
                 resultsTableElement.appendChild(tr);
             })
