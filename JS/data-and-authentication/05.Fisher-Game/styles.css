@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+.hidden{
+    display: none;
+}
+
 body {
     font-family: 'Open Sans', serif;
     background: #eaeaea;
