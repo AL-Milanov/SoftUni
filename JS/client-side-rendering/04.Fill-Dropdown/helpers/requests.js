@@ -1,4 +1,4 @@
-import { render } from "lit-html";
+import { render } from "../../node_modules/lit-html/lit-html.js";
 import { loadOption } from "../templates/dropDownTemplate.js";
 
 const baseUrl = `http://localhost:3030/jsonstore/advanced/dropdown`;
