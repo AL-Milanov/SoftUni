@@ -18,15 +18,15 @@ let viewContainerRenderer = myRenderer(viewContainer);
 
 navBar.initialize(page, navRenderer);
 dashboard.initialize(page, viewContainerRenderer);
-login.initialize(page, viewContainerRenderer);
-register.initialize(page, viewContainerRenderer);
+login.initialize(page, viewContainerRenderer, navBar);
+register.initialize(page, viewContainerRenderer, navBar);
 logoutPage.initialize(page, viewContainerRenderer);
 createFurniture.initialize(page, viewContainerRenderer);
 details.initialize(page, viewContainerRenderer);
 edit.initialize(page, viewContainerRenderer);
 myFurniture.initialize(page, viewContainerRenderer);
 
-page('*', navBar.loadPage);
+page(navBar.loadPage);
 
 page('/details/:id', details.loadPage);
 page('/dashboard', dashboard.loadPage);

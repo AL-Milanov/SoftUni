@@ -11,8 +11,8 @@ export let getFurnitures = () => {
 export let getMyFurnitures = () => {
     let user = getUserData();
     return fetch(`${baseUrl}/data/catalog?where=_ownerId%3D%22${user.userId}%22`)
-    .then(response => response.json())
-    .catch(err => alert(err));
+        .then(response => response.json())
+        .catch(err => alert(err));
 }
 
 export let getFurniture = (id) => {
@@ -74,7 +74,6 @@ export let userLoginOrRegister = (action, user) => {
         body: JSON.stringify(user)
     })
         .then(response => response.json())
-        .catch(err => alert(err));
 }
 
 export let logoutRequest = (token) => {

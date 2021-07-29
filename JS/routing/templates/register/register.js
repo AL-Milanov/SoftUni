@@ -1,6 +1,7 @@
 import { registerPageTemplate } from "./registerPageTemplate.js";
 import { isEmptyOrSpaces } from "../../helpers/isNullOrSpace.js";
 import { register } from "../../authServices/authServices.js";
+import { userLoginOrRegister } from "../../serverRequests/requests.js";
 
 let pageRouter, pageRenderer;
 
@@ -40,11 +41,19 @@ function submitHandler(e) {
         password
     }
 
-    register(user);
+    userLoginOrRegister('register', user).then(data => {
+        if (data.code == 409) {
+            throw new Error('User exists')
+        }
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('userId', data._id);
+        localStorage.setItem('username', data.email);
+
+        pageRouter.redirect('/dashboard');
+    })
+        .catch(err => alert(err));
 
     e.target.reset();
-
-    pageRouter.redirect('/dashboard');
 }
 
 

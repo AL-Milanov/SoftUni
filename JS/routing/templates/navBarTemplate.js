@@ -4,7 +4,7 @@ export let navBarTemplate = (isLogged) => html`
 <header>
     <h1><a href="/">Furniture Store</a></h1>
     <nav>
-        <a id="catalogLink" href="/" class="active">Dashboard</a>
+        <a id="catalogLink" href="/">Dashboard</a>
         ${
             isLogged ? html`
         <div id="user">

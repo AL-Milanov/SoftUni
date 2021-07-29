@@ -1,5 +1,6 @@
 import { login } from "../../authServices/authServices.js";
 import { isEmptyOrSpaces } from "../../helpers/isNullOrSpace.js";
+import { userLoginOrRegister } from "../../serverRequests/requests.js";
 import { loginPageTemplate } from "./loginPageTemplate.js";
 
 let pageRouter, pageRenderer;
@@ -7,6 +8,7 @@ let pageRouter, pageRenderer;
 function initialize(router, render) {
     pageRouter = router;
     pageRenderer = render;
+
 }
 
 function loadPage(context, next) {
@@ -33,10 +35,20 @@ function submitHandler(e) {
         password
     }
 
-    login(user);
+    userLoginOrRegister('login', user).then(data => {
+        if (data.accessToken === undefined) {
+            throw new Error('Wrong username or password!');
+        }
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('userId', data._id);
+        localStorage.setItem('username', data.email);
+
+        pageRouter.redirect('/dashboard');
+    })
+        .catch(err => alert(err));
+
     e.target.reset();
 
-    pageRouter.redirect('/dashboard');
 }
 
 

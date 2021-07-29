@@ -6,10 +6,14 @@ export let isLoggedIn = () => {
 
 export let login = (user) => {
     userLoginOrRegister('login', user).then(data => {
+        if (data.accessToken === undefined) {
+            throw new Error('Wrong username or password!');
+        }
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('userId', data._id);
         localStorage.setItem('username', data.email);
-    });
+    })
+    .catch(err => alert(err));
 }
 
 export let register = (user) => {
@@ -17,7 +21,8 @@ export let register = (user) => {
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('userId', data._id);
         localStorage.setItem('username', data.email);
-    });
+    })
+    .catch(err => alert(err));
 }
 
 export let logout = () => {
