@@ -5,5 +5,6 @@ package-lock
 node_modules
 Tests
 .Tests
-Test
-.Test
+.jpeg
+.img
+.jpg
