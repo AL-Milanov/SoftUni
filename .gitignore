@@ -3,3 +3,7 @@ obj
 package
 package-lock
 node_modules
+Tests
+.Tests
+Test
+.Test
