@@ -16,7 +16,7 @@ namespace SoftUni
         {
             var dbContext = new SoftUniContext();
 
-            Console.WriteLine(GetEmployeesByFirstNameStartingWithSa(dbContext));
+            Console.WriteLine(RemoveTown(dbContext));
         }
 
         public static string GetEmployeesFullInformation(SoftUniContext context)
@@ -283,5 +283,60 @@ namespace SoftUni
             return sb.ToString().TrimEnd();
         }
 
+        public static string DeleteProjectById(SoftUniContext context)
+        {
+            var projectIdToRemove = 2;
+            StringBuilder sb = new StringBuilder();
+
+            var employeeProjects = context.EmployeesProjects
+                .Where(p => p.ProjectId == projectIdToRemove)
+                .ToList();
+
+            foreach (var employeeProject in employeeProjects)
+            {
+                context.EmployeesProjects.Remove(employeeProject);
+            }
+
+            context.SaveChanges();
+
+            var projectToRemove = context.Projects.Where(p => p.ProjectId == projectIdToRemove).FirstOrDefault();
+            context.Projects.Remove(projectToRemove);
+
+            context.SaveChanges();
+
+            var projects = context.Projects.Take(10).ToList();
+
+            foreach (var project in projects)
+            {
+                sb.AppendLine(project.Name);
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        public static string RemoveTown(SoftUniContext context)
+        {
+            var townToRemove = "Seattle";
+
+            var seattleTown = context.Towns.FirstOrDefault(t => t.Name == townToRemove);
+            var addressesFromSeattle = context.Addresses.Where(a => a.Town == seattleTown).ToList();
+            var employeesFromSeattle = context.Employees.Where(e => addressesFromSeattle.Contains(e.Address));
+
+            foreach (var employee in employeesFromSeattle)
+            {
+                employee.Address = null;
+            }
+
+            foreach (var address in addressesFromSeattle)
+            { 
+                context.Addresses.Remove(address);
+            }
+
+            context.Towns.Remove(seattleTown);
+
+            context.SaveChanges();
+
+            return $"{addressesFromSeattle.Count} addresses in {townToRemove} were deleted";
+        }
     }
 }
