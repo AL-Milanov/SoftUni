@@ -41,37 +41,16 @@ namespace P01_StudentSystem.Data.Models
             modelBuilder.Entity<Student>(e =>
             {
                 e.Property(s => s.PhoneNumber).IsUnicode(false);
-
-                e.HasMany(s => s.CourseEnrollments)
-                 .WithOne(s => s.Student)
-                 .OnDelete(DeleteBehavior.Restrict);
-
-                e.HasMany(s => s.HomeworkSubmissions)
-                 .WithOne(s => s.Student)
-                 .OnDelete(DeleteBehavior.Restrict);
-
-            });
-
-            modelBuilder.Entity<Course>(e =>
-            {
-                e.HasMany(c => c.StudentsEnrolled)
-                 .WithOne(c => c.Course)
-                 .OnDelete(DeleteBehavior.Restrict);
-
-                e.HasMany(c => c.Resources)
-                 .WithOne(c => c.Course)
-                 .OnDelete(DeleteBehavior.Restrict);
-
-                e.HasMany(c => c.HomeworkSubmissions)
-                 .WithOne(c => c.Course)
-                 .OnDelete(DeleteBehavior.Restrict);
-
             });
 
             modelBuilder.Entity<Resource>(e =>
             {
-                e.Property(r => r.Url)
-                    .IsUnicode(false);
+                e.Property(r => r.Url).IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Homework>(e =>
+            {
+                e.Property(h => h.Content).IsUnicode(false);
             });
 
             modelBuilder.Entity<StudentCourse>(e =>

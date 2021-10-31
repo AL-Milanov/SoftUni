@@ -12,22 +12,21 @@ namespace P01_StudentSystem.Data.Models
         }
 
         [Key]
-        public int ResourseId { get; set; }
+        public int ResourceId { get; set; }
 
-        [MaxLength(50)]
+        [ForeignKey("Course")]
+        public int CourseId { get; set; }
+        public virtual Course Course { get; set; }
+
         [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
+
+        public ResourceType ResourceType { get; set; }
 
         [Required]
         public string Url { get; set; }
 
-        [Required]
-        public ResourceType ResourceType { get; set; }
 
-        [Required]
-        [ForeignKey("Course")]
-        public int CourseId { get; set; }
-
-        public virtual Course Course { get; set; }
     }
 }

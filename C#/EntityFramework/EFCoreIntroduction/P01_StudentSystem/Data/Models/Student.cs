@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace P01_StudentSystem.Data.Models
 {
@@ -20,7 +19,7 @@ namespace P01_StudentSystem.Data.Models
         [StringLength(100)]
         public string Name { get; set; }
 
-        [StringLength(10, MinimumLength = 10)]
+        [StringLength(10)]
         public string PhoneNumber { get; set; }
 
         public DateTime RegisteredOn { get; set; }

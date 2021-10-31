@@ -7,9 +7,9 @@ namespace P01_StudentSystem
     {
         static void Main(string[] args)
         {
-            StudentSystemContext context = new StudentSystemContext();
+            //StudentSystemContext context = new StudentSystemContext();
 
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
         }
     }
 }
