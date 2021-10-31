@@ -11,12 +11,12 @@ namespace P01_StudentSystem.Data.Models
         }
 
         [Required]
-        [ForeignKey("StudentId")]
+        [ForeignKey("Student")]
         public int StudentId { get; set; }
 
         public virtual Student Student { get; set; }
         [Required]
-        [ForeignKey("CourseId")]
+        [ForeignKey("Course")]
         public int CourseId { get; set; }
 
         public virtual Course Course{ get; set; }

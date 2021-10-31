@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using P01_StudentSystem.Data.Models.Enumerations;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace P01_StudentSystem.Data.Models
 {
@@ -14,7 +12,6 @@ namespace P01_StudentSystem.Data.Models
         }
 
         [Key]
-        [Required]
         public int ResourseId { get; set; }
 
         [MaxLength(50)]
@@ -25,10 +22,10 @@ namespace P01_StudentSystem.Data.Models
         public string Url { get; set; }
 
         [Required]
-        public Enum ResourceType { get; set; }
+        public ResourceType ResourceType { get; set; }
 
         [Required]
-        [ForeignKey("CourseId")]
+        [ForeignKey("Course")]
         public int CourseId { get; set; }
 
         public virtual Course Course { get; set; }

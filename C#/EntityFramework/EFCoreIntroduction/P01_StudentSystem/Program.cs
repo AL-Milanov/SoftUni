@@ -1,4 +1,5 @@
-﻿using System;
+﻿using P01_StudentSystem.Data.Models;
+using System;
 
 namespace P01_StudentSystem
 {
@@ -6,7 +7,9 @@ namespace P01_StudentSystem
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            StudentSystemContext context = new StudentSystemContext();
+
+            context.Database.EnsureCreated();
         }
     }
 }

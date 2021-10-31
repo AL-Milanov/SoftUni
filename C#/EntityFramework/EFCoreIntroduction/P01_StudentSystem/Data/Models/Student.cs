@@ -14,7 +14,6 @@ namespace P01_StudentSystem.Data.Models
         }
 
         [Key]
-        [Required]
         public int StudentId { get; set; }
 
         [Required]
@@ -24,7 +23,6 @@ namespace P01_StudentSystem.Data.Models
         [StringLength(10, MinimumLength = 10)]
         public string PhoneNumber { get; set; }
 
-        [Required]
         public DateTime RegisteredOn { get; set; }
 
         public DateTime? Birthday { get; set; }
