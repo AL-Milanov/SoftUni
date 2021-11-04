@@ -2,8 +2,8 @@
 {
     public enum EditionType
     {
-        NORMAL,
-        PROMO,
-        GOLD
+        Normal,
+        Promo,
+        Gold
     }
 }
