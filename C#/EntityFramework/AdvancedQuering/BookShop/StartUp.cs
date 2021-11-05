@@ -15,7 +15,7 @@
         {
             using var db = new BookShopContext();
             //DbInitializer.ResetDatabase(db);
-            Console.WriteLine(GetBooksReleasedBefore(db, "12-04-1992"));
+            Console.WriteLine(GetAuthorNamesEndingIn(db, "e").Length);
         }
 
         public static string GetBooksByAgeRestriction(BookShopContext context, string command)
@@ -105,9 +105,9 @@
                     Price = b.Price,
                     ReleaseDate = (DateTime)b.ReleaseDate
                 })
-                .Where(b => DateTime
-                    .Compare(DateTime.Parse(b.ReleaseDate.ToString("dd-MM-yyyy", CultureInfo.InvariantCulture))
-                    , DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture)) < 1)
+                .Where(b =>
+                    b.ReleaseDate.CompareTo(
+                        DateTime.Parse(date)) == -1)
                 .OrderByDescending(b => b.ReleaseDate)
                 .ToList();
 
@@ -116,6 +116,24 @@
             foreach (var book in books)
             {
                 sb.AppendLine($"{book.Title} - {book.EditionType} - ${book.Price:f2}");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        //TODO This method need modifications
+        public static string GetAuthorNamesEndingIn(BookShopContext context, string input)
+        {
+            var authors = context.Authors
+                .Where(a => a.FirstName.EndsWith(input))
+                .Select(a => new { FullName = $"{a.FirstName} {a.LastName}" })
+                .ToList();
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var author in authors)
+            {
+                sb.AppendLine(author.FullName);
             }
 
             return sb.ToString().TrimEnd();
