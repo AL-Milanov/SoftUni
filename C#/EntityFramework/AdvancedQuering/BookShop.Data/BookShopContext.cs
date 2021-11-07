@@ -29,7 +29,7 @@ namespace BookShop.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=MusicHub;Trusted_Connection=True");
+                optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=BookShop;Trusted_Connection=True");
             }
         }
 

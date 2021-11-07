@@ -1,4 +1,5 @@
 ﻿using BookShop.Models.Commons;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookShop.Models
@@ -14,5 +15,8 @@ namespace BookShop.Models
         [Required]
         [StringLength(Restriction.AUTHOR_NAME_LENGTH)]
         public string LastName { get; set; }
+
+        public virtual ICollection<Book> Books { get; set; }
+
     }
 }
