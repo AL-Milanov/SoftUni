@@ -20,6 +20,7 @@
             @foreach (var position in Model)
             {
             <option value="@position.PositionId">@position.PositionId</option>
+            <div>@position.PositionName</div>
             }
         </select>
     </div>
@@ -30,5 +31,6 @@
     <hr class="bg-secondary half-width" />
     <div class="button-holder d-flex justify-content-center">
         <button type="submit" class="btn ">Register</button>
+        <button class="btn alert-danger" asp-controller="Employees" asp-action="All">All</button>
     </div>
 </form>

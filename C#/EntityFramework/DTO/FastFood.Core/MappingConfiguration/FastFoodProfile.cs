@@ -2,9 +2,11 @@
 {
     using AutoMapper;
     using FastFood.Core.ViewModels.Categories;
+    using FastFood.Core.ViewModels.Employees;
     using FastFood.Core.ViewModels.Items;
     using FastFood.Models;
     using FastFood.Services.DTO.Category;
+    using FastFood.Services.DTO.Employee;
     using FastFood.Services.DTO.Item;
     using FastFood.Services.DTO.Positions;
     using ViewModels.Positions;
@@ -24,7 +26,11 @@
 
             this.CreateMap<AllPositionsDTO, PositionsAllViewModel>();
 
-            this.CreateMap<Position, AllPositionsDTO>();
+            this.CreateMap<Position, AllPositionsDTO>()
+                .ForMember(x => x.PositionName,
+                           y => y.MapFrom(s => s.Name))
+                .ForMember(x => x.PositionId,
+                           y => y.MapFrom(s => s.Id));
 
             //Categories
             this.CreateMap<CreateCategoryDTO, Category>();
@@ -56,6 +62,29 @@
 
             this.CreateMap<AllItemsDTO, ItemsAllViewModels>();
 
+            //Employees
+
+                //Mapping in service
+            this.CreateMap<CreateEmployeeDTO, Employee>();
+
+            this.CreateMap<Employee, AllEmployeeDTO>()
+                .ForMember(x => x.Position,
+                           y => y.MapFrom(s => s.Position.Name));
+
+            this.CreateMap<AllEmployeeDTO, EmployeesAllViewModel>();
+
+            this.CreateMap<Position, EmployeePositionsIdDTO>()
+                .ForMember(x => x.PositionId,
+                           y => y.MapFrom(s => s.Id));
+
+                //Mapping in controller
+            this.CreateMap<Position, AllEmployeeDTO>()
+                .ForMember(x => x.Position,
+                           y => y.MapFrom(s => s.Name));
+
+            this.CreateMap<EmployeePositionsIdDTO, RegisterEmployeeViewModel>();
+
+            this.CreateMap<RegisterEmployeeInputModel, CreateEmployeeDTO>();
         }
     }
 }

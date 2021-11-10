@@ -1,24 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutoMapper;
+using FastFood.Data;
+using FastFood.Services;
+using FastFood.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FastFood.Core
 {
-    using AutoMapper;
-    using Data;
-    using FastFood.Core.Controllers;
-    using FastFood.Core.MappingConfiguration;
-    using FastFood.Services;
-    using FastFood.Services.Interfaces;
-    using Microsoft.EntityFrameworkCore;
-
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -42,6 +34,7 @@ namespace FastFood.Core
             services.AddTransient<IPositionService, PositionsService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IItemService, ItemService>();
+            services.AddTransient<IEmployeeService, EmployeeService>();
 
         }
 

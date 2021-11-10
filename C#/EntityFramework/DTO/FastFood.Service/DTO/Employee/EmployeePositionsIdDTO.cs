@@ -1,6 +1,6 @@
-﻿namespace FastFood.Services.DTO.Positions
+﻿namespace FastFood.Services.DTO.Employee
 {
-    public class AllPositionsDTO
+    public class EmployeePositionsIdDTO
     {
         public int PositionId { get; set; }
 

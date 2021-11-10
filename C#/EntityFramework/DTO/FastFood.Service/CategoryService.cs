@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+
 using FastFood.Data;
 using FastFood.Models;
 using FastFood.Services.DTO.Category;
 using FastFood.Services.Interfaces;
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FastFood.Services
 {
