@@ -58,10 +58,5 @@
 
             return this.View(employees);
         }
-
-        private int ICollection<T>(ICollection<AllEmployeeDTO> employeesDto)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

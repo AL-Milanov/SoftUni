@@ -71,11 +71,15 @@
                 .ForMember(x => x.Position,
                            y => y.MapFrom(s => s.Position.Name));
 
-            this.CreateMap<AllEmployeeDTO, EmployeesAllViewModel>();
+            this.CreateMap<AllEmployeeDTO, EmployeesAllViewModel>()
+                .ForMember(x => x.PositionName,
+                           y => y.MapFrom(s => s.Position));
 
             this.CreateMap<Position, EmployeePositionsIdDTO>()
                 .ForMember(x => x.PositionId,
-                           y => y.MapFrom(s => s.Id));
+                           y => y.MapFrom(s => s.Id))
+                .ForMember(x => x.PositionName,
+                           y => y.MapFrom(s => s.Name));
 
                 //Mapping in controller
             this.CreateMap<Position, AllEmployeeDTO>()
