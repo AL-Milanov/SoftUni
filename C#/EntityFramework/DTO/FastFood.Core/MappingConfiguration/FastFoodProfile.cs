@@ -2,8 +2,10 @@
 {
     using AutoMapper;
     using FastFood.Core.ViewModels.Categories;
+    using FastFood.Core.ViewModels.Items;
     using FastFood.Models;
     using FastFood.Services.DTO.Category;
+    using FastFood.Services.DTO.Item;
     using FastFood.Services.DTO.Positions;
     using ViewModels.Positions;
 
@@ -34,6 +36,26 @@
             this.CreateMap<Category, AllCategoriesDTO>();
 
             this.CreateMap<AllCategoriesDTO, CategoryAllViewModel>();
+
+            //Items
+
+             //Create view
+            this.CreateMap<Category, AllProductsIdsDTO>()
+                .ForMember(x => x.CategoryId, 
+                           y => y.MapFrom(s => s.Id));
+            //Create view
+           this.CreateMap<AllProductsIdsDTO, CreateItemViewModel>();
+
+            this.CreateMap<CreateItemInputModel, CreateItemDTO>();
+
+            this.CreateMap<CreateItemDTO, Item>();
+
+            this.CreateMap<Item, AllItemsDTO>()
+                .ForMember(x => x.Category,
+                           y => y.MapFrom(s => s.Category.Name));
+
+            this.CreateMap<AllItemsDTO, ItemsAllViewModels>();
+
         }
     }
 }

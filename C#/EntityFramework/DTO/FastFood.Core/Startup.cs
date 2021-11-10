@@ -41,6 +41,7 @@ namespace FastFood.Core
 
             services.AddTransient<IPositionService, PositionsService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IItemService, ItemService>();
 
         }
 

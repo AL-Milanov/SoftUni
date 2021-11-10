@@ -44,8 +44,7 @@ namespace FastFood.Core.Controllers
         {
             var positionsDto = positionsService.GetAll();
 
-            var positions = 
-                mapper.Map<ICollection<AllPositionsDTO>,
+            var positions = mapper.Map<ICollection<AllPositionsDTO>,
                 ICollection<PositionsAllViewModel>>(positionsDto)
                 .ToList();
 

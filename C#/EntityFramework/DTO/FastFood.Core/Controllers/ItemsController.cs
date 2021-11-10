@@ -1,28 +1,35 @@
 ﻿namespace FastFood.Core.Controllers
 {
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Data;
+    using FastFood.Services.DTO.Item;
+    using FastFood.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using ViewModels.Items;
 
     public class ItemsController : Controller
     {
-        private readonly FastFoodContext context;
         private readonly IMapper mapper;
 
-        public ItemsController(FastFoodContext context, IMapper mapper)
+        private readonly IItemService itemService;
+
+        public ItemsController(IMapper mapper, IItemService itemService)
         {
-            this.context = context;
             this.mapper = mapper;
+            this.itemService = itemService;
         }
 
         public IActionResult Create()
         {
-            var items = this.context.Categories
-                .ProjectTo<CreateItemViewModel>(mapper.ConfigurationProvider)
+            var itemsDto = itemService.GetProductsIds();
+
+            var items = mapper.Map<ICollection<AllProductsIdsDTO>,
+                ICollection<CreateItemViewModel>>(itemsDto)
                 .ToList();
 
             return this.View(items);
@@ -31,17 +38,27 @@
         [HttpPost]
         public IActionResult Create(CreateItemInputModel model)
         {
-            return this.View();
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            var itemDto = mapper.Map<CreateItemDTO>(model);
+
+            itemService.Create(itemDto);
+
+            return RedirectToAction("All");
         }
 
         public IActionResult All()
         {
-            throw new NotImplementedException();
-            //var items = this.context.Items
-            //    .ProjectTo<CreateItemViewModel>(mapper.ConfigurationProvider)
-            //    .ToList();
+            var itemsDto = itemService.GetAll();
 
-            //return this.View(items);
+            var items = mapper.Map<ICollection<AllItemsDTO>,
+                ICollection<ItemsAllViewModels>>(itemsDto)
+                .ToList();
+
+            return this.View(items);
         }
     }
 }
