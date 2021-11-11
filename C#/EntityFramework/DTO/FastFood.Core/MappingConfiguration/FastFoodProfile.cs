@@ -4,10 +4,12 @@
     using FastFood.Core.ViewModels.Categories;
     using FastFood.Core.ViewModels.Employees;
     using FastFood.Core.ViewModels.Items;
+    using FastFood.Core.ViewModels.Orders;
     using FastFood.Models;
     using FastFood.Services.DTO.Category;
     using FastFood.Services.DTO.Employee;
     using FastFood.Services.DTO.Item;
+    using FastFood.Services.DTO.Orders;
     using FastFood.Services.DTO.Positions;
     using ViewModels.Positions;
 
@@ -22,9 +24,9 @@
                 .ForMember(x => x.Name,
                            y => y.MapFrom(s => s.PositionName));
 
-            this.CreateMap<PositionsAllViewModel, AllPositionsDTO>();
-
-            this.CreateMap<AllPositionsDTO, PositionsAllViewModel>();
+            this.CreateMap<AllPositionsDTO, PositionsAllViewModel>()
+                .ForMember(x => x.Name,
+                           y => y.MapFrom(s => s.PositionName));
 
             this.CreateMap<Position, AllPositionsDTO>()
                 .ForMember(x => x.PositionName,
@@ -89,6 +91,34 @@
             this.CreateMap<EmployeePositionsIdDTO, RegisterEmployeeViewModel>();
 
             this.CreateMap<RegisterEmployeeInputModel, CreateEmployeeDTO>();
+
+            //Orders
+
+            //Service
+            this.CreateMap<CreateOrderDTO, CustomerEmployeeDTO>();
+
+            this.CreateMap<CreateOrderDTO, ItemQuantityDTO>();
+
+            this.CreateMap<CustomerEmployeeDTO, Order>();
+
+            this.CreateMap<ItemQuantityDTO, OrderItem>();
+
+            this.CreateMap<Order, AllOrdersDTO>()
+                .ForMember(x => x.OrderId,
+                           y => y.MapFrom(s => s.Id))
+                .ForMember(x => x.Employee,
+                           y => y.MapFrom(s => s.Employee.Name))
+                .ForMember(x => x.DateTime,
+                           y => y.MapFrom(s => s.DateTime.ToString("dd/MM/yyyy")));
+
+            //Controller
+            this.CreateMap<CreateOrderInputModel, CreateOrderDTO>();
+
+            this.CreateMap<ItemsEmployeesDTO, CreateOrderViewModel>();
+
+            this.CreateMap<AllOrdersDTO, OrderAllViewModel>();
+
+            
         }
     }
 }

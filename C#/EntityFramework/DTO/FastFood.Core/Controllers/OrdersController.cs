@@ -1,43 +1,58 @@
 ﻿namespace FastFood.Core.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
     using Data;
+    using FastFood.Services.DTO.Orders;
+    using FastFood.Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using ViewModels.Orders;
 
     public class OrdersController : Controller
     {
-        private readonly FastFoodContext context;
         private readonly IMapper mapper;
 
-        public OrdersController(FastFoodContext context, IMapper mapper)
+        private readonly IOrderService orderService;
+
+        public OrdersController(IMapper mapper, IOrderService orderService)
         {
-            this.context = context;
             this.mapper = mapper;
+            this.orderService = orderService;
         }
 
         public IActionResult Create()
         {
-            var viewOrder = new CreateOrderViewModel
-            {
-                Items = this.context.Items.Select(x => x.Id).ToList(),
-                Employees = this.context.Employees.Select(x => x.Id).ToList(),
-            };
+            ItemsEmployeesDTO itemsEmployeesDto = orderService.GetItemsAndEmployees();
 
-            return this.View(viewOrder);
+            var itemsEmployeesView = mapper.Map<CreateOrderViewModel>(itemsEmployeesDto);
+
+            return this.View(itemsEmployeesView);
         }
 
         [HttpPost]
         public IActionResult Create(CreateOrderInputModel model)
-        { 
-            return this.RedirectToAction("All", "Orders");
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            var orderDto = mapper.Map<CreateOrderDTO>(model);
+
+            orderService.Create(orderDto);
+
+            return this.RedirectToAction("All");
         }
 
         public IActionResult All()
         {
-            throw new NotImplementedException();
+            var ordersDto = orderService.GetAll();
+
+            var ordersView = mapper.Map<ICollection<OrderAllViewModel>>(ordersDto);
+
+            return this.View(ordersView);
         }
     }
 }

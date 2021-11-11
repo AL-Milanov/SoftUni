@@ -1,18 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FastFood.Core.ViewModels.Orders
+﻿namespace FastFood.Services.DTO.Orders
 {
-    public class OrderAllViewModel
+    public class AllOrdersDTO
     {
         public int OrderId { get; set; }
 
-        [Required]
         public string Customer { get; set; }
 
-        [Required]
         public string Employee { get; set; }
 
-        [Required]
         public string DateTime { get; set; }
     }
 }

@@ -35,6 +35,7 @@ namespace FastFood.Core
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IItemService, ItemService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
+            services.AddTransient<IOrderService, OrderService>();
 
         }
 
