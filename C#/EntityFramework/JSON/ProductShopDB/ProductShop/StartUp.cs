@@ -15,8 +15,9 @@
 
     public class StartUp
     {
-        private static MapperConfiguration configurationProvider = new MapperConfiguration(cfg => {
-            cfg.AddProfile<ProductShopProfile>();;
+        private static MapperConfiguration configurationProvider = new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<ProductShopProfile>(); ;
         });
 
         private static IMapper mapper = new Mapper(configurationProvider);
@@ -27,13 +28,12 @@
 
             //string inputJson = File.ReadAllText("../../../Datasets/categories-products.json");
 
-            Console.WriteLine(GetCategoriesByProductsCount(context));
+            Console.WriteLine(GetUsersWithProducts(context));
         }
 
         public static string ImportUsers(ProductShopContext context, string inputJson)
         {
             List<UserDTO> usersDto = JsonConvert.DeserializeObject<List<UserDTO>>(inputJson);
-
 
             var users = mapper.Map<List<User>>(usersDto);
 
@@ -45,7 +45,7 @@
 
         public static string ImportProducts(ProductShopContext context, string inputJson)
         {
-            var productsDto = JsonConvert.DeserializeObject<List<ProductDTO>>(inputJson);
+            var productsDto = JsonConvert.DeserializeObject<List<ProductFullInfoDTO>>(inputJson);
 
             var products = mapper.Map<List<Product>>(productsDto);
 
@@ -146,6 +146,48 @@
             });
 
             return categoriesByProductsJson;
+        }
+
+        public static string GetUsersWithProducts(ProductShopContext context)
+        {
+            var usersWithProducts = context.Users
+                .Where(u => u.ProductsSold.Where(u => u.BuyerId != null).Any())
+                .OrderByDescending(u => u.ProductsSold.Count)
+                .Select(u => new LastNameAgeSoldDTO
+                {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Age = u.Age,
+                    SoldProducts = new SoldProductsDTO()
+                    {
+                        Products = u.ProductsSold.Select(p => new ProductNamePriceDTO
+                        {
+                            Name = p.Name,
+                            Price = p.Price
+                        })
+                        .ToList()
+                    }
+                })
+                .ToList();
+
+            var usersCount = new UsersCountDTO()
+            {
+                UsersCount = usersWithProducts.Count,
+                Users = usersWithProducts
+            };
+
+            var contractResolver = new DefaultContractResolver()
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
+            var usersWithProductsJson = JsonConvert.SerializeObject(usersCount, new JsonSerializerSettings()
+            {
+                ContractResolver = contractResolver,
+                NullValueHandling = NullValueHandling.Ignore
+            });
+
+            return usersWithProductsJson;
         }
     }
 }

@@ -1,14 +1,11 @@
 ﻿namespace ProductShop.ModelsDTO
 {
+    using System.Collections.Generic;
+
     public class SoldProductsDTO
     {
-        public string Name { get; set; }
+        public int Count => this.Products.Count;
 
-        public decimal Price { get; set; }
-
-        public string BuyerFirstName { get; set; }
-
-        public string BuyerLastName { get; set; }
-
+        public ICollection<ProductNamePriceDTO> Products { get; set; }
     }
 }

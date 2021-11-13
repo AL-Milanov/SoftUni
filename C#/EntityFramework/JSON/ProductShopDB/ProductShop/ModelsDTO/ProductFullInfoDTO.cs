@@ -1,6 +1,6 @@
 ﻿namespace ProductShop.ModelsDTO
 {
-    public class ProductDTO
+    public class ProductFullInfoDTO
     {
         public string Name { get; set; }
 

@@ -8,6 +8,6 @@
 
         public string LastName { get; set; }
 
-        public List<SoldProductsDTO> SoldProducts { get; set; }
+        public ICollection<SoldProductsBuyerDTO> SoldProducts { get; set; }
     }
 }

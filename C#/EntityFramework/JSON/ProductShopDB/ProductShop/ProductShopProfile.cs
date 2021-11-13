@@ -12,7 +12,7 @@
 
             this.CreateMap<UserDTO, User>();
 
-            this.CreateMap<ProductDTO, Product>();
+            this.CreateMap<ProductFullInfoDTO, Product>();
 
             this.CreateMap<CategoryDTO, Category>();
 
@@ -22,7 +22,7 @@
                 .ForMember(x => x.Seller,
                            y => y.MapFrom(s => $"{s.Seller.FirstName} {s.Seller.LastName}"));
 
-            this.CreateMap<Product, SoldProductsDTO>()
+            this.CreateMap<Product, SoldProductsBuyerDTO>()
                 .ForMember(x => x.BuyerFirstName,
                            y => y.MapFrom(s => s.Buyer.FirstName))
                 .ForMember(x => x.BuyerLastName,
@@ -41,6 +41,17 @@
                            y => y.MapFrom(s => $"{s.CategoryProducts.Average(p => p.Product.Price):f2}"))
                 .ForMember(x => x.TotalRevenue,
                            y => y.MapFrom(s => $"{s.CategoryProducts.Sum(p => p.Product.Price)}"));
+
+            this.CreateMap<User, LastNameAgeSoldDTO>()
+                .ForMember(x => x.SoldProducts,
+                           y => y.MapFrom(s => s.ProductsSold));
+
+            this.CreateMap<Product, ProductNamePriceDTO>();
+
+            this.CreateMap<User, SoldProductsDTO>()
+                .ForMember(x => x.Products,
+                           y => y.MapFrom(s => s.ProductsSold));
+
         }
     }
 }
