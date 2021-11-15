@@ -6,8 +6,9 @@
     using System.Linq;
 
     using AutoMapper;
-
+    using AutoMapper.QueryableExtensions;
     using CarDealer.Data;
+    using CarDealer.DTO.ExportsDTO;
     using CarDealer.DTO.ImportsDTO;
     using CarDealer.Models;
     using Newtonsoft.Json;
@@ -26,17 +27,7 @@
         {
             CarDealerContext context = new CarDealerContext();
 
-            //var suppliersJson = File.ReadAllText("../../../Datasets/suppliers.json");
-            //var partsJson = File.ReadAllText("../../../Datasets/parts.json");
-            //var carsJson = File.ReadAllText("../../../Datasets/cars.json");
-            //var customersJson = File.ReadAllText("../../../Datasets/customers.json");
-            var salesJson = File.ReadAllText("../../../Datasets/sales.json");
-
-            //Console.WriteLine(ImportSuppliers(context, suppliersJson));
-            //Console.WriteLine(ImportParts(context, partsJson));
-            //Console.WriteLine(ImportCars(context, carsJson));
-            //Console.WriteLine(ImportCustomers(context, customersJson));
-            Console.WriteLine(ImportSales(context, salesJson));
+            Console.WriteLine(GetLocalSuppliers(context));
 
         }
 
@@ -125,6 +116,48 @@
             context.SaveChanges();
 
             return $"Successfully imported {context.Sales.Count()}.";
+        }
+
+        public static string GetOrderedCustomers(CarDealerContext context)
+        {
+            var customersDto = context.Customers
+                .OrderBy(c => c.BirthDate)
+                .ThenBy(c => c.IsYoungDriver)
+                .ProjectTo<CustomersInfoDTO>(mapper.ConfigurationProvider)
+                .ToList();
+
+            var customersJson = JsonConvert.SerializeObject(customersDto, new JsonSerializerSettings
+            {
+                DateFormatString = "dd/MM/yyyy"
+            });
+
+            return customersJson;
+        }
+
+        public static string GetCarsFromMakeToyota(CarDealerContext context)
+        {
+            var toyotaCars = context.Cars
+                .Where(c => c.Make == "Toyota")
+                .OrderBy(c => c.Model)
+                .ThenByDescending(c => c.TravelledDistance)
+                .ProjectTo<ExportToyotaCarsDTO>(mapper.ConfigurationProvider)
+                .ToList();
+
+            var toyotaCarsJson = JsonConvert.SerializeObject(toyotaCars);
+
+            return toyotaCarsJson;
+        }
+
+        public static string GetLocalSuppliers(CarDealerContext context)
+        {
+            var localSuppliers = context.Suppliers
+                .Where(s => s.IsImporter == false)
+                .ProjectTo<ExportLocalSuppliers>(mapper.ConfigurationProvider)
+                .ToList();
+
+            var localSuppliersJson = JsonConvert.SerializeObject(localSuppliers);
+
+            return localSuppliersJson;
         }
     }
 }
