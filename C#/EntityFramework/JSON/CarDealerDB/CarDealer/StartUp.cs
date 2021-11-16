@@ -16,9 +16,9 @@
     public class StartUp
     {
 
-        private static IConfigurationProvider configurationProvider = new MapperConfiguration(m => 
-        { 
-            m.AddProfile<CarDealerProfile>(); 
+        private static IConfigurationProvider configurationProvider = new MapperConfiguration(m =>
+        {
+            m.AddProfile<CarDealerProfile>();
         });
 
         private static IMapper mapper = new Mapper(configurationProvider);
@@ -27,7 +27,7 @@
         {
             CarDealerContext context = new CarDealerContext();
 
-            Console.WriteLine(GetLocalSuppliers(context));
+            Console.WriteLine(GetSalesWithAppliedDiscount(context));
 
         }
 
@@ -158,6 +158,79 @@
             var localSuppliersJson = JsonConvert.SerializeObject(localSuppliers);
 
             return localSuppliersJson;
+        }
+
+        //Need modifications
+        public static string GetCarsWithTheirListOfParts(CarDealerContext context)
+        {
+            var carsAndParts = context.Cars
+                .OrderByDescending(c => c.Make)
+                .Select(c => new
+                {
+                    car = new
+                    {
+                        Make = c.Make,
+                        Model = c.Model,
+                        TravelledDistance = c.TravelledDistance
+                    },
+                    parts = c.PartCars
+                             .Select(p => new
+                             {
+                                 Name = p.Part.Name,
+                                 Price = p.Part.Price.ToString()
+                             })
+                             .ToArray()
+                })
+                .ToList();
+
+            var carsAndPartsJson = JsonConvert.SerializeObject(carsAndParts);
+
+            return carsAndPartsJson;
+        }
+
+        public static string GetTotalSalesByCustomer(CarDealerContext context)
+        {
+            var customersSales = context.Customers
+                .Where(c => c.Sales.Count >= 1)
+                .OrderByDescending(c => c.Sales.Sum(s => s.Car.PartCars.Sum(p => p.Part.Price)))
+                .ThenByDescending(c => c.Sales.Count)
+                .Select(c => new
+                {
+                    fullName = c.Name,
+                    boughtCars = c.Sales.Count,
+                    spentMoney = c.Sales.Sum(s => s.Car.PartCars.Sum(p => p.Part.Price))
+                })
+                .ToList();
+
+            var customersJson = JsonConvert.SerializeObject(customersSales);
+
+            return customersJson;
+        }
+
+        public static string GetSalesWithAppliedDiscount(CarDealerContext context)
+        {
+            var firstTenSales = context.Sales
+                .Take(10)
+                .Select(s => new
+                {
+                    car = new ExportCarDTO
+                    {
+                        Make = s.Car.Make,
+                        Model = s.Car.Model,
+                        TravelledDistance = s.Car.TravelledDistance
+                    },
+                    customerName = s.Customer.Name,
+                    Discount = s.Discount.ToString(),
+                    price = s.Car.PartCars.Sum(p => p.Part.Price).ToString(),
+                    priceWithDiscount = (s.Car.PartCars.Sum(p => p.Part.Price) - 
+                                        (s.Car.PartCars.Sum(p => p.Part.Price) * s.Discount / 100))
+                                        .ToString()
+                })
+                .ToList();
+
+            var firstTenSalesJson = JsonConvert.SerializeObject(firstTenSales);
+
+            return firstTenSalesJson;
         }
     }
 }

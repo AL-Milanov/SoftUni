@@ -30,6 +30,8 @@
             this.CreateMap<Supplier, ExportLocalSuppliers>()
                 .ForMember(x => x.PartsCount,
                            y => y.MapFrom(s => s.Parts.Count));
+
+            this.CreateMap<Car, ExportCarDTO>();
         }
     }
 }
