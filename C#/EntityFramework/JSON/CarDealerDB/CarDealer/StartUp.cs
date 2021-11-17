@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
 
     using AutoMapper;
@@ -177,7 +176,7 @@
                              .Select(p => new
                              {
                                  Name = p.Part.Name,
-                                 Price = p.Part.Price.ToString()
+                                 Price = p.Part.Price.ToString("f2")
                              })
                              .ToArray()
                 })
@@ -220,11 +219,11 @@
                         TravelledDistance = s.Car.TravelledDistance
                     },
                     customerName = s.Customer.Name,
-                    Discount = s.Discount.ToString(),
+                    Discount = s.Discount.ToString("f2"),
                     price = s.Car.PartCars.Sum(p => p.Part.Price).ToString(),
                     priceWithDiscount = (s.Car.PartCars.Sum(p => p.Part.Price) - 
                                         (s.Car.PartCars.Sum(p => p.Part.Price) * s.Discount / 100))
-                                        .ToString()
+                                        .ToString("f2")
                 })
                 .ToList();
 
