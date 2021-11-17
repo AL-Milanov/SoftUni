@@ -151,16 +151,18 @@
         public static string GetUsersWithProducts(ProductShopContext context)
         {
             var usersWithProducts = context.Users
-                .Where(u => u.ProductsSold.Where(u => u.BuyerId != null).Any())
-                .OrderByDescending(u => u.ProductsSold.Count)
+                .Where(u => u.ProductsSold.Any(p => p.BuyerId != null))
+                .OrderByDescending(u => u.ProductsSold.Where(ps => ps.BuyerId != null).Count())
                 .Select(u => new LastNameAgeSoldDTO
                 {
                     FirstName = u.FirstName,
                     LastName = u.LastName,
                     Age = u.Age,
-                    SoldProducts = new SoldProductsDTO()
+                    SoldProducts = new SoldProductsDTO
                     {
-                        Products = u.ProductsSold.Select(p => new ProductNamePriceDTO
+                        Products = u.ProductsSold
+                        .Where(ps => ps.BuyerId != null)
+                        .Select(p => new ProductNamePriceDTO
                         {
                             Name = p.Name,
                             Price = p.Price
