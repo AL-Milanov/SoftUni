@@ -29,9 +29,9 @@
             //context.Database.EnsureDeleted();
             //context.Database.EnsureCreated();
 
-            var inputXml = File.ReadAllText("Datasets/categories.xml");
+            var inputXml = File.ReadAllText("Datasets/categories-products.xml");
 
-            Console.WriteLine(ImportCategories(context, inputXml));
+            Console.WriteLine(ImportCategoryProducts(context, inputXml));
         }
 
         public static string ImportUsers(ProductShopContext context, string inputXml)
@@ -78,6 +78,27 @@
             context.SaveChanges();
 
             return $"Successfully imported {categories.Count}";
+        }
+
+        public static string ImportCategoryProducts(ProductShopContext context, string inputXml)
+        {
+            var root = new XmlRootAttribute("CategoryProducts");
+            var serializer = new XmlSerializer(typeof(List<ImportCategoryProductsDto>), root);
+
+            var deserializerCategoryProductsDto = (List<ImportCategoryProductsDto>)serializer
+                .Deserialize(new StringReader(inputXml));
+
+            var categoryProducts = mapper.Map<List<CategoryProduct>>(deserializerCategoryProductsDto);
+
+            var categoryProductsSorted = categoryProducts
+                .Where(cp => context.Categories.Any(c => c.Id == cp.CategoryId) &&
+                context.Products.Any(p => p.Id == cp.ProductId))
+                .ToList();
+
+            context.CategoryProducts.AddRange(categoryProductsSorted);
+            context.SaveChanges();
+
+            return $"Successfully imported {categoryProductsSorted.Count}";
         }
     }
 }
