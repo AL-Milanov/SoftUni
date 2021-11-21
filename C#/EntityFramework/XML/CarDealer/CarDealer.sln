@@ -5,10 +5,7 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarDealer", "CarDealer\CarDealer.csproj", "{C43C4627-A239-410F-84CC-98E46DCF3E53}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{937AC2D0-DD14-4D04-9C61-15FEE94898B9}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealer.Tests", "CarDealer.Tests\CarDealer.Tests.csproj", "{EFD26E85-C709-4D81-ABE3-D82FBF526923}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +17,10 @@ Global
 		{C43C4627-A239-410F-84CC-98E46DCF3E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C43C4627-A239-410F-84CC-98E46DCF3E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C43C4627-A239-410F-84CC-98E46DCF3E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFD26E85-C709-4D81-ABE3-D82FBF526923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFD26E85-C709-4D81-ABE3-D82FBF526923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFD26E85-C709-4D81-ABE3-D82FBF526923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFD26E85-C709-4D81-ABE3-D82FBF526923}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
