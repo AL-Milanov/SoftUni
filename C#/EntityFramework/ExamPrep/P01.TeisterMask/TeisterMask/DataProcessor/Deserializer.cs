@@ -36,62 +36,90 @@
             var projectsDto = (List<ImportProjectsDto>)xmlSerializer.Deserialize(new StringReader(xmlString));
             var projects = new List<Project>();
 
+
             foreach (var projectDto in projectsDto)
             {
-                if (IsValid(projectDto))
-                {
-                    var project = new Project()
-                    {
-                        Name = projectDto.Name,
-                        OpenDate = DateTime.Parse(projectDto.OpenDate),
-                        DueDate = string.IsNullOrEmpty(projectDto.DueDate) ?
-                        (DateTime?)null : DateTime.Parse(projectDto.DueDate),
-                    };
-
-                    project.Tasks = new List<Task>();
-
-                    foreach (var taskDto in projectDto.Tasks)
-                    {
-                        if (IsValid(taskDto))
-                        {
-                            if (DateTime.Parse(taskDto.OpenDate) < project.OpenDate ||
-                            DateTime.Parse(taskDto.DueDate) > project.DueDate)
-                            {
-                                sb.AppendLine(ErrorMessage);
-                                continue;
-                            }
-
-                            var task = new Task()
-                            {
-                                Name = taskDto.Name,
-                                OpenDate = DateTime.Parse(taskDto.OpenDate),
-                                DueDate = DateTime.Parse(taskDto.DueDate),
-                                ExecutionType = (ExecutionType)taskDto.ExecutionType,
-                                LabelType = (LabelType)taskDto.LabelType,
-                            };
-
-                            project.Tasks.Add(task);
-
-                        }
-                        else
-                        {
-                            sb.AppendLine(ErrorMessage);
-                        }
-                    }
-
-                    projects.Add(project);
-
-                    sb.AppendLine(string.Format(SuccessfullyImportedProject, project.Name, project.Tasks.Count));
-                }
-                else
+                if (!IsValid(projectDto))
                 {
                     sb.AppendLine(ErrorMessage);
+                    continue;
                 }
+
+                var isProjectOpenDateValid = DateTime.TryParseExact(projectDto.OpenDate,
+                    "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime projectOpenDate);
+
+                if (!isProjectOpenDateValid)
+                {
+                    sb.AppendLine(ErrorMessage);
+                    continue;
+                }
+
+                var isProjectDueDateValid = DateTime.TryParseExact((projectDto.DueDate),
+                    "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime dueDate);
+
+                DateTime? projectDueDate = dueDate;
+
+                var project = new Project()
+                {
+                    Name = projectDto.Name,
+                    OpenDate = projectOpenDate,
+                    DueDate = string.IsNullOrWhiteSpace(projectDto.DueDate) ? null : projectDueDate,
+                };
+
+                project.Tasks = new List<Task>();
+
+                foreach (var taskDto in projectDto.Tasks)
+                {
+                    if (!IsValid(taskDto))
+                    {
+                        sb.AppendLine(ErrorMessage);
+                        continue;
+                    }
+
+                    var isTaskOpenDateValid = DateTime.TryParseExact(taskDto.OpenDate,
+                        "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime taskOpenDate);
+
+                    var isTaskDueDateValid = DateTime.TryParseExact(taskDto.DueDate,
+                        "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime taskDueDate);
+
+                    if (!isTaskOpenDateValid || !isTaskDueDateValid)
+                    {
+                        sb.AppendLine(ErrorMessage);
+                        continue;
+                    }
+
+                    if (taskOpenDate < project.OpenDate)
+                    {
+                        sb.AppendLine(ErrorMessage);
+                        continue;
+                    }
+
+                    if (projectDueDate.HasValue && taskDueDate > project.DueDate)
+                    {
+                        sb.AppendLine(ErrorMessage);
+                        continue;
+                    }
+
+                    var task = new Task()
+                    {
+                        Name = taskDto.Name,
+                        OpenDate = taskOpenDate,
+                        DueDate = taskDueDate,
+                        ExecutionType = (ExecutionType)taskDto.ExecutionType,
+                        LabelType = (LabelType)taskDto.LabelType,
+                    };
+
+                    project.Tasks.Add(task);
+                }
+
+                projects.Add(project);
+
+                sb.AppendLine(string.Format(SuccessfullyImportedProject, project.Name, project.Tasks.Count));
             }
 
             context.Projects.AddRange(projects);
             context.SaveChanges();
-
+            
             return sb.ToString().TrimEnd();
         }
 

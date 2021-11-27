@@ -7,11 +7,11 @@ namespace TeisterMask.Data.Models
         [ForeignKey(nameof(Employee))]
         public int EmployeeId { get; set; }
 
-        public Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; }
 
         [ForeignKey(nameof(Task))]
         public int TaskId { get; set; }
 
-        public Task Task { get; set; }
+        public virtual Task Task { get; set; }
     }
 }

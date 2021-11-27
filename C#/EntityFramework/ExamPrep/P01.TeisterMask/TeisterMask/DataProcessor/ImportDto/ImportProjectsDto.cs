@@ -13,8 +13,8 @@ namespace TeisterMask.DataProcessor.ImportDto
         [StringLength(40, MinimumLength = 2)]
         public string Name { get; set; }
 
-        [Required]
         [XmlElement("OpenDate")]
+        [Required]
         public string OpenDate{ get; set; }
 
         [XmlElement("DueDate")]

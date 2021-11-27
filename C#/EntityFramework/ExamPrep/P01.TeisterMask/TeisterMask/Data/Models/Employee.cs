@@ -19,6 +19,6 @@ namespace TeisterMask.Data.Models
         [StringLength(12)]
         public string Phone { get; set; }
 
-        public ICollection<EmployeeTask> EmployeesTasks{ get; set; }
+        public virtual ICollection<EmployeeTask> EmployeesTasks{ get; set; }
     }
 }
