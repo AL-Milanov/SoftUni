@@ -1,9 +1,13 @@
 ﻿namespace TeisterMask.DataProcessor
 {
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Text;
+    using System.Xml.Serialization;
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
+    
     using Data;
     using Newtonsoft.Json;
     using TeisterMask.DataProcessor.ExportDto;
@@ -14,7 +18,34 @@
 
         public static string ExportProjectWithTheirTasks(TeisterMaskContext context)
         {
-            throw new NotImplementedException();
+            StringBuilder sb = new StringBuilder();
+
+            var xmlRoot = new XmlRootAttribute("Projects");
+            var xmlSerializer = new XmlSerializer(typeof(List<ExportProjectsDto>), xmlRoot);
+            var namespaces = new XmlSerializerNamespaces();
+            namespaces.Add(string.Empty, string.Empty);
+
+            using StringWriter sw = new StringWriter(sb);
+
+            var projectsDto = context.Projects
+                .Where(p => p.Tasks.Any())
+                .ToList()
+                .Select(p => new ExportProjectsDto
+                {
+                    TaskCount = p.Tasks.Count,
+                    ProjectName = p.Name,
+                    HasEndDate = p.DueDate.HasValue ? "Yes" : "No",
+                    Tasks = Mapper.Map<List<ExportProjectsTasksDto>>(p.Tasks)
+                        .OrderBy(t => t.Name)
+                        .ToList()
+                })
+                .OrderByDescending(p => p.TaskCount)
+                .ThenBy(p => p.ProjectName)
+                .ToList();
+
+            xmlSerializer.Serialize(sw, projectsDto, namespaces);
+             
+            return sb.ToString().TrimEnd();
         }
 
         public static string ExportMostBusiestEmployees(TeisterMaskContext context, DateTime date)

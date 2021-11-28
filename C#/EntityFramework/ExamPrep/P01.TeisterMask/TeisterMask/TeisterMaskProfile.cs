@@ -31,6 +31,10 @@
                            y => y.MapFrom(s => s.Task.LabelType.ToString()))
                 .ForMember(x => x.ExecutionType,
                            y => y.MapFrom(s => s.Task.ExecutionType.ToString()));
+
+            this.CreateMap<Task, ExportProjectsTasksDto>()
+                .ForMember(x => x.Label,
+                           y => y.MapFrom(s => s.LabelType.ToString()));
         }
     }
 }
