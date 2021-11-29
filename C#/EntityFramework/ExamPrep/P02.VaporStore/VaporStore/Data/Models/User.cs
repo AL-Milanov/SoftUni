@@ -27,5 +27,6 @@ namespace VaporStore.Data.Models
         public int Age { get; set; }
 
         public virtual List<Card> Cards{ get; set; }
+
     }
 }

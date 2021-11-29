@@ -14,7 +14,7 @@ namespace VaporStore.Data.Models
         public PurchaseType Type { get; set; }
 
         [Required]
-        [StringLength(Constraints.PRODUCT_PRODUCTKEY_LENGTH)]
+        [StringLength(Constraints.PURCHASE_PRODUCTKEY_LENGTH)]
         public string ProductKey { get; set; }
 
         public DateTime Date{ get; set; }
