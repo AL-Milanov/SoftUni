@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "45b2b16d-705b-46ed-8ca7-fb7b34bb4244": {
+      "ProjectGuid": "45b2b16d-705b-46ed-8ca7-fb7b34bb4244",
+      "DisplayName": "Theatre",
+      "ColorIndex": 0
+    },
+    "56f23629-b594-4b10-ad9e-1bf226e47239": {
+      "ProjectGuid": "56f23629-b594-4b10-ad9e-1bf226e47239",
+      "DisplayName": "Theatre.Tests",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
