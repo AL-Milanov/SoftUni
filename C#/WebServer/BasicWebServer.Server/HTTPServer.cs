@@ -1,11 +1,14 @@
-﻿using System;
+﻿using BasicWebServer.Server.HTTP;
+using BasicWebServer.Server.Routing;
+using BasicWebServer.Server.Routing.Contracts;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
 namespace BasicWebServer.Server
 {
-    public class HTTPServer
+    public class HttpServer
     {
 
         private readonly IPAddress ipAddress;
@@ -14,19 +17,34 @@ namespace BasicWebServer.Server
 
         private readonly TcpListener listener;
 
-        public HTTPServer(string ipAddress, int port)
+        private readonly RoutingTable routingTable;
+
+        public HttpServer(string ipAddress, int port, Action<IRoutingTable> routingTableConfig)
         {
             this.ipAddress = IPAddress.Parse(ipAddress);
 
             this.port = port;
 
             this.listener = new TcpListener(this.ipAddress, this.port);
+
+            routingTableConfig(this.routingTable = new RoutingTable());
+        }
+
+        public HttpServer(int port, Action<IRoutingTable> routingTableConfig)
+            : this("127.0.0.1", port, routingTableConfig)
+        {
+
+        }
+
+        public HttpServer(Action<IRoutingTable> routingTableConfig)
+            : this(8080, routingTableConfig)
+        {
+
         }
 
         public void Start()
         {
             this.listener.Start();
-
 
             Console.WriteLine($"Server started on port {port}");
             Console.WriteLine("Listening for requests...");
@@ -37,11 +55,20 @@ namespace BasicWebServer.Server
 
                 var networkStream = connection.GetStream();
 
-                WriteResponse(networkStream, "Hello from the server!");
-
                 var requestText = ReadRequest(networkStream);
 
                 Console.WriteLine(requestText);
+
+                var request = Request.Parse(requestText);
+
+                var response = this.routingTable.MatchRequest(request);
+
+                if (response.PreRenderedAction != null)
+                {
+                    response.PreRenderedAction(request, response);
+                }
+
+                WriteResponse(networkStream, response);
 
                 connection.Close();
             }
@@ -49,16 +76,9 @@ namespace BasicWebServer.Server
         }
 
 
-        private void WriteResponse(NetworkStream networkStream, string content)
+        private void WriteResponse(NetworkStream networkStream, Response response)
         {
-            var contentLength = Encoding.UTF8.GetByteCount(content);
-
-            var response = $@"HTTP/1.1 200 OK
-Content-Type: text/plain; charset=UTF-8
-Content-Length: {contentLength}
-
-{content}";
-            var responseBytes = Encoding.UTF8.GetBytes(response);
+            var responseBytes = Encoding.UTF8.GetBytes(response.ToString());
 
             networkStream.Write(responseBytes);
         }
