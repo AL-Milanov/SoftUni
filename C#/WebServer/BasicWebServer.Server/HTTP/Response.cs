@@ -16,8 +16,10 @@ namespace BasicWebServer.Server.HTTP
         }
 
         public StatusCode StatusCode { get; set; }
+            
+        public HeaderCollection Headers { get; } = new HeaderCollection();
 
-        public HeaderCollection Headers { get; set; }
+        public CookieCollection Cookies { get; } = new CookieCollection();
 
         public string Body { get; set; }
 
@@ -34,6 +36,11 @@ namespace BasicWebServer.Server.HTTP
                 result.AppendLine(header.ToString());
             }
 
+            foreach (var cookie in Cookies)
+            {
+                result.AppendLine($"{Header.SetCookie}: {cookie}");
+            }
+                
             result.AppendLine();
 
             if (!string.IsNullOrEmpty(this.Body))

@@ -1,9 +1,12 @@
-﻿namespace BasicWebServer.Server.HTTP.ContentResponses
+﻿using System;
+
+namespace BasicWebServer.Server.HTTP.ContentResponses
 {
     public class HtmlResponse : ContentResponse
     {
-        public HtmlResponse(string content) 
-            : base(content, ContentType.Html)
+        public HtmlResponse(string content,
+            Action<Request, Response> preRenderedAction = null)
+            : base(content, ContentType.Html, preRenderedAction)
         {
         }
     }
