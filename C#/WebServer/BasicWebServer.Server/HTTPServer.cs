@@ -71,12 +71,26 @@ namespace BasicWebServer.Server
                          response.PreRenderedAction(request, response);
                      }
 
+                     AddSession(request, response);
+
                      await WriteResponse(networkStream, response);
 
                      connection.Close();
                  });
             }
 
+        }
+
+        private void AddSession(Request request, Response response)
+        {
+            var sessionExist = request.Session.ContainsKey(Session.SessionCurrentDateKey);
+
+            if (!sessionExist)
+            {
+                request.Session[Session.SessionCurrentDateKey] = DateTime.Now.ToString();
+
+                response.Cookies.Add(Session.SessionCookieName, request.Session.Id);
+            }
         }
 
         private async Task WriteResponse(NetworkStream networkStream, Response response)

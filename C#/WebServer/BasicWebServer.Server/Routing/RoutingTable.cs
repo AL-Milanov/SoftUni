@@ -15,10 +15,10 @@ namespace BasicWebServer.Server.Routing
         {
             routes = new();
 
-            routes[Method.GET] = new();
-            routes[Method.POST] = new();
-            routes[Method.PUT] = new();
-            routes[Method.DELETE] = new();
+            routes[Method.GET] = new(StringComparer.InvariantCultureIgnoreCase);
+            routes[Method.POST] = new(StringComparer.InvariantCultureIgnoreCase);
+            routes[Method.PUT] = new(StringComparer.InvariantCultureIgnoreCase);
+            routes[Method.DELETE] = new(StringComparer.InvariantCultureIgnoreCase);
 
         }
 
