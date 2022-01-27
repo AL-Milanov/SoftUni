@@ -6,14 +6,11 @@ namespace BasicWebServer.Server.HTTP
 {
     public class ContentResponse : Response
     {
-        public ContentResponse(string content, string contentType,
-            Action<Request, Response> preRenderedAction = null)
+        public ContentResponse(string content, string contentType)
             : base(StatusCode.OK)
         {
             Guard.AgainstNull(content, nameof(content));
             Guard.AgainstNull(contentType, nameof(contentType));
-
-            PreRenderedAction = preRenderedAction;
 
             Headers.Add(Header.ContentType, contentType);
 

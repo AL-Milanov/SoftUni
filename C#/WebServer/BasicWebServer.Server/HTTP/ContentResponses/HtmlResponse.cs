@@ -4,9 +4,8 @@ namespace BasicWebServer.Server.HTTP.ContentResponses
 {
     public class HtmlResponse : ContentResponse
     {
-        public HtmlResponse(string content,
-            Action<Request, Response> preRenderedAction = null)
-            : base(content, ContentType.Html, preRenderedAction)
+        public HtmlResponse(string content)
+            : base(content, ContentType.Html)
         {
         }
     }
