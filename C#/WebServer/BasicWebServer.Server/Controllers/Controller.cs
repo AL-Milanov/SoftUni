@@ -1,7 +1,6 @@
 ﻿using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.HTTP.ActionResponses;
 using BasicWebServer.Server.HTTP.ContentResponses;
-using System;
 using System.Runtime.CompilerServices;
 
 namespace BasicWebServer.Server.Controllers
@@ -27,7 +26,7 @@ namespace BasicWebServer.Server.Controllers
 
         protected Response Html(string html, CookieCollection cookies = null)
         {
-            var response =  new HtmlResponse(html);
+            var response = new HtmlResponse(html);
 
             if (cookies != null)
             {
@@ -61,10 +60,13 @@ namespace BasicWebServer.Server.Controllers
         }
 
         protected Response View([CallerMemberName] string viewName = "")
-        {   
+        {
             return new ViewResponse(viewName, GetControllerName());
         }
-
+        protected Response View(object model, [CallerMemberName] string viewName = "")
+        {
+            return new ViewResponse(viewName, GetControllerName(), model);
+        }
         private string GetControllerName()
         {
             return GetType().Name.Replace(nameof(Controller), string.Empty);

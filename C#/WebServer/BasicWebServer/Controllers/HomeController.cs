@@ -1,4 +1,5 @@
-﻿using BasicWebServer.Server.Controllers;
+﻿using BasicWebServer.Model;
+using BasicWebServer.Server.Controllers;
 using BasicWebServer.Server.HTTP;
 using System;
 using System.Collections.Generic;
@@ -12,19 +13,7 @@ namespace BasicWebServer.Controllers
 {
     public class HomeController : Controller
     {
-        private const string HtmlForm = @"<form action='/HTML' method='POST'>
-Name: <input type='text' name='Name'/>
-Age: <input type='number' name='Age'/>
-<input type='submit' value='Save' />
-</form>";
-
-
-        private const string DownloadForm = @"<form action='/Content' method='POST'> 
-   <input type='submit' value ='Download Sites Content' />  
-</form>";
-
         private const string FileName = "context.txt";
-
 
         public HomeController(Request request)
             : base(request)
@@ -41,18 +30,18 @@ Age: <input type='number' name='Age'/>
             return View();
         }
 
-        public Response HtmlPost()
+        public Response HtmlFromPost()
         {
-            var formData = string.Empty;
+            var name = Request.Form["Name"];
+            var age = Request.Form["Age"];
 
-            foreach (var kvp in Request.Form)
+            var model = new FormViewModel()
             {
-                formData += $"{kvp.Key} - {kvp.Value}";
-                formData += Environment.NewLine;
+                Name = name,
+                Age = int.Parse(age)
+            };
 
-            }
-
-            return Text(formData);
+            return View(model);
         }
 
         public Response Redirect()

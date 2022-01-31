@@ -14,7 +14,7 @@ namespace BasicWebServer
             var server = new HttpServer(routes => routes
                    .MapGet<HomeController>("/", c => c.Index())
                    .MapGet<HomeController>("/HTML", c => c.Html())
-                   .MapPost<HomeController>("/HTML", c => c.HtmlPost())
+                   .MapPost<HomeController>("/HTML", c => c.HtmlFromPost())
                    .MapGet<HomeController>("/Redirect", c => c.Redirect())
                    .MapGet<HomeController>("/Content", c => c.Content())
                    .MapPost<HomeController>("/Content", c => c.DownloadContent())
