@@ -38,7 +38,7 @@ Age: <input type='number' name='Age'/>
 
         public Response Html()
         {
-            return Html(HtmlForm);
+            return View();
         }
 
         public Response HtmlPost()
@@ -62,7 +62,7 @@ Age: <input type='number' name='Age'/>
 
         public Response Content()
         {
-            return Html(DownloadForm);
+            return View();
         }
 
         public Response DownloadContent()

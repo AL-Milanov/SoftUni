@@ -1,6 +1,8 @@
 ﻿using BasicWebServer.Server.HTTP;
 using BasicWebServer.Server.HTTP.ActionResponses;
 using BasicWebServer.Server.HTTP.ContentResponses;
+using System;
+using System.Runtime.CompilerServices;
 
 namespace BasicWebServer.Server.Controllers
 {
@@ -56,6 +58,16 @@ namespace BasicWebServer.Server.Controllers
         protected Response Unauthorized()
         {
             return new UnauthorizedResponse();
+        }
+
+        protected Response View([CallerMemberName] string viewName = "")
+        {   
+            return new ViewResponse(viewName, GetControllerName());
+        }
+
+        private string GetControllerName()
+        {
+            return GetType().Name.Replace(nameof(Controller), string.Empty);
         }
     }
 }
