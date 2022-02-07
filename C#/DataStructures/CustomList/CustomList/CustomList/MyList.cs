@@ -55,6 +55,58 @@ namespace CustomList
             collection[Count++] = element;
         }
 
+        public bool Remove(T element)
+        {
+            bool isRemoved = false;
+
+            if (element == null)
+            {
+                throw new NullReferenceException($"{element} cannot be null!");
+            }
+
+            for (int i = 0; i < Count; i++)
+            {
+                if (element.Equals(collection[i]))
+                {
+                    isRemoved = true;
+                    collection[i] = default;
+
+                    Count--;
+                    break;
+                }
+            }
+
+            if (isRemoved)
+            {
+                Reorder();
+
+            }
+
+            return isRemoved;
+        }
+
+        private void Reorder()
+        {
+            T currentElement = default;
+
+            for (int i = 0; i < Count; i++)
+            {
+                currentElement = collection[i];
+
+                if (currentElement is null)
+                {
+                    currentElement = collection[i + 1];
+                }
+                else if (collection[i + 1] != null)
+                {
+                    currentElement = collection[i + 1];
+                }
+                collection[i] = currentElement;
+            }
+
+            collection[Count] = default;
+        }
+
         private void Resize()
         {
             if (Count + 1 > Capacity)
