@@ -7,8 +7,8 @@ for (int i = 0; i < 17; i++)
     list.Add($"element : {i}");
 }
 
-list.Remove($"element : {19}");
-Console.WriteLine(list.Count);
+list.Remove("element : 16");
+Console.WriteLine(list.Contains("element : 16"));
 
 foreach (var item in list)
 {

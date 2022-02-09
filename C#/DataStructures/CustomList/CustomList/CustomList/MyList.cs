@@ -64,6 +64,8 @@ namespace CustomList
                 throw new NullReferenceException($"{element} cannot be null!");
             }
 
+            var index = 0;
+
             for (int i = 0; i < Count; i++)
             {
                 if (element.Equals(collection[i]))
@@ -72,24 +74,46 @@ namespace CustomList
                     collection[i] = default;
 
                     Count--;
+                    index = i;
+
                     break;
                 }
             }
 
             if (isRemoved)
             {
-                Reorder();
+                Reorder(index);
 
             }
 
             return isRemoved;
         }
 
-        private void Reorder()
+        public bool Contains(T element)
+        {
+            if (element is null)
+            {
+                throw new NullReferenceException("Element cannot be null!");
+            }
+
+            var containsElement = false;
+
+            for (int i = 0; i < Count; i++)
+            {
+                if (collection[i].Equals(element))
+                {
+                    return true;
+                }
+            }
+
+            return containsElement;
+        }
+
+        private void Reorder(int index)
         {
             T currentElement = default;
 
-            for (int i = 0; i < Count; i++)
+            for (int i = index; i < Count; i++)
             {
                 currentElement = collection[i];
 
